@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #map {
+            width: 1024px;
+            height: 600px;
+            border: 1px solid lightgray;
+        }
+    </style>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+</head>
+
+<body>
+    <canvas id='map'></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('map')
+            canvas.width = canvas.clientWidth
+            canvas.height = canvas.clientHeight
+            var ctx = canvas.getContext('2d')
+            ctx.translate(200, 200)
+            drawLine(ctx, {
+                x: 0,
+                y: 0
+            }, {
+                x: 100,
+                y: 100
+            }, 'red')
+
+            ctx.scale(2, 2)
+            ctx.lineWidth = 1 / 2
+            ctx.translate(-25, -25)
+            drawLine(ctx, {
+                x: 10,
+                y: 0
+            }, {
+                x: 110,
+                y: 100
+            }, 'green')
+
+            ctx.scale(1/2, 1/2)
+            ctx.lineWidth = 1
+            ctx.translate(50,50)
+            drawLine(ctx, {
+                x: 20,
+                y: 0
+            }, {
+                x: 120,
+                y: 100
+            }, 'blue')
+
+            function drawLine(ctx, from, to, col) {
+                ctx.save()
+                ctx.strokeStyle = col || 'gray'
+                ctx.beginPath()
+                ctx.moveTo(from.x, from.y)
+                ctx.lineTo(to.x, to.y)
+                ctx.stroke()
+                ctx.restore()
+            }
+        }
+    </script>
+</body>
+
+</html>

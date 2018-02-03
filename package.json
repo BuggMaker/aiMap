@@ -1,0 +1,24 @@
+{
+  "name": "aimap",
+  "version": "1.0.0",
+  "description": "AI Map",
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "BuggMaker",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.6",
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0"
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../dist/aiMap.js"></script>
+</head>
+
+<body>
+    <div id="container" style='width:100%;height:300px;border:1px solid lightgray;'></div>
+    <script>
+        window.onload = function () {
+            var map = new A.Map('container')
+            console.log(map)
+            console.log(map.toString())
+            var ly1 = new A.Layer({
+                index: 2,
+                title: 'point',
+                style: {
+                    fillStyle: 'rgba(30,180,180,0.5)',
+                    strokeStyle: 'rgba(30,180,180,0.5)'
+                }
+            }).addTo(map)
+            var ly2 = new A.Layer({
+                index: 0,
+                title: 'point',
+                style: {
+                    fillStyle: 'rgba(30,180,180,0.5)',
+                    strokeStyle: 'rgba(30,180,180,0.5)'
+                }
+            }).addTo(map)
+            var ly3 = new A.Layer({
+                index: 4,
+                title: 'point',
+                style: {
+                    fillStyle: 'rgba(30,180,180,0.5)',
+                    strokeStyle: 'rgba(30,180,180,0.5)'
+                }
+            }).addTo(map)
+
+            ly2.remove()
+
+            var gj = A.GeoJson.check({
+                type: 'Point',
+                coordinates: []
+            })
+            console.log(gj)
+        }
+    </script>
+</body>
+
+</html>

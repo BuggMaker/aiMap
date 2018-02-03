@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #map {
+            width: 1024px;
+            height: 512px;
+            border: 1px solid lightgray;
+        }
+    </style>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+</head>
+
+<body>
+    <canvas id='map'></canvas>
+    <script>
+        window.onload = function () {
+
+
+            function Square(orign, width) {
+                this.orign = orign
+                this.width = width
+                this.level = 0
+                this.coord = new Point(0, 0)
+                this.center = new Point(this.orign.x + width / 2, this.orign.y + width / 2)
+            }
+            Square.prototype = {
+                constructor: Square,
+                render: function (ctx) {
+                    ctx.beginPath()
+                    ctx.moveTo(this.orign.x, this.orign.y)
+                    ctx.lineTo(this.orign.x + this.width, this.orign.y)
+                    ctx.lineTo(this.orign.x + this.width, this.orign.y + this.width)
+                    ctx.lineTo(this.orign.x, this.orign.y + this.width)
+                    ctx.closePath()
+                    ctx.stroke()
+                },
+                renderText: function (ctx) {
+                    ctx.save()
+                    ctx.font = `${32/Math.pow(2,level)}px sans-serif`
+                    ctx.textAlign = 'center'
+                    ctx.textBaseline = 'middle'
+                    ctx.fillText(this.toString(), this.center.x, this.center.y)
+                    ctx.restore()
+                },
+                renderImage: function (ctx) {
+                    var url =
+                        `http://c.tile.opencyclemap.org/cycle/${this.level}/${this.coord.x}/${this.coord.y}.png`
+
+                    var googleMapTypes = {
+                        skeleton: 'h',
+                        defalut: 'm',
+                        terrain: 'p',
+                        hybrid: 'y'
+                    }
+                    url =
+                        `http://mt2.google.cn/vt/lyrs=m&hl=zh-CN&gl=cn&x=${this.coord.x}&y=${this.coord.y}&z=${this.level}`
+                    var image = new Image()
+                    image.src = url
+                    image.zoom = 'zoom'
+                    image.onload = () => {
+                        ctx.drawImage(image, this.orign.x, this.orign.y, this.width, this.width)
+                        if (typeof this.onImageLoad === 'function') this.onImageLoad.call(this)
+                    }
+                },
+                quatuor: function () {
+                    var ary = []
+                    for (let col = 0; col < 2; col++) {
+                        for (let row = 0; row < 2; row++) {
+                            var or = new Point(this.orign.x + col * this.width / 2, this.orign.y + row *
+                                this.width / 2)
+                            var tmp = new Square(or, this.width / 2)
+                            tmp.level = this.level + 1
+                            tmp.coord = new Point(col + this.orign.x / tmp.width, row + this.orign.y /
+                                tmp.width)
+                            ary.push(tmp)
+                        }
+                    }
+                    return ary
+                },
+                toString: function () {
+                    return `(${this.level},${this.coord.x},${this.coord.y})`
+                }
+            }
+
+            function Circle(center, radius) {
+                this.center = center
+                this.radius = radius
+            }
+            Circle.prototype = {
+                constructor: Circle,
+                render: function (ctx) {
+                    ctx.beginPath()
+                    ctx.arc(this.center.x, this.center.y, this.radius, 0, 2 * Math.PI, false)
+                    ctx.closePath()
+                    ctx.fill()
+                }
+            }
+
+            function Point(x, y) {
+                this.x = x
+                this.y = y
+            }
+
+            function Lnglat(...args) {
+                var lng = 0,
+                    lat = 0
+                if (args.length == 1) {
+                    var ele = args[0]
+                    if (ele instanceof Array && ele.length >= 2) {
+                        lng = ele[0]
+                        lat = ele[1]
+                    } else if (ele.lng !== undefined && ele.lat !== undefined) {
+                        lat = ele.lat
+                        lng = ele.lng
+                    }
+                } else if (args.length >= 2) {
+                    lng = args[0]
+                    lat = args[1]
+                } else {
+                    throw 'Invalid parama for Lnglat!'
+                }
+                this.lng = lng % 360
+                this.lat = lat
+            }
+
+            function addTask(fn, delay, ...args) {
+                if (typeof fn === 'function') {
+                    setTimeout(() => {
+                        fn.apply(null, args)
+                    }, delay)
+                }
+            }
+
+            function renderQuatuor(square, level) {
+                if (level === 0) {
+                    addTask(render, 1, square)
+                } else {
+                    square.quatuor().forEach(sub => {
+                        if (sub.level === level) {
+                            addTask(render, 1, sub)
+                        } else {
+                            renderQuatuor(sub, level)
+                        }
+                    });
+                }
+
+                function render(square) {
+                    square.renderImage(ctx)
+                    square.onImageLoad = function () {
+                        this.render(ctx)
+                        this.renderText(ctx)
+                    }
+                    // square.render(ctx)
+                    // square.renderText(ctx)
+                }
+            }
+
+            //web墨卡托投影
+            var Mercator = {
+                R: 6378137,
+                R_MINOR: 6356752.314245179,
+                project: function (lnglat) {
+                    var d = Math.PI / 180,
+                        r = this.R,
+                        y = lnglat.lat * d,
+                        tmp = this.R_MINOR / r,
+                        e = Math.sqrt(1 - tmp * tmp),
+                        con = e * Math.sin(y);
+
+                    var ts = Math.tan(Math.PI / 4 - y / 2) / Math.pow((1 - con) / (1 + con), e / 2);
+                    y = -r * Math.log(Math.max(ts, 1E-10));
+
+                    return new Point(lnglat.lng * d * r, y);
+                },
+
+                unproject: function (point) {
+                    var d = 180 / Math.PI,
+                        r = this.R,
+                        tmp = this.R_MINOR / r,
+                        e = Math.sqrt(1 - tmp * tmp),
+                        ts = Math.exp(-point.y / r),
+                        phi = Math.PI / 2 - 2 * Math.atan(ts);
+
+                    for (var i = 0, dphi = 0.1, con; i < 15 && Math.abs(dphi) > 1e-7; i++) {
+                        con = e * Math.sin(phi);
+                        con = Math.pow((1 - con) / (1 + con), e / 2);
+                        dphi = Math.PI / 2 - 2 * Math.atan(ts * con) - phi;
+                        phi += dphi;
+                    }
+
+                    return new Lnglat(point.x * d / r, phi * d);
+                }
+            };
+
+            //变换矩阵
+            let ViewMartix = function () {
+                this.matrix = [1, 0, 0, 1, 0, 0]; // normal matrix
+                this.inverseMatrix = [1, 0, 0, 1]; // inverse matrix
+                this.offset = {
+                    x: 0,
+                    y: 0
+                };
+                this.scale = 1;
+                this.rotate = 0;
+            }
+            ViewMartix.prototype = {
+                createMatrix: function (x, y, scale, rotate) {
+                    this.offset.x += x; // modified by yan.
+                    this.offset.y += y; // modified by yan.
+
+                    this.scale *= scale;
+                    this.rotate += rotate;
+
+                    let m = this.matrix; // just to make it easier to type and read
+                    let im = this.inverseMatrix; // just to make it easier to type and read
+                    // create the scale and rotation part of the matrix
+                    m[3] = m[0] = Math.cos(this.rotate) * this.scale;
+                    m[2] = -(m[1] = Math.sin(this.rotate) * this.scale);
+                    // translation
+                    m[4] = this.offset.x;
+                    m[5] = this.offset.y;
+
+                    // calculate the inverse transformation
+                    // first get the cross product of x axis and y axis
+                    let cross = m[0] * m[3] - m[1] * m[2];
+                    // now get the inverted axies
+                    im[0] = m[3] / cross;
+                    im[1] = -m[1] / cross;
+                    im[2] = -m[2] / cross;
+                    im[3] = m[0] / cross;
+                    this.matrix = m;
+                    this.inverseMatrix = im;
+                },
+                // function to transform to world space
+                toWorld: function (x, y) {
+                    let xx, yy, m;
+                    m = this.inverseMatrix;
+                    xx = x - this.matrix[4];
+                    yy = y - this.matrix[5];
+                    return {
+                        x: xx * m[0] + yy * m[2],
+                        y: xx * m[1] + yy * m[3]
+                    }
+                },
+                toScreen: function (x, y) {
+                    let xx, yy, m;
+                    m = this.inverseMatrix;
+                    yy = (x * m[1] - y * m[0]) / (m[1] * m[2] - m[0] * m[3])
+                    xx = (x - yy * m[2]) / m[0]
+
+                    return {
+                        x: xx + this.matrix[4],
+                        y: yy + this.matrix[5]
+                    }
+                }
+            }
+
+            function toLayerPoint(point) {
+                return new Point(point.x / rate, point.y / rate)
+            }
+
+            function toProjectPoint(point) {
+                return new Point(point.x * rate, point.y * rate)
+            }
+
+            function mapZoom(center, scale, trans) {
+                var wpt = center
+                if (!trans) {
+                    wpt = matrix.toWorld(center.x, center.y)
+                }
+
+                ctx.scale(scale, scale)
+                matrix.createMatrix(0, 0, scale, 0)
+
+                ctx.translate(wpt.x * (1 / scale - 1), wpt.y * (1 / scale - 1))
+                matrix.createMatrix(wpt.x * (1 / scale - 1) * matrix.scale, wpt.y * (1 / scale - 1) *
+                    matrix.scale, 1, 0)
+
+            }
+
+
+            var canvas = document.getElementById('map')
+            canvas.width = canvas.clientWidth
+            canvas.height = canvas.clientHeight
+            var ctx = canvas.getContext('2d')
+            ctx.lineWidth = 1
+            ctx.strokeStyle = 'gray'
+            ctx.fillStyle = 'rgba(30,30,30,0.5)'
+            
+            let w = 256
+            var orign = new Point(0, 0)
+            var matrix = new ViewMartix()
+
+            var center = new Point(canvas.clientWidth / 2, canvas.clientHeight / 2)
+            ctx.translate(center.x, center.y)
+            matrix.createMatrix(center.x, center.y, 1, 0)
+
+            var s = new Square(orign, w)
+            var level = 1,
+                zoom = Math.pow(2, level)
+
+            var piR = 20037508.3427892
+            var width = 2 * piR
+            var rate = width / w
+
+            var pt = Mercator.project(new Lnglat(116.3, 39.9))
+            var px = pt.x >= piR ? pt.x - piR : piR + pt.x,
+                py = piR - pt.y
+            pt = new Point(px, py)
+            var lyPt = toLayerPoint(pt)
+
+            ctx.translate(-lyPt.x * zoom, -lyPt.y * zoom)
+            matrix.createMatrix(-lyPt.x * zoom, -lyPt.y * zoom, 1, 0)
+            ctx.scale(zoom, zoom)
+            matrix.createMatrix(0, 0, zoom, 0)
+
+            // mapZoom(lyPt, zoom, false)
+
+            ctx.lineWidth = 1 / zoom
+            renderQuatuor(s, level)
+
+            setTimeout(() => {
+                var c = new Circle(new Point(lyPt.x, lyPt.y), 4 / zoom)
+                c.render(ctx)
+            }, 1000 * 3);
+
+
+            canvas.onmousemove = function (e) {
+                var x = e.offsetX,
+                    y = e.offsetY
+
+                var spt = matrix.toWorld(x, y)
+                // document.title = spt.x + ' ' + spt.y
+                var prjPt = toProjectPoint(new Point(spt.x, spt.y))
+                //  document.title = prjPt.x + ' ' + prjPt.y
+                var px = prjPt.x >= piR ? prjPt.x + piR : prjPt.x - piR,
+                    py = piR - prjPt.y
+
+                var lnglat = Mercator.unproject(new Point(px, py))
+                document.title = lnglat.lng.toFixed(2) + ' ' + lnglat.lat.toFixed(2)
+            }
+            canvas.onmousewheel = function (e) {
+                var center = new Point(e.offsetX, e.offsetY)
+                if (e.wheelDelta > 0) {
+                    zoomIn()
+                } else {
+                    zoomOut()
+                }
+
+                function zoomIn() {
+                    level += 1
+                    if (level > 18) {
+                        level = 18
+                        return
+                    }
+                    mapZoom(center, 2)
+                }
+
+                function zoomOut() {
+                    level -= 1
+                    if (level < 0) {
+                        level = 0
+                        return
+                    }
+                    mapZoom(center, 0.5)
+                }
+
+                ctx.save()
+                ctx.setTransform(1, 0, 0, 1, 0, 0)
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+                ctx.restore()
+
+                ctx.lineWidth = 1 / matrix.scale
+                renderQuatuor(s, level)
+
+
+                var pt = Mercator.project(new Lnglat(116.3, 39.9))
+                var px = pt.x >= piR ? pt.x - piR : piR + pt.x,
+                    py = piR - pt.y
+                pt = new Point(px, py)
+                var lyPt = toLayerPoint(pt)
+                var pt1 = matrix.toScreen(lyPt.x, lyPt.y)
+                console.log(pt1)
+                var pt2 = matrix.toWorld(pt1.x, pt1.y)
+                console.log(pt2)
+            }
+
+            var pt1 = matrix.toScreen(lyPt.x, lyPt.y)
+            console.log(pt1)
+            var pt2 = matrix.toWorld(pt1.x, pt1.y)
+            console.log(pt2)
+
+
+        }
+    </script>
+</body>
+
+</html>
