@@ -11,11 +11,13 @@ import {
 import {
     Canvas
 } from './Canvas'
-import { Item } from '../core/Item';
+import {
+    Item
+} from '../core/Item';
 
 var Layer = IRender.extend({
-    name:'Layer',
-    supers:[Item],
+    name: 'Layer',
+    supers: [Item],
     /**
      * @function Layer(Object:options)
      * 图层
@@ -38,12 +40,32 @@ var Layer = IRender.extend({
         this.parent = null
         //是否可见
         this.visable = true
+
+        // 事件
+        this.on('mousemove', function (mpos) {
+            this.geometryAry.forEach(geo => {
+                if (!geo.interactive) return
+                if (geo.contains(mpos, 0)) {
+                    if (!geo.isMouseover) {
+                        geo.fire('mouseenter', mpos)
+
+                        geo.render(this.canvas.context)
+                    } else {
+                        geo.fire('mousemove', mpos)
+                    }
+                } else if (geo.isMouseover) {
+                    geo.fire('mouseleave', mpos)
+
+                    geo.render(this.canvas.context)
+                }
+            })
+        })
     },
     publics: {
         // 添加要素到图层
         addGeometry: function (geometry) {
             //合并范围
-            this.bound.union(geometry.bound)
+            this.bound.extend(geometry.bound)
             this.geometryAry.push(geometry)
             return this
         },
@@ -52,13 +74,13 @@ var Layer = IRender.extend({
             if (map) {
                 this.parent = map
                 map.layersDic.set(this.index, this)
-                this.canvas = new Canvas(this)                
+                this.canvas = new Canvas(this)
             }
             return this
         },
         // 从地图移除图层
-        remove:function(){
-            if(this.parent){
+        remove: function () {
+            if (this.parent) {
                 this.parent.layersDic.delete(this.index)
                 this.canvas.remove()
                 this.parent = null

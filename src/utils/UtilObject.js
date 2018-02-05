@@ -20,19 +20,37 @@ export const extend = function (des, ...props) {
     return des
 }
 
-/**
- * @function merge(Object:des,any:...props)
- * 对象属性合并,取并集
- */
-export const merge = function (des, ...props) {
+// /**
+//  * @function merge(Object:des,any:...props)
+//  * 对象属性合并,取并集
+//  */
+// export const merge = function (des, ...props) {
 
-}
+// }
 /**
  * @function replace(Object:des,any:...props)
  * 对象属性替换 和extend区别???
  */
 export const replace = function (des, ...props) {
+    if (des) {
+        props.forEach(arg => {
+            for (const key in arg) {
+                if (typeof des[key] !== 'undefined') {
+                    des[key] = arg[key]
+                }
+            }
+        })
+    }
+}
 
+export const copy = function (s) {
+    var res = {}
+    for (const key in s) {
+        if (s.hasOwnProperty(key)) {
+            res[key] = s[key];
+        }
+    }
+    return res
 }
 // //废弃
 // inherit1: function (base) {
@@ -127,17 +145,17 @@ export const defineProp = function (des, key, customer) {
         // writable: customer.writable || true,
         configurable: customer.configurable || true,
         get: function () {
-            if (customer)
-                return customer.get(value)
-            else
-                return value;
+            if (customer.get) {
+                return customer.get()
+            } else {
+                throw `property ${key} define error,lack of getter!`
+            }
         },
         set: function (newValue) {
-            if (value !== newValue) {
-                if (customer)
-                    value = customer.set(value)
-                else
-                    value = newValue;
+            if (customer.set) {
+                return customer.set(newValue)
+            } else {
+                throw `property ${key} is readonly!`
             }
         }
     })

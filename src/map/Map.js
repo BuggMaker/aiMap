@@ -20,7 +20,12 @@ import {
 import {
     Size
 } from '../core/index'
-import { CRS } from '../geo/prj/CRS';
+import {
+    CRS
+} from '../geo/prj/CRS';
+import {
+    Point
+} from '../geometry/vector/Point';
 
 export let Map = IRender.extend({
     name: 'Map',
@@ -37,6 +42,7 @@ export let Map = IRender.extend({
         // 绘图范围
         this.renderBound = new Bound()
         // 视口中心
+        var _center
         UtilObj.defineProp(this, 'center', {
             // writable:false,
             get: (val) => {
@@ -64,7 +70,7 @@ export let Map = IRender.extend({
             mapDiv.style.width = width + 'px'
             mapDiv.style.height = height + 'px'
             mapDiv.id = 'aiMap'
-            mapDiv.style.position='relative'
+            mapDiv.style.position = 'relative'
             parent.appendChild(mapDiv)
             // 容器
             self.container = mapDiv
@@ -73,7 +79,9 @@ export let Map = IRender.extend({
             for (const key in parent) {
                 if (key.substr(0, 2) === 'on') {
                     if (self[key])
-                        parent[key] = self[key]
+                        parent[key] = function (e) {
+                            self[key](e)
+                        }
                 }
             }
             return parent
@@ -99,7 +107,11 @@ export let Map = IRender.extend({
         },
         // 事件
         onmousemove: function (e) {
-            document.title = e.offsetX + ' ' + e.offsetY
+            // this.fire('mousemove')
+            var mpos = new Point(e.offsetX, e.offsetY)
+            this.layersDic.forEach(ly => {
+                ly.fire('mousemove', mpos)
+            })
         }
     }
 })

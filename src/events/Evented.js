@@ -16,6 +16,7 @@ import {
 /**
  * Class Events
  * 事件集合类
+ * 注意:callback函数必须是function类型,不可以是lambda表达式
  */
 var Evented = Class.extend({
     name: 'Evented',
@@ -32,11 +33,11 @@ var Evented = Class.extend({
          */
         on: function (type, callback, once = false) {
             let ary = []
-            if (this.eventsDic.has('type')) {
+            if (this.eventsDic.has(type)) {
                 ary = this.eventsDic.get(type)
             }
             let ev = new Event(this, type, callback, once)
-            ary.add(ev)
+            ary.push(ev)
             this.eventsDic.set(type, ary)
         },
         /**
@@ -92,7 +93,7 @@ var Evented = Class.extend({
          * 参数:事件类型
          */
         exists: function (type) {
-            return this.eventsDic.has('type') && this.eventsDic.get('type').length > 0
+            return this.eventsDic.has(type) && this.eventsDic.get(type).length > 0
         },
         /**
          * function get(EventType:type)
