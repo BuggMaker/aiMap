@@ -79,6 +79,23 @@ var Canvas = Class.extend({
     }
 })
 
+var Graphics = {
+    /**
+     * 绘制圆形
+     * @param {Point} center 
+     * @param {Number} radius 
+     * @param {Boolean} isFill 
+     */
+    circle(ctx, center, radius, isFill) {
+        ctx.beginPath()
+        ctx.arc(center.x, center.y, radius,0,2*Math.PI,false)
+        if (isFill) ctx.fill()
+        else ctx.stroke()
+    },
+    line(){}
+}
+
 export {
-    Canvas
+    Canvas,
+    Graphics
 }

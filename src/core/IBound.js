@@ -15,8 +15,8 @@ import { Point } from "../geometry/vector/Point";
 /**
  * 边界(外接矩形框) 暂时废弃
  */ 
-var Bound = Class.extend({
-    name: 'Bound',
+var IBound = Class.extend({
+    name: 'IBound',
     constructor: function (...args) {
         this.extent = new Extent()
         UtilObj.defineProp(this, 'size', {

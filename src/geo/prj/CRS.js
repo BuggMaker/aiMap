@@ -1,6 +1,6 @@
 import {
     Class
-} from "../core/Class";
+} from "../../core/Class";
 import {
     WebMecrator
 } from "./WebMecrator";
@@ -10,11 +10,12 @@ import {
 import {
     Lnglat
 } from "../Lnglat";
+import { ViewMartix } from "./ViewMartix";
 
 var CRS = Class.extend({
-    constrructor: function (tileWidth) {
+    constructor: function (tileWidth) {
         this.projection = WebMecrator
-        this.viewmatrix = new ViewMartix()
+        this.viewmatrix = new ViewMartix
         this.rate = 2 * this.projection.piR / tileWidth
     },
     publics: {
@@ -44,16 +45,24 @@ var CRS = Class.extend({
          */
         lnglatToScreenPoint: function (lnglat) {
             var lyPt = this.lnglatToMapPoint(lnglat)
-            return this.viewmatrix.toScreen(lyPt.x,lyPt.y)
+            return this.mapPointToScreenPoint(lypt) //this.viewmatrix.toScreen(lyPt.x,lyPt.y)
         },
         /**
          * 屏幕坐标 转 经纬度
          */
         screenPointToLnglat: function (point) {
-            var spt = this.viewmatrix.toWorld(point.x, point.y)
+            var spt = this.screenPointToMapPoint(point)//this.viewmatrix.toWorld(point.x, point.y)
             return this.mapPointToLnglat(spt)
         },
-        getProjectedBound: function (level) {}
+        screenPointToMapPoint(point){
+            return this.viewmatrix.toWorld(point.x, point.y)
+        },
+        mapPointToScreenPoint(point){
+            return this.viewmatrix.toScreen(point.x,point.y)
+        },
+        transform(disX,disY,scale,rotate){
+            this.viewmatrix.transform(disX,disY,scale,rotate)
+        }
     }
 })
 

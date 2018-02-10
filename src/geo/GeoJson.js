@@ -8,10 +8,10 @@ import {
  * @param {GeoJson} data 
  */
 var GeoJson = function (data) {
-    if (!GeoJsonType[data.type]) throw `not format GeoJson, wrong 'type'`
+    if (!GeoType[data.type]) throw `not format GeoJson, wrong 'type'`
     this.type = data['type']
     switch (this.type) {
-        case GeoJsonType.FeatureColledtion:
+        case GeoType.FeatureColledtion:
             var features = data['features']
             if (!isArray(features)) throw `not format GeoJson, wrong 'features'`
             this.features = []
@@ -19,7 +19,7 @@ var GeoJson = function (data) {
                 this.features.push(new GeoJson(feature))
             });
             break
-        case GeoJsonType.GeometryCollection:
+        case GeoType.GeometryCollection:
             var geometries = data['geometries']
             if (!isArray(geometries)) throw `not format GeoJson, wrong 'geometries'`
             this.geometries = []
@@ -27,7 +27,7 @@ var GeoJson = function (data) {
                 this.geometries.push(new GeoJson(feature))
             });
             break
-        case GeoJsonType.Feature:
+        case GeoType.Feature:
             var geometry = data['geometry']
             if (!geometry) throw `not format GeoJson, wrong 'geometry'`
             for (const key in data) {
@@ -37,12 +37,12 @@ var GeoJson = function (data) {
             }
             this.geomrtry = new GeoJson(geometry)
             break
-        case GeoJsonType.Point:
-        case GeoJsonType.MultiPoint:
-        case GeoJsonType.LineString:
-        case GeoJsonType.MultiLineString:
-        case GeoJsonType.Polygon:
-        case GeoJsonType.MultiPolygon:
+        case GeoType.Point:
+        case GeoType.MultiPoint:
+        case GeoType.LineString:
+        case GeoType.MultiLineString:
+        case GeoType.Polygon:
+        case GeoType.MultiPolygon:
             var coordinates = data['coordinates']
             if (!isArray(coordinates)) throw `not format GeoJson, wrong 'coordinates'`
             this.coordinates = coordinates
@@ -59,7 +59,7 @@ GeoJson.check = function (data) {
     return true
 }
 
-var GeoJsonType = {
+var GeoType = {
     Point: 'Point',
     MultiPoint: 'MultiPoint',
     LineString: 'LineString',
@@ -73,5 +73,5 @@ var GeoJsonType = {
 
 export {
     GeoJson,
-    GeoJsonType
+    GeoType
 }

@@ -138,6 +138,7 @@
             }
 
             function renderQuatuor(square, level) {
+                // return
                 if (level === 0) {
                     addTask(render, 1, square)
                 } else {
@@ -211,11 +212,11 @@
             }
             ViewMartix.prototype = {
                 createMatrix: function (x, y, scale, rotate) {
-                    this.offset.x += x; // modified by yan.
-                    this.offset.y += y; // modified by yan.
-
                     this.scale *= scale;
                     this.rotate += rotate;
+
+                    this.offset.x += x * this.scale; // modified by yan.
+                    this.offset.y += y * this.scale; // modified by yan.
 
                     let m = this.matrix; // just to make it easier to type and read
                     let im = this.inverseMatrix; // just to make it easier to type and read
@@ -275,12 +276,15 @@
                     wpt = matrix.toWorld(center.x, center.y)
                 }
 
-                ctx.scale(scale, scale)
-                matrix.createMatrix(0, 0, scale, 0)
+                // ctx.scale(scale, scale)
+                // matrix.createMatrix(0, 0, scale, 0)
 
-                ctx.translate(wpt.x * (1 / scale - 1), wpt.y * (1 / scale - 1))
-                matrix.createMatrix(wpt.x * (1 / scale - 1) * matrix.scale, wpt.y * (1 / scale - 1) *
-                    matrix.scale, 1, 0)
+                // ctx.translate(wpt.x * (1 / scale - 1), wpt.y * (1 / scale - 1))
+                // ctx.transform(scale,0,-0,scale,wpt.x * (1 / scale - 1)*scale, wpt.y * (1 / scale - 1)*scale)
+                matrix.createMatrix(wpt.x * (1 / scale - 1), wpt.y * (1 / scale - 1) , scale, 0)
+
+                var m = matrix.matrix
+                ctx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
 
             }
 
@@ -292,7 +296,7 @@
             ctx.lineWidth = 1
             ctx.strokeStyle = 'gray'
             ctx.fillStyle = 'rgba(30,30,30,0.5)'
-            
+
             let w = 256
             var orign = new Point(0, 0)
             var matrix = new ViewMartix()
@@ -336,14 +340,14 @@
                     y = e.offsetY
 
                 var spt = matrix.toWorld(x, y)
-                // document.title = spt.x + ' ' + spt.y
+                document.title = spt.x + ' ' + spt.y
                 var prjPt = toProjectPoint(new Point(spt.x, spt.y))
                 //  document.title = prjPt.x + ' ' + prjPt.y
                 var px = prjPt.x >= piR ? prjPt.x + piR : prjPt.x - piR,
                     py = piR - prjPt.y
 
                 var lnglat = Mercator.unproject(new Point(px, py))
-                document.title = lnglat.lng.toFixed(2) + ' ' + lnglat.lat.toFixed(2)
+                // document.title = lnglat.lng.toFixed(2) + ' ' + lnglat.lat.toFixed(2)
             }
             canvas.onmousewheel = function (e) {
                 var center = new Point(e.offsetX, e.offsetY)
@@ -379,16 +383,18 @@
                 ctx.lineWidth = 1 / matrix.scale
                 renderQuatuor(s, level)
 
+                var c = new Circle(new Point(lyPt.x, lyPt.y), 4 / zoom)
+                c.render(ctx)
 
-                var pt = Mercator.project(new Lnglat(116.3, 39.9))
-                var px = pt.x >= piR ? pt.x - piR : piR + pt.x,
-                    py = piR - pt.y
-                pt = new Point(px, py)
-                var lyPt = toLayerPoint(pt)
-                var pt1 = matrix.toScreen(lyPt.x, lyPt.y)
-                console.log(pt1)
-                var pt2 = matrix.toWorld(pt1.x, pt1.y)
-                console.log(pt2)
+                // var pt = Mercator.project(new Lnglat(116.3, 39.9))
+                // var px = pt.x >= piR ? pt.x - piR : piR + pt.x,
+                //     py = piR - pt.y
+                // pt = new Point(px, py)
+                // var lyPt = toLayerPoint(pt)
+                // var pt1 = matrix.toScreen(lyPt.x, lyPt.y)
+                // console.log(pt1)
+                // var pt2 = matrix.toWorld(pt1.x, pt1.y)
+                // console.log(pt2)
             }
 
             var pt1 = matrix.toScreen(lyPt.x, lyPt.y)

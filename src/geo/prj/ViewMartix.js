@@ -1,3 +1,7 @@
+import {
+    Point
+} from "../../geometry/vector/Point";
+
 /**
  * 视图变化矩阵
  * 记录视图的缩放平移能操作引起的视图矩阵的变化
@@ -5,7 +9,7 @@
  * by BuggMaker
  */
 //变换矩阵
-let ViewMartix = function () {
+export let ViewMartix = function () {
     this.matrix = [1, 0, 0, 1, 0, 0]; // normal matrix
     this.inverseMatrix = [1, 0, 0, 1]; // inverse matrix
     this.offset = {
@@ -17,15 +21,14 @@ let ViewMartix = function () {
 }
 ViewMartix.prototype = {
     /**
-     * 视图变换 
-     * 
+     * 视图变换      * 
      */
-    transform: function (diX, disY, scale, rotate) {
-        this.offset.x += disX;
-        this.offset.y += disY;
-
+    transform: function (disX, disY, scale, rotate) {
         this.scale *= scale;
         this.rotate += rotate;
+
+        this.offset.x += disX * this.scale;
+        this.offset.y += disY * this.scale;
 
         let m = this.matrix; // just to make it easier to type and read
         let im = this.inverseMatrix; // just to make it easier to type and read
@@ -53,10 +56,7 @@ ViewMartix.prototype = {
         m = this.inverseMatrix;
         xx = x - this.matrix[4];
         yy = y - this.matrix[5];
-        return {
-            x: xx * m[0] + yy * m[2],
-            y: xx * m[1] + yy * m[3]
-        }
+        return new Point(xx * m[0] + yy * m[2], xx * m[1] + yy * m[3])
     },
     // function to transform to screen space
     toScreen: function (x, y) {
@@ -65,9 +65,6 @@ ViewMartix.prototype = {
         yy = (x * m[1] - y * m[0]) / (m[1] * m[2] - m[0] * m[3])
         xx = (x - yy * m[2]) / m[0]
 
-        return {
-            x: xx + this.matrix[4],
-            y: yy + this.matrix[5]
-        }
+        return new Point(xx + this.matrix[4], yy + this.matrix[5])
     }
 }

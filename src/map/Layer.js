@@ -14,6 +14,9 @@ import {
 import {
     Item
 } from '../core/Item';
+import {
+    EventType
+} from '../events/Event';
 
 var Layer = IRender.extend({
     name: 'Layer',
@@ -42,23 +45,23 @@ var Layer = IRender.extend({
         this.visable = true
 
         // 事件
-        this.on('mousemove', function (mpos) {
+        this.on(EventType.mmove, function (mpos) {
+            var update = false
             this.geometryAry.forEach(geo => {
                 if (!geo.interactive) return
-                if (geo.contains(mpos, 0)) {
-                    if (!geo.isMouseover) {
-                        geo.fire('mouseenter', mpos)
-
-                        geo.render(this.canvas.context)
+                if (geo.containsPoint(mpos, 0)) {
+                    if (!geo.isMousehover) {
+                        geo.fire(EventType.menter, mpos)
+                        update = true
                     } else {
-                        geo.fire('mousemove', mpos)
+                        geo.fire(EventType.mmove, mpos)
                     }
-                } else if (geo.isMouseover) {
-                    geo.fire('mouseleave', mpos)
-
-                    geo.render(this.canvas.context)
+                } else if (geo.isMousehover) {
+                    geo.fire(EventType.mleave, mpos)
+                    update = true
                 }
             })
+            update && this.render()
         })
     },
     publics: {
@@ -89,11 +92,22 @@ var Layer = IRender.extend({
         // 渲染
         render: function () {
             if (this.visable) {
+                this.canvas.context.save()
+                this.canvas.context.setTransform(1, 0, -0, 1, 0, 0)
+                this.canvas.context.clearRect(0, 0, this.canvas.clientSize.width, this.canvas.clientSize.height)
+                this.canvas.context.restore()
                 this.geometryAry.forEach(geometry => {
-                    geometry.render(this.canvas.context)
+                    if (geometry.bound.intersectWith(this.parent.viewbound)) {
+                        geometry.render(this.canvas.context)
+                    }
                 });
             }
             return this
+        },
+        setTransform(m) {
+            this.canvas.context.lineWidth = 1 / this.parent.crs.viewmatrix.scale
+            this.canvas.context.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
+
         }
     },
     statics: {}

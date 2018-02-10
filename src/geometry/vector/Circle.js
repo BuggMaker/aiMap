@@ -10,6 +10,9 @@ import {
 import {
     Graphics
 } from "../../map/Canvas";
+import {
+    Bound
+} from "../Bound";
 
 /**
  * 圆
@@ -26,54 +29,55 @@ var Circle = IGeometry.extend({
         if (!center.isInstanceOf(Point)) throw 'center is not instance of Point!'
         // 圆心
         var _center = center
-        UtilObj.defineProp(this, 'center', {
+        this.defProp( 'center', {
             get: () => {
                 return _center
             },
             set: (val) => {
                 if (!val.isInstanceOf(Point)) throw 'new value of center is not instance of Point!'
                 _center = val
-                // 圆心变化钩子函数
-                this.fire('centerchange')
             }
         })
         // 半径
         if (isNaN(radius)) throw 'radius is not a Number!'
         var _radius = radius
-        UtilObj.defineProp(this, 'radius', {
+        this.defProp( 'radius', {
             get: () => {
                 return _radius
             },
             set: (val) => {
                 _radius = val
-                this.fire('radiuschange')
+            }
+        })
+        // 边界
+        this.defProp('bound', {
+            get: () => {
+                var lt = this.center.reduce(new Point(this.radius, this.radius)),
+                    rb = this.center.plus(new Point(this.radius, this.radius))
+                return new Bound(lt, rb)
             }
         })
         if (style) {
             UtilObj.extend(this.style, style)
         }
-        // 事件
-        var oldStyle = {}
-        this.on('mouseenter', function (mpos) {
-            this.isMouseover = true
-            oldStyle = UtilObj.copy(this.style)
-            this.style.fillStyle = 'forestgreen'            
-        })
-        this.on('mouseleave', function (mpos) {
-            this.isMouseover = false
-            this.style = UtilObj.copy(oldStyle)
-        })
     },
     publics: {
         render: function (ctx) {
             ctx.save()
-            UtilObj.replace(ctx, this.style)
-            Graphics.circle(ctx, this.center, this.radius, this.fill)
+            if (this.isMousehover) UtilObj.replace(ctx, this.interactiveStyle)
+            else UtilObj.replace(ctx, this.style)
+            if (this.fill) {
+                Graphics.circle(ctx, this.center, this.radius, true)
+            }
+            if (this.stroke) {
+                Graphics.circle(ctx, this.center, this.radius, false)
+            }
             ctx.restore()
+            return this
         },
-        contains(point, tolerance) {
+        containsPoint(point, tolerance) {
             if (!point.isInstanceOf(Point)) throw 'param is not instance of Point'
-            return this.center.distanceTo(point) <= this.radius + (tolerance || this.tolerance)
+            return this.center.distanceTo(point) <= this.radius * 1.1
         }
     }
 })

@@ -7,6 +7,7 @@ export {
     extend,
     merge,
     replace,
+    copy,
     isInstanceOf
 }
 from './UtilObject'

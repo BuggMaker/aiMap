@@ -12,6 +12,9 @@ import {
 import {
     UtilObj
 } from '../utils/index';
+import {
+    isArray
+} from '../index';
 
 /**
  * Class Events
@@ -27,18 +30,38 @@ var Evented = Class.extend({
     },
     publics: {
         /**
-         * funtion on(EventType:type,function:callback,bool:once)
+         * funtion on(EventType || String || Array:types,function:callback,bool:once)
          * 绑定事件
          * 参数:时间类型/回调函数/是否只执行一次
          */
-        on: function (type, callback, once = false) {
-            let ary = []
-            if (this.eventsDic.has(type)) {
-                ary = this.eventsDic.get(type)
+        on: function (types, callback, once = false) {
+            var targetTypes = []
+            if (typeof types === 'string') {
+                types = types.split1(' ')
+                types.forEach(tn => {
+                    targetTypes.push(EventType[tn])
+                })
+            } else if (isArray(types)) {
+                types.forEach(tn => {
+                    if (typeof tn === 'string') {
+                        targetTypes.push(EventType[tn])
+                    } else {
+                        targetTypes.push(tn)
+                    }
+                })
+            }else if(typeof types === 'number'){
+                targetTypes.push(types)
             }
-            let ev = new Event(this, type, callback, once)
-            ary.push(ev)
-            this.eventsDic.set(type, ary)
+            targetTypes.forEach(t => {
+                let ary = []
+                if (this.eventsDic.has(t)) {
+                    ary = this.eventsDic.get(t)
+                }
+                let ev = new Event(this, t, callback, once)
+                ary.push(ev)
+                this.eventsDic.set(t, ary)
+            })
+            return this
         },
         /**
          * funtion once(EventType:type,function:callback)
@@ -75,12 +98,12 @@ var Evented = Class.extend({
          * 触犯函数
          * 参数:函数类型
          */
-        fire: function (type, content) {
+        fire: function (type, ...content) {
             var evAry = this.get(type)
             for (let index = 0; index < evAry.length; index++) {
                 const ev = evAry[index];
                 //执行回调函数
-                ev.callback.call(this, content)
+                ev.callback.apply(this, content)
                 if (ev.once) {
                     evAry.splice(index)
                     index--

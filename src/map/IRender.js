@@ -14,9 +14,25 @@ var IRender = Evented.extend({
         //样式对象
         //可以办函绘图上下文所支持所有样式
         //如fillStyle/strokeStyle/lineWidth等等
-        this.style = {}
+        this.style = {
+            fillStyle:'dodgerblue',
+            strokeStyle :'forestgreen',
+            lineJoin:'round',
+            lineCap:'butt'
+        }
+        // 鼠标捕获后的样式
+        this.interactiveStyle={
+            fillStyle:'forestgreen',
+            strokeStyle :'dodgerblue',
+            lineJoin:'round',
+            lineCap:'butt'
+        }
         //是否可交互
         this.interactive = true
+        // 相对于stroke,渲染时是否以某颜色填充(针对面状图形)
+        this.fill = false
+        // 描边
+        this.stroke = true
     },
     publics: {
         /**

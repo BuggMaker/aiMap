@@ -1,6 +1,12 @@
 import {
     isArray
 } from "../../index";
+import {
+    IGeometry
+} from "../IGeometry";
+import {
+    Class
+} from "../../core/Class";
 
 /**
  * 点类
@@ -8,8 +14,8 @@ import {
  * by BuggMaker
  */
 
-export var Point = Geometry.extend({
-    name:'Point',
+export var Point = Class.extend({
+    name: 'Point',
     constructor: function (...args) {
         var ary = []
         if (args.length === 1) {
@@ -32,7 +38,13 @@ export var Point = Geometry.extend({
     publics: {
         distanceTo: function (other) {
             if (other.x && other.y)
-                return Math.sqrt(Math.pow(this.x - ohter.x, 2), Math.pow(this.y - ohter.y, 2))
+                return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2))
+        },
+        plus(point) {
+            return new Point(this.x + point.x, this.y + point.y)
+        },
+        reduce(point) {
+            return new Point(this.x - point.x, this.y - point.y)
         }
     }
 })

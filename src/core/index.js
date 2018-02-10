@@ -4,6 +4,8 @@ export {
 from './Size'
 
 export {
-    Extent
+    Class
 }
-from './Extent'
+from './Class'
+
+export {Item} from './Item'

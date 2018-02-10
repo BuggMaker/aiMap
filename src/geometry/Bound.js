@@ -24,33 +24,38 @@ var Bound = Class.extend({
         this.min = new Point(Number.MAX_VALUE, Number.MAX_VALUE)
         this.max = new Point(Number.MIN_VALUE, Number.MIN_VALUE)
         //根据参数 重新计算范围
+        var points = []
         if (args.length == 1 && isArray(args[0]) && args[0].length >= 2) {
             var ary = args[0]
             for (let index = 0; index < ary.length; index++) {
                 var pt = new Point(ary[index][0], ary[index][1])
-                this.min.x = Math.min(pt.x, this.min.x)
-                this.min.y = Math.min(pt.y, this.min.y)
-                this.max.x = Math.max(pt.x, this.max.x)
-                this.max.y = Math.max(pt.y, this.max.y)
+                points.push(pt1)
             }
         } else if (args.length == 2) {
             var pt1 = args[0],
                 pt2 = args[1]
-            if (pt1.isInstanceOf(Point) && pt2.isInstanceOf(Point)) {
-                this.min.x = Math.min(pt1.x, pt2.x)
-                this.min.y = Math.min(pt1.y, pt2.y)
-                this.max.x = Math.max(pt1.x, pt2.x)
-                this.max.y = Math.max(pt1.y, pt2.y)
+            if (!pt1.isInstanceOf(Point)) {
+                pt1 = new Point(args[0])
+                pt2 = new Point(args[1])
             }
+            points.push(pt1)
+            points.push(pt2)
         }
+        points.forEach(pt => {
+            this.min.x = Math.min(pt.x, this.min.x)
+            this.min.y = Math.min(pt.y, this.min.y)
+            this.max.x = Math.max(pt.x, this.max.x)
+            this.max.y = Math.max(pt.y, this.max.y)
+        })
+
         // 尺寸
-        UtilObj.defineProp(this, 'size', {
+        this.defProp('size', {
             get: () => {
                 return new Size(this.max.x - this.min.x, this.max.y - this.min.y)
             }
         })
         // 中心
-        UtilObj.defineProp(this, 'center', {
+        this.defProp('center', {
             get: () => {
                 return new Point(this.min.x + this.size.width / 2, this.min.y + this.size.height / 2)
             }
@@ -148,5 +153,5 @@ var Bound = Class.extend({
 })
 
 export {
-    IBound
+    Bound
 }

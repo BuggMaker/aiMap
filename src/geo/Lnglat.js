@@ -21,7 +21,7 @@ var Lnglat = function (...args) {
     } else {
         throw 'Invalid parama for Lnglat!'
     }
-    this.lng %= 360
+    this.lng = lng % 360
     this.lat = lat
 }
 Lnglat.prototype = {

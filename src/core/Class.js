@@ -10,7 +10,7 @@ function Class() {}
  * 判断是否为类型T的实例
  * @param {Class} T 
  */
-Class.prototype.isInstanceOf = function (T) {
+Object.prototype.isInstanceOf = function (T) {
     return UtilObj.isInstanceOf(this, T)
 }
 /**
@@ -24,23 +24,25 @@ Class.extend = function (props) {
         _base.apply(this, args)
         var name = _base.prototype.name;
 
-        //父类实例,包含了实例属性和公共属性,方便子类调用
-        this.base = this.base ? UtilObj.extend(this.base, new _base(args)) : new _base(args)
+        // 父类实例,包含了实例属性和公共属性,方便子类调用
+        // this.base = this.base ? UtilObj.extend(this.base, new _base(args)) : new _base(args)
 
         //继承其他父类
         if (props.supers) {
             props.supers.forEach(s => {
                 s.apply(this, args)
-                UtilObj.extend(this.base, new s(args))
+                // UtilObj.extend(this.base, new s(args))
             })
         }
 
         //构造函数
         if (props.constructor) {
             props.constructor.apply(this, args)
+        } else {
+            throw `Class ${this.name} lack of constructor function`
         }
         // delete props.constructor
-    }    
+    }
     if (props.name)
         Object.defineProperty(NewClass, 'name', {
             value: props.name,
@@ -99,6 +101,12 @@ Class.extend = function (props) {
         if (props.hasOwnProperty(key) && key !== 'supers' && key != 'constructor') {
             prot[key] = props[key]
         }
+    }
+
+    // 定义属性
+    // getter || setter
+    NewClass.prototype.defProp = function (key, customer) {
+        UtilObj.defineProp(this, key, customer)
     }
 
     NewClass.prototype.toString = function () {
