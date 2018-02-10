@@ -1,2 +1,2 @@
 # aiMap
-A geo-data visualize platform
+A geo-data visualization platform
