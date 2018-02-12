@@ -28,16 +28,12 @@ var Bound = Class.extend({
         if (args.length == 1 && isArray(args[0]) && args[0].length >= 2) {
             var ary = args[0]
             for (let index = 0; index < ary.length; index++) {
-                var pt = new Point(ary[index][0], ary[index][1])
+                var pt = new Point(ary[index])
                 points.push(pt1)
             }
         } else if (args.length == 2) {
-            var pt1 = args[0],
-                pt2 = args[1]
-            if (!pt1.isInstanceOf(Point)) {
-                pt1 = new Point(args[0])
+            var pt1 = new Point(args[0]),
                 pt2 = new Point(args[1])
-            }
             points.push(pt1)
             points.push(pt2)
         }
@@ -63,19 +59,6 @@ var Bound = Class.extend({
     },
     publics: {
         /**
-         * 判断是否相交
-         * @param {Bound} bound
-         * @return {Boolean}
-         */
-        intersectWith: function (bound) {
-            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
-            var tarMin = bound.min,
-                tarMax = bound.max
-            var intersectX = (tarMax.x >= this.min.x) && (tarMin.x <= this.max.x),
-                intersectY = (tarMax.y >= this.min.y) && (tarMin.y <= this.max.y)
-            return intersectX && intersectY
-        },
-        /**
          * 取交集
          * @param {Bound} bound
          * @return {Bound} 新的Bound对象
@@ -89,7 +72,7 @@ var Bound = Class.extend({
             result.min.x = Math.max(tarMin.x, this.min.x)
             result.min.y = Math.max(tarMin.y, this.min.y)
             result.max.x = Math.min(tarMax.x, this.max.x)
-            result.max.x = Math.min(tarMax.y, this.max.y)
+            result.max.y = Math.min(tarMax.y, this.max.y)
             return result
         },
         /**
@@ -105,7 +88,7 @@ var Bound = Class.extend({
             result.min.x = Math.min(tarMin.x, this.min.x)
             result.min.y = Math.min(tarMin.y, this.min.y)
             result.max.x = Math.max(tarMax.x, this.max.x)
-            result.max.x = Math.max(tarMax.y, this.max.y)
+            result.max.y = Math.max(tarMax.y, this.max.y)
             return result
         },
         /**
@@ -120,9 +103,45 @@ var Bound = Class.extend({
             this.min.x = Math.min(tarMin.x, this.min.x)
             this.min.y = Math.min(tarMin.y, this.min.y)
             this.max.x = Math.max(tarMax.x, this.max.x)
-            this.max.x = Math.max(tarMax.y, this.max.y)
+            this.max.y = Math.max(tarMax.y, this.max.y)
 
             return this
+        },
+        /**
+         * 边界四周扩张同等距离
+         * @param {Number} offset
+         */
+        expand: function (offset) {
+            this.min.x -= offset
+            this.min.y -= offset
+            this.max.x += offset
+            this.max.y += offset
+        },
+        /**
+         * 边界四周缩小同等距离
+         * @param {Number} offset
+         */
+        shrink: function (offset) {
+            this.min.x += offset
+            this.min.y += offset
+            this.max.x -= offset
+            this.max.y -= offset
+            if (this.min.x > this.max.x || this.min.y > this.max.y) {
+                throw 'offset is too big'
+            }
+        },
+        /**
+         * 判断是否相交
+         * @param {Bound} bound
+         * @return {Boolean}
+         */
+        intersectWith: function (bound) {
+            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
+            var tarMin = bound.min,
+                tarMax = bound.max
+            var intersectX = (tarMax.x >= this.min.x) && (tarMin.x <= this.max.x),
+                intersectY = (tarMax.y >= this.min.y) && (tarMin.y <= this.max.y)
+            return intersectX && intersectY
         },
         /**
          * 判断是否存在重叠区域
@@ -148,6 +167,9 @@ var Bound = Class.extend({
             var overlapX = (tarMax.x <= this.max.x) && (tarMin.x >= this.min.x),
                 overlapY = (tarMax.y <= this.max.y) && (tarMin.y >= this.min.y)
             return overlapX && overlapY
+        },
+        containsPoint: function (point) {
+            return point.x >= this.min.x && point.x <= this.max.x && point.y >= this.min.y && point.y <= this.max.y
         }
     }
 })

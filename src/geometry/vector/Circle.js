@@ -13,6 +13,7 @@ import {
 import {
     Bound
 } from "../Bound";
+import { Lnglat } from "../../geo/Lnglat";
 
 /**
  * 圆
@@ -21,15 +22,15 @@ import {
 var Circle = IGeometry.extend({
     name: 'Circle',
     /**
-     * @function Circle(Point:center, Number:radius, Object:style)
+     * @function Circle(Point || Lnglat:center, Number:radius, Object:style)
      * 圆形要素
      * 参数:中心坐标,半径,以及渲染样式
      */
-    constructor: function (center, radius, style) {
-        if (!center.isInstanceOf(Point)) throw 'center is not instance of Point!'
+    constructor: function (config) {
+        if (!config.center) throw 'Circle config lack of center'
         // 圆心
-        var _center = center
-        this.defProp( 'center', {
+        var _center
+        this.defProp('center', {
             get: () => {
                 return _center
             },
@@ -39,9 +40,9 @@ var Circle = IGeometry.extend({
             }
         })
         // 半径
-        if (isNaN(radius)) throw 'radius is not a Number!'
-        var _radius = radius
-        this.defProp( 'radius', {
+        if (isNaN(config.radius)) throw 'Circle radius is not a Number!'
+        var _radius = 0
+        this.defProp('radius', {
             get: () => {
                 return _radius
             },
@@ -49,35 +50,38 @@ var Circle = IGeometry.extend({
                 _radius = val
             }
         })
-        // 边界
-        this.defProp('bound', {
-            get: () => {
-                var lt = this.center.reduce(new Point(this.radius, this.radius)),
-                    rb = this.center.plus(new Point(this.radius, this.radius))
-                return new Bound(lt, rb)
-            }
-        })
-        if (style) {
-            UtilObj.extend(this.style, style)
+        // 重新计算边界
+        this.on('centerchange radiuschange', _calBound)
+
+        // 参数赋值
+        this.center = new Point(config.center)
+        delete config.center
+        UtilObj.extend(this, config)
+
+        // 重新计算边界
+        function _calBound() {
+            var lt = this.center.reduce(new Point(this.radius, this.radius)),
+                rb = this.center.plus(new Point(this.radius, this.radius))
+            this.bound = new Bound(lt, rb)
         }
     },
     publics: {
         render: function (ctx) {
-            ctx.save()
-            if (this.isMousehover) UtilObj.replace(ctx, this.interactiveStyle)
-            else UtilObj.replace(ctx, this.style)
             if (this.fill) {
                 Graphics.circle(ctx, this.center, this.radius, true)
             }
             if (this.stroke) {
                 Graphics.circle(ctx, this.center, this.radius, false)
             }
-            ctx.restore()
             return this
         },
         containsPoint(point, tolerance) {
             if (!point.isInstanceOf(Point)) throw 'param is not instance of Point'
-            return this.center.distanceTo(point) <= this.radius * 1.1
+            return this.bound.containsPoint(point)&&this.center.distanceTo(point) <= this.radius + (tolerance || this.tolerance)
+        },
+        project: function (crs) {
+            this.center = crs.lnglatToMapPoint(new Lnglat(this.center.x, this.center.y))
+            return this
         }
     }
 })

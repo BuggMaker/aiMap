@@ -10,7 +10,7 @@ import {
 } from '../core/Class'
 
 /**
- * Class Event(Object:target,EventType:type,function:callback,bool:once)
+ * Class Event(Object:target,EventType || String:type,function:callback,bool:once)
  * 事件数据结构
  * 记录事件的目标对象,类型.是否执行一次,回调函数
  * 参数:触发事件的对象/事件类型/回调函数/是否只执行一次

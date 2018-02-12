@@ -14,7 +14,7 @@ import { Point } from "../../geometry/vector/Point";
  */
 const WebMecrator = {
     R: 6378137,
-    piR:20037508.3427892,
+    PI_R:20037508.3427892,
     R_MINOR: 6356752.314245179,
     bound: new Bound([-20037508.3427892, 20037508.3427892], [20037508.3427892, -20037508.3427892]),
     project: function (lnglat) {

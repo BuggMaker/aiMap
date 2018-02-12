@@ -14,7 +14,9 @@ import {
 import {
     isArray
 } from "../utils/Util";
-import { EventType } from "../events/Event";
+import {
+    EventType
+} from "../events/Event";
 
 /**
  * 几何类型接口
@@ -37,12 +39,27 @@ var IGeometry = IRender.extend({
         //     type: GeoType.Feature,
         //     coordinates: []
         // })
-        this.bound = new Bound()
-        // 点集
-        this.points = []
-        // 其他部分(伙伴)
-        this.partners = []
-        // 鼠标捕获容差
+        var _bound = new Bound()
+        this.defProp('bound', {
+            get: () => {
+                return _bound
+            },
+            set: (val) => {
+                _bound = val
+            }
+        })
+        // 其他部分 和自己是同等类型即Multiple
+        this.multiple = false
+        var _parts = []
+        this.defProp('parts', {
+            get: () => {
+                return _parts
+            },
+            set: (val) => {
+                _parts = val
+            }
+        })
+        // 鼠标捕获容差 平面坐标（米、像素）
         this.tolerance = 5
         // 鼠标悬停
         this.isMousehover = false
@@ -50,17 +67,17 @@ var IGeometry = IRender.extend({
         // 初始化鼠标事件
         this.on(EventType.menter, function (mpos) {
             this.isMousehover = true
-            // this.onmouseenter && this.onmouseenter(mpos)
+            this.parent.parent.container.style['cursor'] = 'pointer'
         })
         this.on(EventType.mleave, function (mpos) {
             this.isMousehover = false
-            // this.onmouseleave && this.onmouseleave(mpos)
+            this.parent.parent.container.style['cursor'] = 'default'   
         })
     },
     publics: {
         // 主要用于检测点是否与几何要素有交集(鼠标点在要素边上或者内部,以实现鼠标对要素的捕获)
         containsPoint: function (point, tolerance) {
-            throw `function 'contains' of ${this.name} is unrealized!`
+            throw `function 'containsPoint(Point:point,Number:tolerance)' of ${this.name} is unrealized!`
         },
         // 添加至图层
         addTo: function (ly) {
@@ -79,6 +96,17 @@ var IGeometry = IRender.extend({
         reRender() {
             this.parent && this.parent.render()
             return this
+        },
+        // 添加部分
+        addPart: function (geo) {
+            this.parts.publics(geo)
+        },
+        // 移除部分
+        removePart: function (geo) {
+            this.parts.remove(geo)
+        },
+        project:function(crs){
+            throw `function project of ${this.name} is unrealized`
         }
     }
 })

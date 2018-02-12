@@ -39,17 +39,19 @@ var Evented = Class.extend({
             if (typeof types === 'string') {
                 types = types.split1(' ')
                 types.forEach(tn => {
-                    targetTypes.push(EventType[tn])
+                    if (EventType[tn])
+                        targetTypes.push(EventType[tn])
+                    else
+                        targetTypes.push(tn)
                 })
             } else if (isArray(types)) {
                 types.forEach(tn => {
-                    if (typeof tn === 'string') {
+                    if (EventType[tn])
                         targetTypes.push(EventType[tn])
-                    } else {
+                    else
                         targetTypes.push(tn)
-                    }
                 })
-            }else if(typeof types === 'number'){
+            } else if (typeof types === 'number') {
                 targetTypes.push(types)
             }
             targetTypes.forEach(t => {

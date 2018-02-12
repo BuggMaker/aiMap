@@ -61,7 +61,7 @@ var A =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,8 +69,50 @@ var A =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_index__ = __webpack_require__(8);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Size", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Class", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Item", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_index__ = __webpack_require__(11);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EventType", function() { return __WEBPACK_IMPORTED_MODULE_1__events_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Evented", function() { return __WEBPACK_IMPORTED_MODULE_1__events_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geo_index__ = __webpack_require__(22);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Lnglat", function() { return __WEBPACK_IMPORTED_MODULE_2__geo_index__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "GeoJson", function() { return __WEBPACK_IMPORTED_MODULE_2__geo_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "GeoType", function() { return __WEBPACK_IMPORTED_MODULE_2__geo_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_index__ = __webpack_require__(4);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UtilObj", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["d"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "extend", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["g"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["j"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "replace", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["k"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["f"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isInstanceOf", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["i"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Color", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorRGBA", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorRamp", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "colors", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["e"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isArray", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["h"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__map_index__ = __webpack_require__(23);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Map", function() { return __WEBPACK_IMPORTED_MODULE_4__map_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Layer", function() { return __WEBPACK_IMPORTED_MODULE_4__map_index__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geometry_index__ = __webpack_require__(12);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_5__geometry_index__) if(["Size","Class","Item","EventType","Evented","Lnglat","GeoJson","GeoType","UtilObj","extend","merge","replace","copy","isInstanceOf","Color","ColorRGBA","ColorRamp","colors","isArray","Map","Layer","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_5__geometry_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+
+
+
+
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Class; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_index__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_index__ = __webpack_require__(4);
 // Base class in aiMap
 
 
@@ -205,14 +247,14 @@ Class.public = function (publics) {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Point; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IGeometry__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_Class__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IGeometry__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_Class__ = __webpack_require__(1);
 
 
 
@@ -231,14 +273,19 @@ var Point = __WEBPACK_IMPORTED_MODULE_2__core_Class__["a" /* Class */].extend({
             if (Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(args[0])) {
                 ary = args[0]
             } else if (!isNaN(args[0].x) && !isNaN(args[0].y)) {
-                return new Point(args[0].x, args[0].y)
+                this.x = args[0].x
+                this.y = args[0].y
+            } else if (Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(args[0])) {
+                ary = args[0]
             } else {
                 throw `Wrong format of Point or Array`
             }
-        } else {
+        } else if (args.length >= 2) {
             ary = args
+        } else {
+            this.x = 0
+            this.y = 0
         }
-
         if (ary.length >= 2) {
             this.x = ary[0]
             this.y = ary[1]
@@ -259,65 +306,202 @@ var Point = __WEBPACK_IMPORTED_MODULE_2__core_Class__["a" /* Class */].extend({
 })
 
 /***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_index__ = __webpack_require__(6);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Size", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Class", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Item", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_index__ = __webpack_require__(8);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EventType", function() { return __WEBPACK_IMPORTED_MODULE_1__events_index__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Evented", function() { return __WEBPACK_IMPORTED_MODULE_1__events_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geo_index__ = __webpack_require__(20);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Lnglat", function() { return __WEBPACK_IMPORTED_MODULE_2__geo_index__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "GeoJson", function() { return __WEBPACK_IMPORTED_MODULE_2__geo_index__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "GeoType", function() { return __WEBPACK_IMPORTED_MODULE_2__geo_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_index__ = __webpack_require__(3);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UtilObj", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["d"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "extend", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["g"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["j"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "replace", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["k"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["f"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isInstanceOf", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["i"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Color", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorRGBA", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorRamp", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["c"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "colors", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["e"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isArray", function() { return __WEBPACK_IMPORTED_MODULE_3__utils_index__["h"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__map_index__ = __webpack_require__(21);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Map", function() { return __WEBPACK_IMPORTED_MODULE_4__map_index__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Layer", function() { return __WEBPACK_IMPORTED_MODULE_4__map_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geometry_index__ = __webpack_require__(9);
-/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_5__geometry_index__) if(["Size","Class","Item","EventType","Evented","Lnglat","GeoJson","GeoType","UtilObj","extend","merge","replace","copy","isInstanceOf","Color","ColorRGBA","ColorRamp","colors","isArray","Map","Layer","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_5__geometry_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-
-
-
-
-
-
-/***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UtilObject__ = __webpack_require__(12);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Bound; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Size__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vector_Point__ = __webpack_require__(2);
+
+
+
+
+
+/**
+ * 边界
+ * 一般指世界坐标系的图形对象的外接矩形
+ * @param {Point,Point || Array} pt1,pt2 || [[x1,y1],[x2,y2]]
+ */
+var Bound = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
+    name: 'Bound',
+    constructor: function (...args) {
+        // 范围
+        this.min = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](Number.MAX_VALUE, Number.MAX_VALUE)
+        this.max = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](Number.MIN_VALUE, Number.MIN_VALUE)
+        //根据参数 重新计算范围
+        var points = []
+        if (args.length == 1 && Object(__WEBPACK_IMPORTED_MODULE_2__index__["isArray"])(args[0]) && args[0].length >= 2) {
+            var ary = args[0]
+            for (let index = 0; index < ary.length; index++) {
+                var pt = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](ary[index])
+                points.push(pt1)
+            }
+        } else if (args.length == 2) {
+            var pt1 = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](args[0]),
+                pt2 = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](args[1])
+            points.push(pt1)
+            points.push(pt2)
+        }
+        points.forEach(pt => {
+            this.min.x = Math.min(pt.x, this.min.x)
+            this.min.y = Math.min(pt.y, this.min.y)
+            this.max.x = Math.max(pt.x, this.max.x)
+            this.max.y = Math.max(pt.y, this.max.y)
+        })
+
+        // 尺寸
+        this.defProp('size', {
+            get: () => {
+                return new __WEBPACK_IMPORTED_MODULE_1__core_Size__["a" /* Size */](this.max.x - this.min.x, this.max.y - this.min.y)
+            }
+        })
+        // 中心
+        this.defProp('center', {
+            get: () => {
+                return new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](this.min.x + this.size.width / 2, this.min.y + this.size.height / 2)
+            }
+        })
+    },
+    publics: {
+        /**
+         * 取交集
+         * @param {Bound} bound
+         * @return {Bound} 新的Bound对象
+         */
+        intersection: function (bound) {
+            // throw `function 'intersect' of ${this.name} is unrealized!`
+            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
+            var result = new Bound()
+            var tarMin = bound.min,
+                tarMax = bound.max
+            result.min.x = Math.max(tarMin.x, this.min.x)
+            result.min.y = Math.max(tarMin.y, this.min.y)
+            result.max.x = Math.min(tarMax.x, this.max.x)
+            result.max.y = Math.min(tarMax.y, this.max.y)
+            return result
+        },
+        /**
+         * 取并集 
+         * @param {Bound} bound
+         * @return {Bound} 返回新的Bound对象
+         */
+        union: function (bound) {
+            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
+            var result = new Bound()
+            var tarMin = bound.min,
+                tarMax = bound.max
+            result.min.x = Math.min(tarMin.x, this.min.x)
+            result.min.y = Math.min(tarMin.y, this.min.y)
+            result.max.x = Math.max(tarMax.x, this.max.x)
+            result.max.y = Math.max(tarMax.y, this.max.y)
+            return result
+        },
+        /**
+         * 扩充当前范围
+         * @param {Bound} bound
+         * @return {this}
+         */
+        extend: function (bound) {
+            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
+            var tarMin = bound.min,
+                tarMax = bound.max
+            this.min.x = Math.min(tarMin.x, this.min.x)
+            this.min.y = Math.min(tarMin.y, this.min.y)
+            this.max.x = Math.max(tarMax.x, this.max.x)
+            this.max.y = Math.max(tarMax.y, this.max.y)
+
+            return this
+        },
+        /**
+         * 边界四周扩张同等距离
+         * @param {Number} offset
+         */
+        expand: function (offset) {
+            this.min.x -= offset
+            this.min.y -= offset
+            this.max.x += offset
+            this.max.y += offset
+        },
+        /**
+         * 边界四周缩小同等距离
+         * @param {Number} offset
+         */
+        shrink: function (offset) {
+            this.min.x += offset
+            this.min.y += offset
+            this.max.x -= offset
+            this.max.y -= offset
+            if (this.min.x > this.max.x || this.min.y > this.max.y) {
+                throw 'offset is too big'
+            }
+        },
+        /**
+         * 判断是否相交
+         * @param {Bound} bound
+         * @return {Boolean}
+         */
+        intersectWith: function (bound) {
+            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
+            var tarMin = bound.min,
+                tarMax = bound.max
+            var intersectX = (tarMax.x >= this.min.x) && (tarMin.x <= this.max.x),
+                intersectY = (tarMax.y >= this.min.y) && (tarMin.y <= this.max.y)
+            return intersectX && intersectY
+        },
+        /**
+         * 判断是否存在重叠区域
+         * @param {Bound} bound
+         * @return {Boolean} 
+         */
+        overlapWith: function (bound) {
+            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
+            var tarMin = bound.min,
+                tarMax = bound.max
+            var overlapX = (tarMax.x > this.min.x) && (tarMin.x < this.max.x),
+                overlapY = (tarMax.y > this.min.y) && (tarMin.y < this.max.y)
+            return overlapX && overlapY
+        },
+        /**
+         * 判断是否完全覆盖目标范围,cover
+         * @param {Bound} bound
+         */
+        coverWidth: function (bound) {
+            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
+            var tarMin = bound.min,
+                tarMax = bound.max
+            var overlapX = (tarMax.x <= this.max.x) && (tarMin.x >= this.min.x),
+                overlapY = (tarMax.y <= this.max.y) && (tarMin.y >= this.min.y)
+            return overlapX && overlapY
+        },
+        containsPoint: function (point) {
+            return point.x >= this.min.x && point.x <= this.max.x && point.y >= this.min.y && point.y <= this.max.y
+        }
+    }
+})
+
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UtilObject__ = __webpack_require__(9);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__UtilObject__; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_0__UtilObject__["extend"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_0__UtilObject__["merge"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_0__UtilObject__["replace"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_0__UtilObject__["copy"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_0__UtilObject__["isInstanceOf"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UtilColor__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UtilColor__ = __webpack_require__(20);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__UtilColor__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__UtilColor__["b"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__UtilColor__["c"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_1__UtilColor__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Util__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Util__ = __webpack_require__(16);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_2__Util__["a"]; });
 
 
@@ -329,14 +513,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 4 */
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Lnglat; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(0);
+
+
+/**
+ * 经纬度类
+ * 参数:先经度,后纬度
+ * @param {Object || Array || Number} args 
+ */
+var Lnglat = function (...args) {
+    var lng = 0,
+        lat = 0
+    if (args.length == 1) {
+        var ele = args[0]
+        if (Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(ele) && ele.length >= 2) {
+            lng = ele[0]
+            lat = ele[1]
+        } else if (ele.lng !== undefined && ele.lat !== undefined) {
+            lat = ele.lat
+            lng = ele.lng
+        }
+    } else if (args.length >= 2) {
+        lng = args[0]
+        lat = args[1]
+    } else {
+        throw 'Invalid parama for Lnglat!'
+    }
+    this.lng = lng % 360
+    this.lat = lat
+}
+Lnglat.prototype = {
+    constructor: Lnglat,
+    // 变换为绘图坐标
+    transToPoint: function () {},
+    // 到某点的距离
+    distanceTo: function (other) {}
+}
+
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Event; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return EventType; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_index__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Class__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_index__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Class__ = __webpack_require__(1);
 /**
  * 事件类
  * by BuggMaker
@@ -345,7 +574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /**
- * Class Event(Object:target,EventType:type,function:callback,bool:once)
+ * Class Event(Object:target,EventType || String:type,function:callback,bool:once)
  * 事件数据结构
  * 记录事件的目标对象,类型.是否执行一次,回调函数
  * 参数:触发事件的对象/事件类型/回调函数/是否只执行一次
@@ -382,159 +611,113 @@ const EventType = {
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Bound; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Size__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vector_Point__ = __webpack_require__(1);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IGeometry; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__map_IRender__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_index__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geo_GeoJson__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Util__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__events_Event__ = __webpack_require__(6);
+
+
 
 
 
 
 
 /**
- * 边界
- * 一般指世界坐标系的图形对象的外接矩形
- * @param {Point,Point || Array} pt1,pt2 || [[x1,y1],[x2,y2]]
+ * 几何类型接口
  */
-var Bound = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
-    name: 'Bound',
-    constructor: function (...args) {
-        // 范围
-        this.min = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](Number.MAX_VALUE, Number.MAX_VALUE)
-        this.max = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](Number.MIN_VALUE, Number.MIN_VALUE)
-        //根据参数 重新计算范围
-        var points = []
-        if (args.length == 1 && Object(__WEBPACK_IMPORTED_MODULE_2__index__["isArray"])(args[0]) && args[0].length >= 2) {
-            var ary = args[0]
-            for (let index = 0; index < ary.length; index++) {
-                var pt = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](ary[index][0], ary[index][1])
-                points.push(pt1)
-            }
-        } else if (args.length == 2) {
-            var pt1 = args[0],
-                pt2 = args[1]
-            if (!pt1.isInstanceOf(__WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */])) {
-                pt1 = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](args[0])
-                pt2 = new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](args[1])
-            }
-            points.push(pt1)
-            points.push(pt2)
-        }
-        points.forEach(pt => {
-            this.min.x = Math.min(pt.x, this.min.x)
-            this.min.y = Math.min(pt.y, this.min.y)
-            this.max.x = Math.max(pt.x, this.max.x)
-            this.max.y = Math.max(pt.y, this.max.y)
-        })
 
-        // 尺寸
-        var _size
-        this.defProp('size', {
+var IGeometry = __WEBPACK_IMPORTED_MODULE_0__map_IRender__["a" /* IRender */].extend({
+    name: 'IGeometry',
+    supers: [__WEBPACK_IMPORTED_MODULE_1__core_index__["b" /* Item */]],
+    /**
+     * 创建几何要素
+     * 参数需要为标准GeoJson格式或者coordinates数组
+     */
+    constructor: function () {
+        this.id = ''
+        // 属性
+        this.properties = {}
+        // 几何类型及坐标点
+        this.geometry = {}
+        // new GeoJson({
+        //     type: GeoType.Feature,
+        //     coordinates: []
+        // })
+        var _bound = new __WEBPACK_IMPORTED_MODULE_2__Bound__["a" /* Bound */]()
+        this.defProp('bound', {
             get: () => {
-                _size = new __WEBPACK_IMPORTED_MODULE_1__core_Size__["a" /* Size */](this.max.x - this.min.x, this.max.y - this.min.y)
-                return _size
+                return _bound
+            },
+            set: (val) => {
+                _bound = val
             }
         })
-        // 中心
-        var _center
-        this.defProp('center', {
+        // 其他部分 和自己是同等类型即Multiple
+        this.multiple = false
+        var _parts = []
+        this.defProp('parts', {
             get: () => {
-                return new __WEBPACK_IMPORTED_MODULE_3__vector_Point__["a" /* Point */](this.min.x + this.size.width / 2, this.min.y + this.size.height / 2)
+                return _parts
+            },
+            set: (val) => {
+                _parts = val
             }
+        })
+        // 鼠标捕获容差 平面坐标（米、像素）
+        this.tolerance = 5
+        // 鼠标悬停
+        this.isMousehover = false
+
+        // 初始化鼠标事件
+        this.on(__WEBPACK_IMPORTED_MODULE_5__events_Event__["b" /* EventType */].menter, function (mpos) {
+            this.isMousehover = true
+            this.parent.parent.container.style['cursor'] = 'pointer'
+        })
+        this.on(__WEBPACK_IMPORTED_MODULE_5__events_Event__["b" /* EventType */].mleave, function (mpos) {
+            this.isMousehover = false
+            this.parent.parent.container.style['cursor'] = 'default'   
         })
     },
     publics: {
-        /**
-         * 判断是否相交
-         * @param {Bound} bound
-         * @return {Boolean}
-         */
-        intersectWith: function (bound) {
-            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
-            var tarMin = bound.min,
-                tarMax = bound.max
-            var intersectX = (tarMax.x >= this.min.x) && (tarMin.x <= this.max.x),
-                intersectY = (tarMax.y >= this.min.y) && (tarMin.y <= this.max.y)
-            return intersectX && intersectY
+        // 主要用于检测点是否与几何要素有交集(鼠标点在要素边上或者内部,以实现鼠标对要素的捕获)
+        containsPoint: function (point, tolerance) {
+            throw `function 'containsPoint(Point:point,Number:tolerance)' of ${this.name} is unrealized!`
         },
-        /**
-         * 取交集
-         * @param {Bound} bound
-         * @return {Bound} 新的Bound对象
-         */
-        intersection: function (bound) {
-            // throw `function 'intersect' of ${this.name} is unrealized!`
-            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
-            var result = new Bound()
-            var tarMin = bound.min,
-                tarMax = bound.max
-            result.min.x = Math.max(tarMin.x, this.min.x)
-            result.min.y = Math.max(tarMin.y, this.min.y)
-            result.max.x = Math.min(tarMax.x, this.max.x)
-            result.max.x = Math.min(tarMax.y, this.max.y)
-            return result
-        },
-        /**
-         * 取并集 
-         * @param {Bound} bound
-         * @return {Bound} 返回新的Bound对象
-         */
-        union: function (bound) {
-            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
-            var result = new Bound()
-            var tarMin = bound.min,
-                tarMax = bound.max
-            result.min.x = Math.min(tarMin.x, this.min.x)
-            result.min.y = Math.min(tarMin.y, this.min.y)
-            result.max.x = Math.max(tarMax.x, this.max.x)
-            result.max.x = Math.max(tarMax.y, this.max.y)
-            return result
-        },
-        /**
-         * 扩充当前范围
-         * @param {Bound} bound
-         * @return {this}
-         */
-        extend: function (bound) {
-            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
-            var tarMin = bound.min,
-                tarMax = bound.max
-            this.min.x = Math.min(tarMin.x, this.min.x)
-            this.min.y = Math.min(tarMin.y, this.min.y)
-            this.max.x = Math.max(tarMax.x, this.max.x)
-            this.max.x = Math.max(tarMax.y, this.max.y)
-
+        // 添加至图层
+        addTo: function (ly) {
+            ly.geometryAry.push(this)
+            this.parent = ly
             return this
         },
-        /**
-         * 判断是否存在重叠区域
-         * @param {Bound} bound
-         * @return {Boolean} 
-         */
-        overlapWith: function (bound) {
-            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
-            var tarMin = bound.min,
-                tarMax = bound.max
-            var overlapX = (tarMax.x > this.min.x) && (tarMin.x < this.max.x),
-                overlapY = (tarMax.y > this.min.y) && (tarMin.y < this.max.y)
-            return overlapX && overlapY
+        // 从父容器中移除
+        remove: function () {
+            if (this.parent) {
+                this.parent.geometryAry.remove(this)
+            }
+            return this
         },
-        /**
-         * 判断是否完全覆盖目标范围,cover
-         * @param {Bound} bound
-         */
-        coverWidth: function (bound) {
-            if (!bound.isInstanceOf(Bound)) throw 'param is not instance of Bound'
-            var tarMin = bound.min,
-                tarMax = bound.max
-            var overlapX = (tarMax.x <= this.max.x) && (tarMin.x >= this.min.x),
-                overlapY = (tarMax.y <= this.max.y) && (tarMin.y >= this.min.y)
-            return overlapX && overlapY
+        // 主动重新渲染
+        reRender() {
+            this.parent && this.parent.render()
+            return this
+        },
+        // 添加部分
+        addPart: function (geo) {
+            this.parts.publics(geo)
+        },
+        // 移除部分
+        removePart: function (geo) {
+            this.parts.remove(geo)
+        },
+        project:function(crs){
+            throw `function project of ${this.name} is unrealized`
         }
     }
 })
@@ -542,15 +725,15 @@ var Bound = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Size__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Size__ = __webpack_require__(15);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__Size__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Class__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Class__ = __webpack_require__(1);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__Class__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Item__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Item__ = __webpack_require__(10);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__Item__["a"]; });
 
 
@@ -559,151 +742,7 @@ var Bound = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Item; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Class__ = __webpack_require__(0);
-
-
-/**
- * 子元素
- * 如图层/要素等需要加入父容器的子元素
- */
-
-var Item = __WEBPACK_IMPORTED_MODULE_0__Class__["a" /* Class */].extend({
-    name:'Item',
-    constructor:function(){
-        this.parent = null
-    },
-    publics:{
-        // 添加至父容器
-        addTo:function(parent){
-            throw  `function 'addTo' of ${this.name} is unrealized`  
-            // this.parents.push(parent)
-            // parent.addItem(this)
-        },
-        // 从父容器移除
-        remove:function(){
-            throw  `function 'remove' of ${this.name} is unrealized`   
-        }
-    }
-})
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Event__ = __webpack_require__(4);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Event__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Evented__ = __webpack_require__(19);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__Evented__["a"]; });
-
-
-
-
-/***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bound__ = __webpack_require__(5);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Bound", function() { return __WEBPACK_IMPORTED_MODULE_0__Bound__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__grid_index__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__grid_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__grid_index__);
-/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_1__grid_index__) if(["Bound","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_1__grid_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vector_index__ = __webpack_require__(24);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Point", function() { return __WEBPACK_IMPORTED_MODULE_2__vector_index__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Circle", function() { return __WEBPACK_IMPORTED_MODULE_2__vector_index__["a"]; });
-
-
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IRender; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__events_index__ = __webpack_require__(8);
-/**
- * 地图渲染接口
- * 主要包括图形的样式属性及绘图函数
- * by BuggMaker
- */
-
-
-
-var IRender = __WEBPACK_IMPORTED_MODULE_0__events_index__["b" /* Evented */].extend({
-    name: 'IRender',
-    constructor: function () {
-        //样式对象
-        //可以办函绘图上下文所支持所有样式
-        //如fillStyle/strokeStyle/lineWidth等等
-        this.style = {
-            fillStyle:'dodgerblue',
-            strokeStyle :'forestgreen',
-            lineJoin:'round',
-            lineCap:'butt'
-        }
-        // 鼠标捕获后的样式
-        this.interactiveStyle={
-            fillStyle:'forestgreen',
-            strokeStyle :'dodgerblue',
-            lineJoin:'round',
-            lineCap:'butt'
-        }
-        //是否可交互
-        this.interactive = true
-        // 相对于stroke,渲染时是否以某颜色填充(针对面状图形)
-        this.fill = false
-        // 描边
-        this.stroke = true
-    },
-    publics: {
-        /**
-         * @function draw(Object:ctx)
-         * 绘图函数
-         * @param:绘图上下文
-         */
-        render: function (ctx) {
-            throw "function 'render' unrealized"
-            // if (!ctx) throw 'ctx is unavaliable!'
-            // for (const key in this.style) {
-            //     if (style.hasOwnProperty(key)) {
-            //         ctx[key] = style[key];
-            //     }
-            // }
-        }
-    }
-})
-
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Size; });
-/**
- * 尺寸大小类
- * @param {Number} width 
- * @param {Number} height 
- */
-var Size = function (width, height) {
-    this.width = width
-    this.height = height
-}
-
-
-
-/***/ }),
-/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -884,237 +923,146 @@ const defineProp = function (des, key, customer) {
 
 
 /***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Item; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Class__ = __webpack_require__(1);
+
+
+/**
+ * 子元素
+ * 如图层/要素等需要加入父容器的子元素
+ */
+
+var Item = __WEBPACK_IMPORTED_MODULE_0__Class__["a" /* Class */].extend({
+    name:'Item',
+    constructor:function(){
+        this.parent = null
+    },
+    publics:{
+        // 添加至父容器
+        addTo:function(parent){
+            throw  `function 'addTo' of ${this.name} is unrealized`  
+            // this.parents.push(parent)
+            // parent.addItem(this)
+        },
+        // 从父容器移除
+        remove:function(){
+            throw  `function 'remove' of ${this.name} is unrealized`   
+        }
+    }
+})
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Event__ = __webpack_require__(6);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Event__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Evented__ = __webpack_require__(21);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__Evented__["a"]; });
+
+
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bound__ = __webpack_require__(3);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Bound", function() { return __WEBPACK_IMPORTED_MODULE_0__Bound__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__grid_index__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__grid_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__grid_index__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_1__grid_index__) if(["Bound","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_1__grid_index__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vector_index__ = __webpack_require__(26);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Point", function() { return __WEBPACK_IMPORTED_MODULE_2__vector_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Circle", function() { return __WEBPACK_IMPORTED_MODULE_2__vector_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Segment", function() { return __WEBPACK_IMPORTED_MODULE_2__vector_index__["e"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Polyline", function() { return __WEBPACK_IMPORTED_MODULE_2__vector_index__["d"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Polygon", function() { return __WEBPACK_IMPORTED_MODULE_2__vector_index__["c"]; });
+
+
+
+
+/***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = isArray;
-function isArray(ary) {
-    return ary instanceof Array || Array.isArray(ary)
-}
-
-Array.prototype.remove = function (item) {
-    var index = this.indexOf(item)
-    this.splice(index, 1)
-    return this
-}
-
-String.prototype.split1 = function (str, NoEmpty = true) {
-    var res = this.split(str)
-    if (NoEmpty) {
-        for (let index = 0; index < res.length;) {
-            if (res[index].length == 0) {
-                res.splice(index, 1)
-            } else {
-                index++
-            }
-        }
-    }
-    return res
-}
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoJson; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GeoType; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(2);
-
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IRender; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__events_index__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(0);
 /**
- * GeoJson类
- * 检测GeoJso数据格式是否正确
- * @param {GeoJson} data 
- */
-var GeoJson = function (data) {
-    if (!GeoType[data.type]) throw `not format GeoJson, wrong 'type'`
-    this.type = data['type']
-    switch (this.type) {
-        case GeoType.FeatureColledtion:
-            var features = data['features']
-            if (!Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(features)) throw `not format GeoJson, wrong 'features'`
-            this.features = []
-            features.forEach(feature => {
-                this.features.push(new GeoJson(feature))
-            });
-            break
-        case GeoType.GeometryCollection:
-            var geometries = data['geometries']
-            if (!Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(geometries)) throw `not format GeoJson, wrong 'geometries'`
-            this.geometries = []
-            geometries.forEach(feature => {
-                this.geometries.push(new GeoJson(feature))
-            });
-            break
-        case GeoType.Feature:
-            var geometry = data['geometry']
-            if (!geometry) throw `not format GeoJson, wrong 'geometry'`
-            for (const key in data) {
-                if (data.hasOwnProperty(key) && key !== 'geometry') {
-                    this[key] = data[key]
-                }
-            }
-            this.geomrtry = new GeoJson(geometry)
-            break
-        case GeoType.Point:
-        case GeoType.MultiPoint:
-        case GeoType.LineString:
-        case GeoType.MultiLineString:
-        case GeoType.Polygon:
-        case GeoType.MultiPolygon:
-            var coordinates = data['coordinates']
-            if (!Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(coordinates)) throw `not format GeoJson, wrong 'coordinates'`
-            this.coordinates = coordinates
-            break
-    }
-}
-
-GeoJson.check = function (data) {
-    try {
-        var gj = new GeoJson(data)
-    } catch (e) {
-        return false
-    }
-    return true
-}
-
-var GeoType = {
-    Point: 'Point',
-    MultiPoint: 'MultiPoint',
-    LineString: 'LineString',
-    MultiLineString: 'MultiLineString',
-    Polygon: 'Polygon',
-    MultiPolygon: 'MultiPolygon',
-    Feature: 'Feature',
-    FeatureColledtion: 'FeatureColledtion',
-    GeometryCollection: 'GeometryCollection'
-}
-
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Lnglat; });
-/**
- * 经纬度类
- * 参数:先经度,后纬度
- * @param {Object || Array || Number} args 
- */
-var Lnglat = function (...args) {
-    var lng = 0,
-        lat = 0
-    if (args.length == 1) {
-        var ele = args[0]
-        if (ele instanceof Array && ele.length >= 2) {
-            lng = ele[0]
-            lat = ele[1]
-        } else if (ele.lng !== undefined && ele.lat !== undefined) {
-            lat = ele.lat
-            lng = ele.lng
-        }
-    } else if (args.length >= 2) {
-        lng = args[0]
-        lat = args[1]
-    } else {
-        throw 'Invalid parama for Lnglat!'
-    }
-    this.lng = lng % 360
-    this.lat = lat
-}
-Lnglat.prototype = {
-    constructor: Lnglat,
-    // 变换为绘图坐标
-    transToPoint: function () {},
-    // 到某点的距离
-    distanceTo: function (other) {}
-}
-
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IGeometry; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__map_IRender__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_index__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Bound__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geo_GeoJson__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Util__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__events_Event__ = __webpack_require__(4);
-
-
-
-
-
-
-
-/**
- * 几何类型接口
+ * 地图渲染接口
+ * 主要包括图形的样式属性及绘图函数
+ * by BuggMaker
  */
 
-var IGeometry = __WEBPACK_IMPORTED_MODULE_0__map_IRender__["a" /* IRender */].extend({
-    name: 'IGeometry',
-    supers: [__WEBPACK_IMPORTED_MODULE_1__core_index__["b" /* Item */]],
-    /**
-     * 创建几何要素
-     * 参数需要为标准GeoJson格式或者coordinates数组
-     */
+
+
+
+var IRender = __WEBPACK_IMPORTED_MODULE_0__events_index__["b" /* Evented */].extend({
+    name: 'IRender',
     constructor: function () {
-        this.id = ''
-        // 属性
-        this.properties = {}
-        // 几何类型及坐标点
-        this.geometry = {}
-        // new GeoJson({
-        //     type: GeoType.Feature,
-        //     coordinates: []
-        // })
-        this.bound = new __WEBPACK_IMPORTED_MODULE_2__Bound__["a" /* Bound */]()
-        // 点集
-        this.points = []
-        // 其他部分(伙伴)
-        this.partners = []
-        // 鼠标捕获容差
-        this.tolerance = 5
-        // 鼠标悬停
-        this.isMousehover = false
-
-        // 初始化鼠标事件
-        this.on(__WEBPACK_IMPORTED_MODULE_5__events_Event__["b" /* EventType */].menter, function (mpos) {
-            this.isMousehover = true
-            // this.onmouseenter && this.onmouseenter(mpos)
+        //样式对象
+        //可以办函绘图上下文所支持所有样式
+        //如fillStyle/strokeStyle/lineWidth等等
+        var _style = {
+            fillStyle: 'dodgerblue',
+            strokeStyle: 'forestgreen',
+            lineJoin: 'round',
+            lineCap: 'round'
+        }
+        this.defProp('style', {
+            get: () => {
+                return _style
+            },
+            set: val => {
+                __WEBPACK_IMPORTED_MODULE_1__index__["UtilObj"].extend(_style, val)
+            }
         })
-        this.on(__WEBPACK_IMPORTED_MODULE_5__events_Event__["b" /* EventType */].mleave, function (mpos) {
-            this.isMousehover = false
-            // this.onmouseleave && this.onmouseleave(mpos)
+        // 鼠标捕获后的样式
+        var _interactiveStyle = {
+            fillStyle: 'forestgreen',
+            strokeStyle: 'dodgerblue',
+            lineJoin: 'round',
+            lineCap: 'round'
+        }
+        this.defProp('interactiveStyle', {
+            get: () => {
+                return _interactiveStyle
+            },
+            set: val => {
+                __WEBPACK_IMPORTED_MODULE_1__index__["UtilObj"].extend(_interactiveStyle, val)
+            }
         })
+        //是否可交互
+        this.interactive = true
+        // 相对于stroke,渲染时是否以某颜色填充(针对面状图形)
+        this.fill = false
+        // 描边
+        this.stroke = true
     },
     publics: {
-        // 主要用于检测点是否与几何要素有交集(鼠标点在要素边上或者内部,以实现鼠标对要素的捕获)
-        containsPoint: function (point, tolerance) {
-            throw `function 'contains' of ${this.name} is unrealized!`
-        },
-        addTo: function (ly) {
-            ly.geometryAry.push(this)
-            this.parent = ly
-            return this
-        },
-        remove: function () {
-            if (this.parent) {
-                this.parent.geometryAry.remove(this)
-            }
-            return this
-        },
-        reRender() {
-            this.parent && this.parent.render()
-            return this
+        /**
+         * @function draw(Object:ctx)
+         * 绘图函数
+         * @param:绘图上下文
+         */
+        render: function (ctx) {
+            throw "function 'render' unrealized"
+            // if (!ctx) throw 'ctx is unavaliable!'
+            // for (const key in this.style) {
+            //     if (style.hasOwnProperty(key)) {
+            //         ctx[key] = style[key];
+            //     }
+            // }
         }
     }
 })
@@ -1122,14 +1070,14 @@ var IGeometry = __WEBPACK_IMPORTED_MODULE_0__map_IRender__["a" /* IRender */].ex
 
 
 /***/ }),
-/* 17 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Canvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Graphics; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Item__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Item__ = __webpack_require__(10);
 
 
 
@@ -1216,17 +1164,396 @@ var Graphics = {
      */
     circle(ctx, center, radius, isFill) {
         ctx.beginPath()
-        ctx.arc(center.x, center.y, radius,0,2*Math.PI,false)
+        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI, false)
         if (isFill) ctx.fill()
         else ctx.stroke()
     },
-    line(){}
+    /**
+     * 绘制线段
+     * @param {Point} from 
+     * @param {Point} to 
+     */
+    line(ctx,from, to) {
+        ctx.beginPath()
+        ctx.moveTo(from.x, from.y)
+        ctx.lineTo(to.x, to.y)
+        ctx.stroke()
+    }
+}
+
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Size; });
+/**
+ * 尺寸大小类
+ * @param {Number} width 
+ * @param {Number} height 
+ */
+var Size = function (width, height) {
+    this.width = width
+    this.height = height
+}
+
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isArray;
+function isArray(ary) {
+    return ary instanceof Array || Array.isArray(ary)
+}
+
+Array.prototype.remove = function (item) {
+    var index = this.indexOf(item)
+    this.splice(index, 1)
+    return this
+}
+
+String.prototype.split1 = function (str, NoEmpty = true) {
+    var res = this.split(str)
+    if (NoEmpty) {
+        for (let index = 0; index < res.length;) {
+            if (res[index].length == 0) {
+                res.splice(index, 1)
+            } else {
+                index++
+            }
+        }
+    }
+    return res
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GeoType; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(0);
+
+
+/**
+ * GeoJson类
+ * 检测GeoJso数据格式是否正确
+ * @param {GeoJson} data 
+ */
+var GeoJson = function (data) {
+    if (!GeoType[data.type]) throw `not format GeoJson, wrong 'type'`
+    this.type = data['type']
+    switch (this.type) {
+        case GeoType.FeatureColledtion:
+            var features = data['features']
+            if (!Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(features)) throw `not format GeoJson, wrong 'features'`
+            this.features = []
+            features.forEach(feature => {
+                this.features.push(new GeoJson(feature))
+            });
+            break
+        case GeoType.GeometryCollection:
+            var geometries = data['geometries']
+            if (!Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(geometries)) throw `not format GeoJson, wrong 'geometries'`
+            this.geometries = []
+            geometries.forEach(feature => {
+                this.geometries.push(new GeoJson(feature))
+            });
+            break
+        case GeoType.Feature:
+            var geometry = data['geometry']
+            if (!geometry) throw `not format GeoJson, wrong 'geometry'`
+            for (const key in data) {
+                if (data.hasOwnProperty(key) && key !== 'geometry') {
+                    this[key] = data[key]
+                }
+            }
+            this.geomrtry = new GeoJson(geometry)
+            break
+        case GeoType.Point:
+        case GeoType.MultiPoint:
+        case GeoType.LineString:
+        case GeoType.MultiLineString:
+        case GeoType.Polygon:
+        case GeoType.MultiPolygon:
+            var coordinates = data['coordinates']
+            if (!Object(__WEBPACK_IMPORTED_MODULE_0__index__["isArray"])(coordinates)) throw `not format GeoJson, wrong 'coordinates'`
+            this.coordinates = coordinates
+            break
+    }
+}
+
+GeoJson.check = function (data) {
+    try {
+        var gj = new GeoJson(data)
+    } catch (e) {
+        return false
+    }
+    return true
+}
+
+var GeoType = {
+    Point: 'Point',
+    MultiPoint: 'MultiPoint',
+    LineString: 'LineString',
+    MultiLineString: 'MultiLineString',
+    Polygon: 'Polygon',
+    MultiPolygon: 'MultiPolygon',
+    Feature: 'Feature',
+    FeatureColledtion: 'FeatureColledtion',
+    GeometryCollection: 'GeometryCollection'
 }
 
 
 
 /***/ }),
 /* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Segment; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Point__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map_Canvas__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geo_Lnglat__ = __webpack_require__(5);
+
+
+
+
+
+
+
+/**
+ * 线段
+ */
+
+var Segment = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].extend({
+    name: 'Segment',
+    constructor: function (config) {
+        if (!config.from) throw 'Segment config lack of from'
+        if (!config.to) throw 'Segment config lack of to'
+        var _from = new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](),
+            _to = new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */]()
+        this.defProp('from', {
+            get: () => {
+                return _from
+            },
+            set: (val) => {
+                _from = val
+            }
+        })
+        this.defProp('to', {
+            get: () => {
+                return _to
+            },
+            set: (val) => {
+                _to = val
+            }
+        })
+        // 线宽
+        this.defProp('width', {
+            get: () => {
+                return this.style.lineWidth
+            },
+            set: (val) => {
+                this.style.lineWidth = val
+            }
+        })
+        // 长度
+        this.defProp('length', {
+            get: () => {
+                var disY = this.from.y - this.to.y,
+                    disX = this.from.x - this.to.x
+                return this.Math.sqrt(disX * disX + disY + disY)
+            }
+        })
+        this.on('fromchange tochange', _calBound)
+
+        // 参数赋值
+        this.from = new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](config.from)
+        delete config.from
+        this.to = new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](config.to)
+        delete config.to
+
+        __WEBPACK_IMPORTED_MODULE_2__index__["UtilObj"].extend(this, config)
+
+        function _calBound() {
+            this.bound = new __WEBPACK_IMPORTED_MODULE_4__Bound__["a" /* Bound */](this.from, this.to)
+            this.bound.expand(this.width / 2)
+        }
+    },
+    publics: {
+        render: function (ctx) {
+            __WEBPACK_IMPORTED_MODULE_3__map_Canvas__["b" /* Graphics */].line(ctx, this.from, this.to)
+            return this
+        },
+        containsPoint: function (point, tolerance) {
+            if (!this.bound.containsPoint(point)) return false
+            var disY = this.from.y - this.to.y,
+                disX = this.from.x - this.to.x,
+                t = this.width / 2 + (tolerance || this.tolerance)
+            if (disX == 0) {
+                if (Math.abs(point.x - this.from.x) <= t) return true
+            } else {
+                var k = disY / disX,
+                    b = this.from.y - k * this.from.x
+                if (k == 0) {
+                    if (Math.abs(point.y - this.from.y) <= t) return true
+                } else {
+                    var tmpY = k * point.x + b
+                    if (Math.abs(tmpY - point.y) <= t) return true
+                }
+            }
+            return false
+        },
+        project: function (crs) {
+            this.from = crs.lnglatToMapPoint(new __WEBPACK_IMPORTED_MODULE_5__geo_Lnglat__["a" /* Lnglat */](this.from.x, this.from.y))
+            this.to = crs.lnglatToMapPoint(new __WEBPACK_IMPORTED_MODULE_5__geo_Lnglat__["a" /* Lnglat */](this.to.x, this.to.y))
+            return this
+        }
+    }
+})
+
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Polyline; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Segment__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Bound__ = __webpack_require__(3);
+
+
+
+
+
+/**
+ * 折线
+ */
+var Polyline = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].extend({
+    name: 'Polyline',
+    constructor: function (config) {
+        if (!config.points || !Object(__WEBPACK_IMPORTED_MODULE_1__index__["isArray"])(config.points)) throw `wrong param 'points' of Polyline constructor`
+        // 线段集合
+        var _segments = []
+        this.defProp('segments', {
+            get: () => {
+                return _segments
+            },
+            set: val => {
+                _segments = val
+            }
+        })
+
+        // 线宽
+        this.defProp('width', {
+            get: () => {
+                return this.style.lineWidth
+            },
+            set: (val) => {
+                this.style.lineWidth = val
+            }
+        })
+        // 长度
+        this.defProp('length', {
+            get: () => {
+                var length = 0
+                this.segments.forEach(seg => {
+                    length += seg.length
+                })
+                return length
+            }
+        })
+        this.on('segmentschange', _calBound)
+        // 参数赋值
+        var coordinates = config.points
+        delete config.points
+        coordinates.forEach(ary1 => {
+            if (Object(__WEBPACK_IMPORTED_MODULE_1__index__["isArray"])(ary1[0][0])) {
+                this.multiple = true
+                ary1.forEach(ary2 => {
+                    var segs = create(ary2)
+                    this.parts.push(segs)
+                    this.segments = this.segments.concat(segs)
+                })
+            } else {
+                this.segments = create(ary1)
+            }
+
+            function create(ary) {
+                var segs = []
+                for (let i = 0; i < ary.length - 1; i++) {
+                    var seg = new __WEBPACK_IMPORTED_MODULE_2__Segment__["a" /* Segment */]({
+                        from: ary[i],
+                        to: ary[i + 1]
+                    })
+                    __WEBPACK_IMPORTED_MODULE_1__index__["UtilObj"].extend(seg, config)
+                    segs.push(seg)
+                }
+                return segs
+            }
+        })
+        __WEBPACK_IMPORTED_MODULE_1__index__["UtilObj"].extend(this, config)
+
+        function _calBound() {
+            this.segments.forEach(seg => {
+                this.bound.extend(seg.bound)
+            })
+        }
+    },
+    publics: {
+        render: function (ctx) {
+            this.segments.forEach(seg => {
+                seg.render(ctx)
+            })
+            return this
+        },
+        containsPoint: function (point) {
+            var rel = false
+            if (this.multiple) {
+                this.parts.forEach(segs => {
+                    rel = rel ? rel : contain(segs)
+                })
+            } else {
+                rel = contain(this.segments)
+            }
+            return rel
+
+            function contain(segs) {
+                for (let i = 0; i < segs.length; i++) {
+                    const seg = this.segments[i];
+                    if (seg.containsPoint(point)) return true
+                }
+                return false
+            }
+        },
+        project: function (crs) {
+            this.bound = new __WEBPACK_IMPORTED_MODULE_3__Bound__["a" /* Bound */]()
+            this.segments.forEach(seg => {
+                seg.project(crs)
+                this.bound.extend(seg.bound)
+            })
+            return this
+        }
+    }
+})
+
+
+
+/***/ }),
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1353,15 +1680,15 @@ ColorRamp.prototype.getColor = function (val) {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Evented; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_index__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_index__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(0);
 /**
  * 事件集合类
  * by BuggMaker
@@ -1394,17 +1721,19 @@ var Evented = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend(
             if (typeof types === 'string') {
                 types = types.split1(' ')
                 types.forEach(tn => {
-                    targetTypes.push(__WEBPACK_IMPORTED_MODULE_1__Event__["b" /* EventType */][tn])
+                    if (__WEBPACK_IMPORTED_MODULE_1__Event__["b" /* EventType */][tn])
+                        targetTypes.push(__WEBPACK_IMPORTED_MODULE_1__Event__["b" /* EventType */][tn])
+                    else
+                        targetTypes.push(tn)
                 })
             } else if (Object(__WEBPACK_IMPORTED_MODULE_3__index__["isArray"])(types)) {
                 types.forEach(tn => {
-                    if (typeof tn === 'string') {
+                    if (__WEBPACK_IMPORTED_MODULE_1__Event__["b" /* EventType */][tn])
                         targetTypes.push(__WEBPACK_IMPORTED_MODULE_1__Event__["b" /* EventType */][tn])
-                    } else {
+                    else
                         targetTypes.push(tn)
-                    }
                 })
-            }else if(typeof types === 'number'){
+            } else if (typeof types === 'number') {
                 targetTypes.push(types)
             }
             targetTypes.forEach(t => {
@@ -1493,43 +1822,44 @@ var Evented = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend(
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GeoJson__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GeoJson__ = __webpack_require__(17);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__GeoJson__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__GeoJson__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Lnglat__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Lnglat__ = __webpack_require__(5);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__Lnglat__["a"]; });
 
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Map__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Map__ = __webpack_require__(24);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__Map__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Layer__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Layer__ = __webpack_require__(32);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__Layer__["a"]; });
 
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Map; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geometry_index__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_index__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__IRender__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__events_index__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_index__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geo_prj_CRS__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geometry_index__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_index__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__IRender__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__events_index__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_index__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geo_prj_CRS__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__geo_Lnglat__ = __webpack_require__(5);
 /**
  * 地图
  * 作为一个容器,本质是一个div标签,
@@ -1545,16 +1875,20 @@ var Evented = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend(
 
 
 
+
 let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
     name: 'Map',
     // 其他待继承的父类
-    constructor: function (parentId) {
-        var self = this
+    constructor: function (config) {
         // 创建div标签，并加入父容器
-        this.parent = add2Parent(parentId)
+        if (!config.cid) throw 'lack of container id cid'
+        this.parent = _add2Parent.call(this, config.cid)
         // 图层字典
         this.layersDic = new window.Map()
-        this.crs = new __WEBPACK_IMPORTED_MODULE_5__geo_prj_CRS__["a" /* CRS */](256)
+        // 参考系 暂时为 web mecrator
+        this.crs = new __WEBPACK_IMPORTED_MODULE_5__geo_prj_CRS__["a" /* CRS */]()
+        // 数据范围
+        this.bound = new __WEBPACK_IMPORTED_MODULE_0__geometry_index__["Bound"]()
         // 视口范围
         this.defProp('viewbound', {
             get: () => {
@@ -1563,13 +1897,19 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
                 return new __WEBPACK_IMPORTED_MODULE_0__geometry_index__["Bound"](lt, rb)
             }
         })
-        this.bound = new __WEBPACK_IMPORTED_MODULE_0__geometry_index__["Bound"]([0, 0], [this.clientSize.width, this.clientSize.height])
         // 绘图范围
         this.renderBound = new __WEBPACK_IMPORTED_MODULE_0__geometry_index__["Bound"]()
+        this.defProp('renderBound', {
+            get: () => {
+                var offset = 100
+                var lt = this.crs.screenPointToMapPoint(new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](-offset, -offset)),
+                    rb = this.crs.screenPointToMapPoint(new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](this.clientSize.width + offset, this.clientSize.height + offset))
+                return new __WEBPACK_IMPORTED_MODULE_0__geometry_index__["Bound"](lt, rb)
+            }
+        })
         // 视口中心
         var _center
         this.defProp('center', {
-            // writable:false,
             get: (val) => {
                 return this.viewbound.center
             },
@@ -1581,7 +1921,7 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
         // 获取父容器
         // 创建div、设置样式/尺寸并添加至父容器
         // 绑定事件
-        function add2Parent(parentId) {
+        function _add2Parent(parentId) {
             let parent = document.getElementById(parentId)
             if (!parent)
                 throw 'parent tag not exists'
@@ -1589,7 +1929,7 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
                 height = parent.clientHeight || 150;
 
             //div标签大小
-            self.clientSize = new __WEBPACK_IMPORTED_MODULE_4__core_index__["c" /* Size */](width, height)
+            this.clientSize = new __WEBPACK_IMPORTED_MODULE_4__core_index__["c" /* Size */](width, height)
 
             let mapDiv = document.createElement('div')
             mapDiv.style.width = width + 'px'
@@ -1598,13 +1938,13 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
             mapDiv.style.position = 'relative'
             parent.appendChild(mapDiv)
             // 容器
-            self.container = mapDiv
+            this.container = mapDiv
             //绑定事件
             for (const key in parent) {
                 if (key.substr(0, 2) === 'on') {
-                    if (self[key])
-                        parent[key] = function (e) {
-                            self[key](e)
+                    if (this[key])
+                        parent[key] = (e) => {
+                            this[key](e)
                         }
                 }
             }
@@ -1620,7 +1960,7 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
         },
         // 设置地图中心
         setCenter: function (lnglat, level) {
-            var mpt = this.getMapPoint(lnglat)
+            var mpt = this.getMapPoint(new __WEBPACK_IMPORTED_MODULE_7__geo_Lnglat__["a" /* Lnglat */](lnglat))
             this.transform(this.center.x - mpt.x, this.center.y - mpt.y, 1, 0)
             this.zoom(mpt, Math.pow(2, level))
             return this
@@ -1633,8 +1973,8 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
             return this
         },
         // 通过经纬度得到地图点
-        getMapPoint(lnglat) {
-            return this.crs.lnglatToMapPoint(lnglat)
+        getMapPoint(...lnglat) {
+            return this.crs.lnglatToMapPoint(new __WEBPACK_IMPORTED_MODULE_7__geo_Lnglat__["a" /* Lnglat */](...lnglat))
         },
         // 通过屏幕点得到经纬度
         getLnglat(mpos) {
@@ -1659,9 +1999,9 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
             var mpos = new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](e.offsetX, e.offsetY),
                 mapPos = this.crs.screenPointToMapPoint(mpos)
             if (e.wheelDelta > 0) {
-                this.zoom(mapPos, 2)
+                this.zoom(mapPos, 3 / 2)
             } else {
-                this.zoom(mapPos, 0.5)
+                this.zoom(mapPos, 2 / 3)
             }
         },
         // 鼠标点下事件
@@ -1700,39 +2040,55 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
         // 视图缩放
         zoom(center, scale) {
             this.transform(center.x * (1 / scale - 1), center.y * (1 / scale - 1), scale, 0)
+        },
+        project(crs) {
+            if (crs) this.crs = crs
+            this.transform(0, 0, 128 / this.crs.projection.PI_R, 0)
+            return this
         }
     }
 })
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Point__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Point__ = __webpack_require__(2);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__Point__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Circle__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Circle__ = __webpack_require__(27);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__Circle__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Segment__ = __webpack_require__(18);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__Segment__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Polyline__ = __webpack_require__(19);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__Polyline__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Polygon__ = __webpack_require__(28);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__Polygon__["a"]; });
+
+
+
 
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Circle; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Point__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map_Canvas__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bound__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Point__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map_Canvas__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geo_Lnglat__ = __webpack_require__(5);
+
 
 
 
@@ -1746,15 +2102,15 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
 var Circle = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].extend({
     name: 'Circle',
     /**
-     * @function Circle(Point:center, Number:radius, Object:style)
+     * @function Circle(Point || Lnglat:center, Number:radius, Object:style)
      * 圆形要素
      * 参数:中心坐标,半径,以及渲染样式
      */
-    constructor: function (center, radius, style) {
-        if (!center.isInstanceOf(__WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */])) throw 'center is not instance of Point!'
+    constructor: function (config) {
+        if (!config.center) throw 'Circle config lack of center'
         // 圆心
-        var _center = center
-        this.defProp( 'center', {
+        var _center
+        this.defProp('center', {
             get: () => {
                 return _center
             },
@@ -1764,9 +2120,9 @@ var Circle = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].exten
             }
         })
         // 半径
-        if (isNaN(radius)) throw 'radius is not a Number!'
-        var _radius = radius
-        this.defProp( 'radius', {
+        if (isNaN(config.radius)) throw 'Circle radius is not a Number!'
+        var _radius = 0
+        this.defProp('radius', {
             get: () => {
                 return _radius
             },
@@ -1774,35 +2130,38 @@ var Circle = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].exten
                 _radius = val
             }
         })
-        // 边界
-        this.defProp('bound', {
-            get: () => {
-                var lt = this.center.reduce(new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](this.radius, this.radius)),
-                    rb = this.center.plus(new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](this.radius, this.radius))
-                return new __WEBPACK_IMPORTED_MODULE_4__Bound__["a" /* Bound */](lt, rb)
-            }
-        })
-        if (style) {
-            __WEBPACK_IMPORTED_MODULE_2__index__["UtilObj"].extend(this.style, style)
+        // 重新计算边界
+        this.on('centerchange radiuschange', _calBound)
+
+        // 参数赋值
+        this.center = new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](config.center)
+        delete config.center
+        __WEBPACK_IMPORTED_MODULE_2__index__["UtilObj"].extend(this, config)
+
+        // 重新计算边界
+        function _calBound() {
+            var lt = this.center.reduce(new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](this.radius, this.radius)),
+                rb = this.center.plus(new __WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */](this.radius, this.radius))
+            this.bound = new __WEBPACK_IMPORTED_MODULE_4__Bound__["a" /* Bound */](lt, rb)
         }
     },
     publics: {
         render: function (ctx) {
-            ctx.save()
-            if (this.isMousehover) __WEBPACK_IMPORTED_MODULE_2__index__["UtilObj"].replace(ctx, this.interactiveStyle)
-            else __WEBPACK_IMPORTED_MODULE_2__index__["UtilObj"].replace(ctx, this.style)
             if (this.fill) {
                 __WEBPACK_IMPORTED_MODULE_3__map_Canvas__["b" /* Graphics */].circle(ctx, this.center, this.radius, true)
             }
             if (this.stroke) {
                 __WEBPACK_IMPORTED_MODULE_3__map_Canvas__["b" /* Graphics */].circle(ctx, this.center, this.radius, false)
             }
-            ctx.restore()
             return this
         },
         containsPoint(point, tolerance) {
             if (!point.isInstanceOf(__WEBPACK_IMPORTED_MODULE_1__Point__["a" /* Point */])) throw 'param is not instance of Point'
-            return this.center.distanceTo(point) <= this.radius * 1.1
+            return this.bound.containsPoint(point)&&this.center.distanceTo(point) <= this.radius + (tolerance || this.tolerance)
+        },
+        project: function (crs) {
+            this.center = crs.lnglatToMapPoint(new __WEBPACK_IMPORTED_MODULE_5__geo_Lnglat__["a" /* Lnglat */](this.center.x, this.center.y))
+            return this
         }
     }
 })
@@ -1810,16 +2169,90 @@ var Circle = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].exten
 
 
 /***/ }),
-/* 26 */
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Polygon; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Polyline__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_UtilObject__ = __webpack_require__(9);
+
+
+
+/**
+ * 多边形
+ */
+
+var Polygon = __WEBPACK_IMPORTED_MODULE_0__Polyline__["a" /* Polyline */].extend({
+    name: 'Polygon',
+    publics: {
+        render: function (ctx) {
+            ctx.beginPath()
+            if (this.multiple) {
+                this.parts.forEach(segs => {
+                    renderPart.call(this,segs)
+                });
+            } else {
+                renderPart.call(this,this.segments)
+            }
+
+            function renderPart(segs) {
+                ctx.moveTo(segs[0].from.x, segs[0].from.y)
+                for (let i = 1; i < segs.length; i++) {
+                    const seg = segs[i];
+                    ctx.lineTo(seg.from.x, seg.from.y)
+                }
+                ctx.lineTo(segs[0].from.x, segs[0].from.y)
+                if (this.stroke) ctx.stroke()
+                if (this.fill) ctx.fill()
+            }
+        },
+        containsPoint: function (point, tolerance) {
+            let rel = false
+            if (this.multiple) {
+                this.parts.forEach(segs => {
+                    rel = rel ? rel : contain(segs)
+                })
+            } else {
+                rel = contain(this.segments)
+            }
+            return rel;
+
+            function contain(segs) {
+                let rel = false,
+                    start = 0,
+                    index = segs.length - 1;
+                for (let i = start; i < segs.length; i++) {
+                    var pre = segs[i].from,
+                        next = segs[index].from
+
+                    if (pre.y < point.y && next.y >= point.y ||
+                        next.y < point.y && pre.y >= point.y) {
+                        if (pre.x + (point.y - pre.y) / (next.y - pre.y) * (next.x - pre.x) < point.x) {
+                            rel = !rel;
+                        }
+                    }
+                    index = i;
+                }
+                return rel
+            }
+        }
+    }
+})
+
+
+
+/***/ }),
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CRS; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__WebMecrator__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Lnglat__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ViewMartix__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__WebMecrator__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Lnglat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ViewMartix__ = __webpack_require__(31);
 
 
 
@@ -1830,17 +2263,17 @@ var CRS = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
     constructor: function (tileWidth) {
         this.projection = __WEBPACK_IMPORTED_MODULE_1__WebMecrator__["a" /* WebMecrator */]
         this.viewmatrix = new __WEBPACK_IMPORTED_MODULE_4__ViewMartix__["a" /* ViewMartix */]
-        this.rate = 2 * this.projection.piR / tileWidth
+        this.rate = 1 //2 * this.projection.PI_R / tileWidth
     },
     publics: {
         /**
          * 经纬度 转 地图坐标
          */
         lnglatToMapPoint: function (lnglat) {
-            var piR = this.projection.piR
+            var PI_R = this.projection.PI_R
             var pt = this.projection.project(lnglat)
-            var px = pt.x >= piR ? pt.x - piR : piR + pt.x,
-                py = piR - pt.y
+            var px = pt.x >= PI_R ? pt.x - PI_R : PI_R + pt.x,
+                py = PI_R - pt.y
             pt = new __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__["a" /* Point */](px, py)
             return new __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__["a" /* Point */](pt.x / this.rate, pt.y / this.rate)
         },
@@ -1848,10 +2281,10 @@ var CRS = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
          * 地图坐标 转 经纬度
          */
         mapPointToLnglat: function (point) {
-            var piR = this.projection.piR
+            var PI_R = this.projection.PI_R
             var prjPt = new __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__["a" /* Point */](point.x * this.rate, point.y * this.rate)
-            var px = prjPt.x >= piR ? prjPt.x + piR : prjPt.x - piR,
-                py = piR - prjPt.y
+            var px = prjPt.x >= PI_R ? prjPt.x + PI_R : prjPt.x - PI_R,
+                py = PI_R - prjPt.y
             return this.projection.unproject(new __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__["a" /* Point */](px, py))
         },
         /**
@@ -1868,9 +2301,11 @@ var CRS = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
             var spt = this.screenPointToMapPoint(point)//this.viewmatrix.toWorld(point.x, point.y)
             return this.mapPointToLnglat(spt)
         },
+        // 屏幕坐标 转 地理坐标
         screenPointToMapPoint(point){
             return this.viewmatrix.toWorld(point.x, point.y)
         },
+        // 地理坐标转屏幕坐标
         mapPointToScreenPoint(point){
             return this.viewmatrix.toScreen(point.x,point.y)
         },
@@ -1883,14 +2318,14 @@ var CRS = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
 
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WebMecrator; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geometry_Bound__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geometry_Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__ = __webpack_require__(2);
 
 
 
@@ -1903,7 +2338,7 @@ var CRS = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
  */
 const WebMecrator = {
     R: 6378137,
-    piR:20037508.3427892,
+    PI_R:20037508.3427892,
     R_MINOR: 6356752.314245179,
     bound: new __WEBPACK_IMPORTED_MODULE_1__geometry_Bound__["a" /* Bound */]([-20037508.3427892, 20037508.3427892], [20037508.3427892, -20037508.3427892]),
     project: function (lnglat) {
@@ -1939,12 +2374,12 @@ const WebMecrator = {
 
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViewMartix; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geometry_vector_Point__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geometry_vector_Point__ = __webpack_require__(2);
 
 
 /**
@@ -1966,8 +2401,7 @@ let ViewMartix = function () {
 }
 ViewMartix.prototype = {
     /**
-     * 视图变换 
-     * 
+     * 视图变换      * 
      */
     transform: function (disX, disY, scale, rotate) {
         this.scale *= scale;
@@ -2016,20 +2450,22 @@ ViewMartix.prototype = {
 }
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Layer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IRender__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geometry_index__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Canvas__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_Item__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__events_Event__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IRender__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geometry_index__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Canvas__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_Item__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__events_Event__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__index__ = __webpack_require__(0);
 /**
  * 图层类
  * by BuggMaker
  */
+
 
 
 
@@ -2066,7 +2502,7 @@ var Layer = __WEBPACK_IMPORTED_MODULE_0__IRender__["a" /* IRender */].extend({
         this.on(__WEBPACK_IMPORTED_MODULE_4__events_Event__["b" /* EventType */].mmove, function (mpos) {
             var update = false
             this.geometryAry.forEach(geo => {
-                if (!geo.interactive) return
+                if (!geo.interactive || !geo.bound.intersectWith(this.parent.viewbound)) return
                 if (geo.containsPoint(mpos, 0)) {
                     if (!geo.isMousehover) {
                         geo.fire(__WEBPACK_IMPORTED_MODULE_4__events_Event__["b" /* EventType */].menter, mpos)
@@ -2110,13 +2546,19 @@ var Layer = __WEBPACK_IMPORTED_MODULE_0__IRender__["a" /* IRender */].extend({
         // 渲染
         render: function () {
             if (this.visable) {
-                this.canvas.context.save()
-                this.canvas.context.setTransform(1, 0, -0, 1, 0, 0)
-                this.canvas.context.clearRect(0, 0, this.canvas.clientSize.width, this.canvas.clientSize.height)
-                this.canvas.context.restore()
+                var ctx = this.canvas.context
+                ctx.save()
+                ctx.setTransform(1, 0, -0, 1, 0, 0)
+                ctx.clearRect(0, 0, this.canvas.clientSize.width, this.canvas.clientSize.height)
+                ctx.restore()
+
                 this.geometryAry.forEach(geometry => {
                     if (geometry.bound.intersectWith(this.parent.viewbound)) {
-                        geometry.render(this.canvas.context)
+                        ctx.save()
+                        __WEBPACK_IMPORTED_MODULE_5__index__["UtilObj"].replace(ctx, geometry.style)
+                        if (geometry.isMousehover) __WEBPACK_IMPORTED_MODULE_5__index__["UtilObj"].replace(ctx, geometry.interactiveStyle)
+                        geometry.render(ctx)
+                        ctx.restore()
                     }
                 });
             }

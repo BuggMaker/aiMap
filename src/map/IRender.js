@@ -7,6 +7,9 @@
 import {
     Evented
 } from '../events/index'
+import {
+    UtilObj
+} from '../index';
 
 var IRender = Evented.extend({
     name: 'IRender',
@@ -14,19 +17,35 @@ var IRender = Evented.extend({
         //样式对象
         //可以办函绘图上下文所支持所有样式
         //如fillStyle/strokeStyle/lineWidth等等
-        this.style = {
-            fillStyle:'dodgerblue',
-            strokeStyle :'forestgreen',
-            lineJoin:'round',
-            lineCap:'butt'
+        var _style = {
+            fillStyle: 'dodgerblue',
+            strokeStyle: 'forestgreen',
+            lineJoin: 'round',
+            lineCap: 'round'
         }
+        this.defProp('style', {
+            get: () => {
+                return _style
+            },
+            set: val => {
+                UtilObj.extend(_style, val)
+            }
+        })
         // 鼠标捕获后的样式
-        this.interactiveStyle={
-            fillStyle:'forestgreen',
-            strokeStyle :'dodgerblue',
-            lineJoin:'round',
-            lineCap:'butt'
+        var _interactiveStyle = {
+            fillStyle: 'forestgreen',
+            strokeStyle: 'dodgerblue',
+            lineJoin: 'round',
+            lineCap: 'round'
         }
+        this.defProp('interactiveStyle', {
+            get: () => {
+                return _interactiveStyle
+            },
+            set: val => {
+                UtilObj.extend(_interactiveStyle, val)
+            }
+        })
         //是否可交互
         this.interactive = true
         // 相对于stroke,渲染时是否以某颜色填充(针对面状图形)

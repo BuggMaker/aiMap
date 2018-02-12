@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../dist/aiMap.js'></script>
+</head>
+
+<body>
+    <div id='map' style='position:relative;width:1024px;height:512px;background-color:rgb(0,0,0)'></div>
+    <script>
+        window.onload = function () {
+            var map = new A.Map({
+                cid: 'map'
+            })
+            var ly = new A.Layer({
+                index: 0,
+                title: 'point'
+            }).addTo(map)
+
+            var gnt = ly.canvas.context.createRadialGradient(576, 192, 0, 512, 256, 128)
+            gnt.addColorStop('0', 'rgba(255,255,255,0.8)')
+            gnt.addColorStop('1', 'rgba(255,255,255,0.2)')
+            var c = new A.Circle({
+                center: [512, 256],
+                radius: 12,
+                fill: true,
+                stroke: false,
+                style: {
+                    fillStyle: 'white', //gnt
+                    strokeStyle: 'gray'
+                    // shadowBlur: 20,
+                    // shadowColor:'white'
+                }
+            }).addTo(ly)
+            c.on('radiuschange centerchange', function () {
+                var ctx = ly.canvas.context
+                ctx.save()
+                ctx.setTransform(1, 0, 0, 1, 0, 0)
+                ctx.fillStyle = 'rgba(0,0,0,0.2)'
+                ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+                ctx.restore()
+                A.UtilObj.extend(ctx,c.style)
+                c.render(ctx)
+            })
+
+            var angle = 0,
+                dis = 0,
+                step = 8;
+
+            (function frame() {
+                requestAnimationFrame(frame)
+                // 呼吸
+                c.radius = Math.abs(Math.cos(angle % Math.PI)) * 128
+                angle += Math.PI / 90
+
+                // 小尾巴
+                c.center = new A.Point(512 + dis, 256)
+                dis += step
+                if (Math.abs(dis) >= 512) step = -step
+
+            })()
+            map.render()
+        }
+    </script>
+</body>
+
+</html>

@@ -17,6 +17,9 @@ import {
 import {
     EventType
 } from '../events/Event';
+import {
+    UtilObj
+} from '../index';
 
 var Layer = IRender.extend({
     name: 'Layer',
@@ -48,7 +51,7 @@ var Layer = IRender.extend({
         this.on(EventType.mmove, function (mpos) {
             var update = false
             this.geometryAry.forEach(geo => {
-                if (!geo.interactive) return
+                if (!geo.interactive || !geo.bound.intersectWith(this.parent.viewbound)) return
                 if (geo.containsPoint(mpos, 0)) {
                     if (!geo.isMousehover) {
                         geo.fire(EventType.menter, mpos)
@@ -92,13 +95,19 @@ var Layer = IRender.extend({
         // 渲染
         render: function () {
             if (this.visable) {
-                this.canvas.context.save()
-                this.canvas.context.setTransform(1, 0, -0, 1, 0, 0)
-                this.canvas.context.clearRect(0, 0, this.canvas.clientSize.width, this.canvas.clientSize.height)
-                this.canvas.context.restore()
+                var ctx = this.canvas.context
+                ctx.save()
+                ctx.setTransform(1, 0, -0, 1, 0, 0)
+                ctx.clearRect(0, 0, this.canvas.clientSize.width, this.canvas.clientSize.height)
+                ctx.restore()
+
                 this.geometryAry.forEach(geometry => {
                     if (geometry.bound.intersectWith(this.parent.viewbound)) {
-                        geometry.render(this.canvas.context)
+                        ctx.save()
+                        UtilObj.replace(ctx, geometry.style)
+                        if (geometry.isMousehover) UtilObj.replace(ctx, geometry.interactiveStyle)
+                        geometry.render(ctx)
+                        ctx.restore()
                     }
                 });
             }

@@ -1,3 +1,5 @@
+import { isArray } from "../index";
+
 /**
  * 经纬度类
  * 参数:先经度,后纬度
@@ -8,7 +10,7 @@ var Lnglat = function (...args) {
         lat = 0
     if (args.length == 1) {
         var ele = args[0]
-        if (ele instanceof Array && ele.length >= 2) {
+        if (isArray(ele) && ele.length >= 2) {
             lng = ele[0]
             lat = ele[1]
         } else if (ele.lng !== undefined && ele.lat !== undefined) {

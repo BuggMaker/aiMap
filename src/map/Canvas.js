@@ -88,11 +88,21 @@ var Graphics = {
      */
     circle(ctx, center, radius, isFill) {
         ctx.beginPath()
-        ctx.arc(center.x, center.y, radius,0,2*Math.PI,false)
+        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI, false)
         if (isFill) ctx.fill()
         else ctx.stroke()
     },
-    line(){}
+    /**
+     * 绘制线段
+     * @param {Point} from 
+     * @param {Point} to 
+     */
+    line(ctx,from, to) {
+        ctx.beginPath()
+        ctx.moveTo(from.x, from.y)
+        ctx.lineTo(to.x, to.y)
+        ctx.stroke()
+    }
 }
 
 export {

@@ -26,17 +26,23 @@ import {
 import {
     Point
 } from '../geometry/vector/Point';
+import {
+    Lnglat
+} from '../geo/Lnglat';
 
 export let Map = IRender.extend({
     name: 'Map',
     // 其他待继承的父类
-    constructor: function (parentId) {
-        var self = this
+    constructor: function (config) {
         // 创建div标签，并加入父容器
-        this.parent = add2Parent(parentId)
+        if (!config.cid) throw 'lack of container id cid'
+        this.parent = _add2Parent.call(this, config.cid)
         // 图层字典
         this.layersDic = new window.Map()
-        this.crs = new CRS(256)
+        // 参考系 暂时为 web mecrator
+        this.crs = new CRS()
+        // 数据范围
+        this.bound = new Bound()
         // 视口范围
         this.defProp('viewbound', {
             get: () => {
@@ -45,13 +51,19 @@ export let Map = IRender.extend({
                 return new Bound(lt, rb)
             }
         })
-        this.bound = new Bound([0, 0], [this.clientSize.width, this.clientSize.height])
         // 绘图范围
         this.renderBound = new Bound()
+        this.defProp('renderBound', {
+            get: () => {
+                var offset = 100
+                var lt = this.crs.screenPointToMapPoint(new Point(-offset, -offset)),
+                    rb = this.crs.screenPointToMapPoint(new Point(this.clientSize.width + offset, this.clientSize.height + offset))
+                return new Bound(lt, rb)
+            }
+        })
         // 视口中心
         var _center
         this.defProp('center', {
-            // writable:false,
             get: (val) => {
                 return this.viewbound.center
             },
@@ -63,7 +75,7 @@ export let Map = IRender.extend({
         // 获取父容器
         // 创建div、设置样式/尺寸并添加至父容器
         // 绑定事件
-        function add2Parent(parentId) {
+        function _add2Parent(parentId) {
             let parent = document.getElementById(parentId)
             if (!parent)
                 throw 'parent tag not exists'
@@ -71,7 +83,7 @@ export let Map = IRender.extend({
                 height = parent.clientHeight || 150;
 
             //div标签大小
-            self.clientSize = new Size(width, height)
+            this.clientSize = new Size(width, height)
 
             let mapDiv = document.createElement('div')
             mapDiv.style.width = width + 'px'
@@ -80,13 +92,13 @@ export let Map = IRender.extend({
             mapDiv.style.position = 'relative'
             parent.appendChild(mapDiv)
             // 容器
-            self.container = mapDiv
+            this.container = mapDiv
             //绑定事件
             for (const key in parent) {
                 if (key.substr(0, 2) === 'on') {
-                    if (self[key])
-                        parent[key] = function (e) {
-                            self[key](e)
+                    if (this[key])
+                        parent[key] = (e) => {
+                            this[key](e)
                         }
                 }
             }
@@ -102,7 +114,7 @@ export let Map = IRender.extend({
         },
         // 设置地图中心
         setCenter: function (lnglat, level) {
-            var mpt = this.getMapPoint(lnglat)
+            var mpt = this.getMapPoint(new Lnglat(lnglat))
             this.transform(this.center.x - mpt.x, this.center.y - mpt.y, 1, 0)
             this.zoom(mpt, Math.pow(2, level))
             return this
@@ -115,8 +127,8 @@ export let Map = IRender.extend({
             return this
         },
         // 通过经纬度得到地图点
-        getMapPoint(lnglat) {
-            return this.crs.lnglatToMapPoint(lnglat)
+        getMapPoint(...lnglat) {
+            return this.crs.lnglatToMapPoint(new Lnglat(...lnglat))
         },
         // 通过屏幕点得到经纬度
         getLnglat(mpos) {
@@ -141,9 +153,9 @@ export let Map = IRender.extend({
             var mpos = new Point(e.offsetX, e.offsetY),
                 mapPos = this.crs.screenPointToMapPoint(mpos)
             if (e.wheelDelta > 0) {
-                this.zoom(mapPos, 2)
+                this.zoom(mapPos, 3 / 2)
             } else {
-                this.zoom(mapPos, 0.5)
+                this.zoom(mapPos, 2 / 3)
             }
         },
         // 鼠标点下事件
@@ -182,6 +194,11 @@ export let Map = IRender.extend({
         // 视图缩放
         zoom(center, scale) {
             this.transform(center.x * (1 / scale - 1), center.y * (1 / scale - 1), scale, 0)
+        },
+        project(crs) {
+            if (crs) this.crs = crs
+            this.transform(0, 0, 128 / this.crs.projection.PI_R, 0)
+            return this
         }
     }
 })
