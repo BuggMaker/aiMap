@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1024, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Animation</title>
     <script src='../dist/aiMap.js'></script>
 </head>
 
 <body>
-    <div id='map' style='position:relative;width:1024px;height:512px;background-color:rgb(0,0,0)'></div>
+    <div id='map' style='position:relative;width:1024px;height:512px;background-color:black'></div>
     <script>
         window.onload = function () {
             var map = new A.Map({
@@ -21,49 +21,112 @@
                 title: 'point'
             }).addTo(map)
 
-            var gnt = ly.canvas.context.createRadialGradient(576, 192, 0, 512, 256, 128)
-            gnt.addColorStop('0', 'rgba(255,255,255,0.8)')
-            gnt.addColorStop('1', 'rgba(255,255,255,0.2)')
             var c = new A.Circle({
                 center: [512, 256],
-                radius: 12,
+                radius: 128,
                 fill: true,
-                stroke: false,
+                stroke: true,
+                interactive: false,
                 style: {
-                    fillStyle: 'white', //gnt
-                    strokeStyle: 'gray'
-                    // shadowBlur: 20,
-                    // shadowColor:'white'
+                    shadowBlur: 20,
+                    shadowColor: 'white'
                 }
             }).addTo(ly)
-            c.on('radiuschange centerchange', function () {
-                var ctx = ly.canvas.context
-                ctx.save()
-                ctx.setTransform(1, 0, 0, 1, 0, 0)
-                ctx.fillStyle = 'rgba(0,0,0,0.2)'
-                ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-                ctx.restore()
-                A.UtilObj.extend(ctx,c.style)
-                c.render(ctx)
-            })
+            // map.render()
 
-            var angle = 0,
-                dis = 0,
-                step = 8;
+
+            var angle1 = 0,
+                angle2 = 0,
+                ctx = ly.canvas.context,
+                r1 = 0,
+                r2 = 0,
+                step = Math.PI / 180;
+            var cpCnavas = document.createElement('canvas'),
+                cpCtx = cpCnavas.getContext('2d')
+            cpCtx.globalCompositeOperation = 'copy';
+            cpCnavas.width = ctx.canvas.width
+            cpCnavas.height = ctx.canvas.height;
+
+            // breath1(ctx, 5)
+            // breath1(ctx, 10)
+            // breath1(ctx, 15)
+            // breath1(ctx, 20)
+            // breath1(ctx, 25)
+            // breath1(ctx, 30)
+            // breath1(ctx, 35)
+            // breath1(ctx, 40)
 
             (function frame() {
                 requestAnimationFrame(frame)
-                // 呼吸
-                c.radius = Math.abs(Math.cos(angle % Math.PI)) * 128
-                angle += Math.PI / 90
 
-                // 小尾巴
-                c.center = new A.Point(512 + dis, 256)
-                dis += step
-                if (Math.abs(dis) >= 512) step = -step
+                // 呼吸1
+                // clear(ctx)
+                // if (angle1 <= Math.PI / 2) {
+                //     angle1 += step
+                // } else {
+                //     angle2 = angle1
+                //     angle1 = 0
+                // }
+                // r1 = Math.sin(angle1) * c.radius
+                // r2 = Math.sin(angle2) * c.radius
+                // breath(ctx, r1)
+                // breath(ctx, r2, angle1)
 
+                // 呼吸2
+                angle1 = angle1 >= Math.PI / 2 ? 0 : angle1 + step
+                r1 = Math.sin(angle1) * c.radius
+                breath1(ctx, r1)
             })()
-            map.render()
+
+            function breath1(ctx, r) {
+                ctx.save()
+
+                clear(cpCtx)
+                cpCtx.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
+                clear(ctx)
+                ctx.lineWidth = 3
+                ctx.strokeStyle = 'orange'
+                ctx.beginPath()
+                ctx.arc(512, 256, r, 0, 2 * Math.PI, false)
+                ctx.stroke()
+                ctx.closePath()
+
+                ctx.globalAlpha = 0.95
+                ctx.drawImage(cpCtx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
+
+                ctx.restore()
+
+            }
+
+            function breath(ctx, r, angle) {
+                ctx.save()
+
+                ctx.shadowBlur = 2
+                // ctx.shadowColor = 'rgba(255,255,255,0.3)'
+
+                var gnt = ctx.createRadialGradient(512, 256, 0, 512, 256, r)
+                gnt.addColorStop('0', 'rgba(255,0,0,0.05)')
+                if (angle) {
+                    gnt.addColorStop('0.7', `rgba(255,0,0,${0.2*Math.cos(angle)})`)
+                    gnt.addColorStop('1', `rgba(255,0,0,${0.5*Math.cos(angle)})`)
+                } else {
+                    gnt.addColorStop('0.7', 'rgba(255,0,0,0.2)')
+                    gnt.addColorStop('1', 'rgba(255,0,0,0.5)')
+                }
+                ctx.fillStyle = gnt
+                ctx.beginPath()
+                ctx.arc(512, 256, r, 0, 2 * Math.PI, false)
+                ctx.fill()
+
+                ctx.restore()
+            }
+
+            function clear(ctx) {
+                ctx.save()
+                ctx.setTransform(1, 0, 0, 1, 0, 0)
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+                ctx.restore()
+            }
         }
     </script>
 </body>

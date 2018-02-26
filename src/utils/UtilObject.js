@@ -153,9 +153,11 @@ export const defineProp = function (des, key, customer) {
         },
         set: function (newValue) {
             if (customer.set) {
-                customer.set(newValue)
-                // 属性变化钩子函数
-                this.fire(key + 'change')
+                if (des[key] !== newValue) {
+                    customer.set(newValue)
+                    // 属性变化钩子函数
+                    this.fire(key + 'change',newValue)
+                }
             } else {
                 throw `property ${key} is readonly!`
             }

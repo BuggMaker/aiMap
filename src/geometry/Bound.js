@@ -56,6 +56,30 @@ var Bound = Class.extend({
                 return new Point(this.min.x + this.size.width / 2, this.min.y + this.size.height / 2)
             }
         })
+        // 右上角
+        this.defProp('leftTop', {
+            get: () => {
+                return this.min
+            }
+        })
+        // 右上角
+        this.defProp('rightTop', {
+            get: () => {
+                return new Point(this.max.x, this.min.y)
+            }
+        })
+        // 右下角
+        this.defProp('rightBottom', {
+            get: () => {
+                return this.max
+            }
+        })
+        // 左下角
+        this.defProp('leftBottom', {
+            get: () => {
+                return new Point(this.min.x, this.max.y)
+            }
+        })
     },
     publics: {
         /**

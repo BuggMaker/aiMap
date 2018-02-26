@@ -29,7 +29,7 @@ var IGeometry = IRender.extend({
      * 创建几何要素
      * 参数需要为标准GeoJson格式或者coordinates数组
      */
-    constructor: function () {
+    constructor: function (config) {
         this.id = ''
         // 属性
         this.properties = {}
@@ -64,6 +64,19 @@ var IGeometry = IRender.extend({
         // 鼠标悬停
         this.isMousehover = false
 
+        // 是否在视口范围内
+        this.defProp('isIinView', {
+            get: () => {
+                return this.parent && this.parent.parent ? this.bound.intersectWith(this.parent.parent.viewBound) : false
+            }
+        })
+        // 是否需要渲染:可视且在被渲染范围内
+        this.defProp('isNeedRender', {
+            get: () => {
+                return this.visable && (this.parent && this.parent.parent ? this.bound.intersectWith(this.parent.parent.renderBound) : false)
+            }
+        })
+
         // 初始化鼠标事件
         this.on(EventType.menter, function (mpos) {
             this.isMousehover = true
@@ -71,7 +84,7 @@ var IGeometry = IRender.extend({
         })
         this.on(EventType.mleave, function (mpos) {
             this.isMousehover = false
-            this.parent.parent.container.style['cursor'] = 'default'   
+            this.parent.parent.container.style['cursor'] = 'default'
         })
     },
     publics: {
@@ -105,7 +118,8 @@ var IGeometry = IRender.extend({
         removePart: function (geo) {
             this.parts.remove(geo)
         },
-        project:function(crs){
+        // 投影
+        project: function (crs) {
             throw `function project of ${this.name} is unrealized`
         }
     }

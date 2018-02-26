@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Text Clock</title>
+    <script src='../dist/aiMap.js'></script>
+</head>
+
+<body>
+    <div id='map' style="position:relative;width:1024px;height:512px;border:1px solid lightgray;background-color:rgba(0,0,0,1)"></div>
+    <div></div>
+    <label>
+        <input id='showDate' type='checkbox' checked/>时间</label>
+    <script>
+        window.onload = function () {
+
+
+            var map = new A.Map({
+                cid: 'map'
+            })
+            var ly = new A.Layer({
+                index: 0,
+                title: 'text'
+            }).addTo(map)
+
+            var ctx = ly.canvas.context,
+                txt,
+                oldTxt,
+                center = map.center,
+                size = map.clientSize
+            ctx.textBaseline = 'middle'
+            ctx.textAlign = 'center'
+            ctx.font = '32px Arial'
+            ctx.fillStyle = 'rgba(200,200,200,0.5)'
+            // ctx.scale(1.5,1.5)
+
+            var parts = []
+            for (let i = 0; i < 2000; i++) {
+                var c = new A.Circle({
+                    center: [Math.random() * size.width, Math.random() * size.height],
+                    radius: Math.random() * 3
+                })
+                c.centerOrg = new A.Point(c.center.x, c.center.y)
+                parts.push(c)
+            }
+            var showDate = true
+            document.getElementById('showDate').onchange = function (e) {
+                showDate = !showDate
+                txt = 'Hello world!'
+                parts.forEach(c => {
+                    c.center = new A.Point(c.centerOrg.x, c.centerOrg.y)
+                })
+            }
+
+            // setInterval(frame, 20)
+            frame()
+
+            function frame() {
+                requestAnimationFrame(frame)
+
+                var date = getTime(true)
+                if (showDate)
+                    txt = date.hours + ':' + date.minutes + ':' + date.seconds
+                // if (oldTxt == txt) return
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+                oldTxt = txt
+                var txtWidth = ctx.measureText(txt).width
+
+                ctx.save()
+                ctx.setTransform(1, 0, 0, 1, 0, 0)
+                ctx.fillText(txt, center.x, center.y, txtWidth)
+
+                var txtImg = ctx.getImageData(center.x - txtWidth / 2, center.y - txtWidth / 2, txtWidth,
+                        200),
+                    pts = []
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+                ctx.restore()
+
+                for (let c = 0; c < txtImg.width; c += 1) {
+                    var ary = []
+                    for (let r = 0; r < txtImg.height; r += 1) {
+                        for (let i = 0; i < 4; i++) {
+                            const val = txtImg.data[(r * txtImg.width + c) * 4 + i]
+                            if (val > 0) {
+                                ary.push({
+                                    x: c,
+                                    y: r
+                                    // index: num
+                                })
+                                break
+                            }
+                        }
+                    }
+                    pts.push(ary)
+                }
+
+                var num = 0
+                pts.forEach(ary => {
+                    ary.forEach(pt => {
+                        var c = parts[num],
+                            ct = new A.Point(pt.x * 4, pt.y * 4 ),
+                            disX = ct.x - c.center.x,
+                            disY = ct.y - c.center.y,
+                            stepX = disX / 5,
+                            stepY = disY / 5
+
+
+                        c.center = new A.Point(c.center.x + stepX, c.center.y + stepY)
+
+                        ctx.beginPath()
+                        ctx.arc(c.center.x, c.center.y, c.radius, 0, Math.PI * 2, false)
+                        ctx.fill()
+                        num++
+                    })
+                })
+            }
+
+            function getTime(amPM) {
+                var date = new Date(),
+                    hours = date.getHours(),
+                    timeOfDay = '';
+
+                if (!amPM) {
+                    hours = (hours > 12) ? hours -= 12 : hours;
+                    hours = (hours == 0) ? 12 : hours;
+                } else {
+                    hours = ('0' + hours).substr(-2);
+                }
+
+                var minutes = ('0' + date.getMinutes()).substr(-2);
+                var seconds = ('0' + date.getSeconds()).substr(-2);
+                return {
+                    hours: hours,
+                    minutes: minutes,
+                    seconds: seconds,
+                    timeString: hours + " : " + minutes + " : " + seconds
+                };
+            };
+        }
+    </script>
+
+</body>
+
+</html>

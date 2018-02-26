@@ -84,25 +84,54 @@ var Graphics = {
      * 绘制圆形
      * @param {Point} center 
      * @param {Number} radius 
-     * @param {Boolean} isFill 
+     * @param {Object} fill or stroke 
      */
-    circle(ctx, center, radius, isFill) {
+    circle(ctx, center, radius, config) {
         ctx.beginPath()
         ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI, false)
-        if (isFill) ctx.fill()
-        else ctx.stroke()
+        if (config.fill) ctx.fill()
+        if (config.stroke) ctx.stroke()
     },
     /**
      * 绘制线段
      * @param {Point} from 
      * @param {Point} to 
      */
-    line(ctx,from, to) {
+    line(ctx, from, to) {
         ctx.beginPath()
         ctx.moveTo(from.x, from.y)
         ctx.lineTo(to.x, to.y)
         ctx.stroke()
-    }
+    },
+    /**
+     * 绘制矩形
+     * @param {canvas context} ctx 
+     * @param {Point} origin 
+     * @param {Number} width 
+     * @param {Number} height 
+     * @param {Object} config 
+     */
+    rect(ctx, origin, width, height, config) {
+        ctx.beginPath()
+        ctx.moveTo(origin.x, origin.y)
+        ctx.lineTo(origin.x + width, origin.y)
+        ctx.lineTo(origin.x + width, origin.y + height)
+        ctx.lineTo(origin.x, origin.y + height)
+        ctx.lineTo(origin.x, origin.y)
+        
+        if (config.fill) ctx.fill()
+        if (config.stroke) ctx.stroke()
+    },
+    image(ctx,img,origin,width,height){
+        ctx.beginPath()
+        ctx.drawImage(img,origin.x,origin.y,width,height)
+    },
+    clear: function (ctx) {
+        ctx.save()
+        ctx.setTransform(1, 0, -0, 1, 0, 0)
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        ctx.restore()
+    },
 }
 
 export {

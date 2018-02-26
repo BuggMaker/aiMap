@@ -13,11 +13,11 @@ import {
 
 var IRender = Evented.extend({
     name: 'IRender',
-    constructor: function () {
+    constructor: function (config) {
         //样式对象
         //可以办函绘图上下文所支持所有样式
         //如fillStyle/strokeStyle/lineWidth等等
-        var _style = {
+        var _style = config.style || {
             fillStyle: 'dodgerblue',
             strokeStyle: 'forestgreen',
             lineJoin: 'round',
@@ -31,8 +31,9 @@ var IRender = Evented.extend({
                 UtilObj.extend(_style, val)
             }
         })
+        delete config.style
         // 鼠标捕获后的样式
-        var _interactiveStyle = {
+        var _interactiveStyle = config.interactiveStyle || {
             fillStyle: 'forestgreen',
             strokeStyle: 'dodgerblue',
             lineJoin: 'round',
@@ -46,12 +47,28 @@ var IRender = Evented.extend({
                 UtilObj.extend(_interactiveStyle, val)
             }
         })
+        delete config.interactiveStyle
         //是否可交互
-        this.interactive = true
+        this.interactive = config.interactive || true
+        delete config.interactive
         // 相对于stroke,渲染时是否以某颜色填充(针对面状图形)
-        this.fill = false
+        this.fill = config.fill || false
+        delete config.fill
         // 描边
-        this.stroke = true
+        this.stroke = config.stroke || true
+        delete config.stroke
+
+        // 可视性
+        var _vis = config.visable || true
+        this.defProp('visable', {
+            get: () => {
+                return _vis
+            },
+            set: val => {
+                _vis = val
+            }
+        })
+        delete config.visable
     },
     publics: {
         /**

@@ -9,7 +9,8 @@ import {
     Bound
 } from '../geometry/index'
 import {
-    Canvas
+    Canvas,
+    Graphics
 } from './Canvas'
 import {
     Item
@@ -34,6 +35,7 @@ var Layer = IRender.extend({
             if (config.hasOwnProperty(key)) {
                 const element = config[key];
                 this[key] = element
+                delete config[key]
             }
         }
         //数据范围
@@ -44,14 +46,12 @@ var Layer = IRender.extend({
         this.geometryAry = []
         //地图
         this.parent = null
-        //是否可见
-        this.visable = true
 
         // 事件
         this.on(EventType.mmove, function (mpos) {
             var update = false
             this.geometryAry.forEach(geo => {
-                if (!geo.interactive || !geo.bound.intersectWith(this.parent.viewbound)) return
+                if (!geo.interactive || !geo.isNeedRender) return
                 if (geo.containsPoint(mpos, 0)) {
                     if (!geo.isMousehover) {
                         geo.fire(EventType.menter, mpos)
@@ -96,16 +96,25 @@ var Layer = IRender.extend({
         render: function () {
             if (this.visable) {
                 var ctx = this.canvas.context
-                ctx.save()
-                ctx.setTransform(1, 0, -0, 1, 0, 0)
-                ctx.clearRect(0, 0, this.canvas.clientSize.width, this.canvas.clientSize.height)
-                ctx.restore()
-
+                Graphics.clear(ctx)
+                var hoverGeo = []
                 this.geometryAry.forEach(geometry => {
-                    if (geometry.bound.intersectWith(this.parent.viewbound)) {
+                    if (geometry.isNeedRender) {
+                        if (geometry.isMousehover) {
+                            hoverGeo.push(geometry)
+                        } else {
+                            ctx.save()
+                            UtilObj.replace(ctx, geometry.style)
+                            geometry.render(ctx)
+                            ctx.restore()
+                        }
+                    }
+                });
+                hoverGeo.forEach(geometry => {
+                    if (geometry.isNeedRender) {
                         ctx.save()
                         UtilObj.replace(ctx, geometry.style)
-                        if (geometry.isMousehover) UtilObj.replace(ctx, geometry.interactiveStyle)
+                        UtilObj.replace(ctx, geometry.interactiveStyle)
                         geometry.render(ctx)
                         ctx.restore()
                     }
@@ -116,7 +125,6 @@ var Layer = IRender.extend({
         setTransform(m) {
             this.canvas.context.lineWidth = 1 / this.parent.crs.viewmatrix.scale
             this.canvas.context.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
-
         }
     },
     statics: {}

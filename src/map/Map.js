@@ -29,6 +29,15 @@ import {
 import {
     Lnglat
 } from '../geo/Lnglat';
+import {
+    Layer
+} from '.';
+import {
+    SquareCoord
+} from '../geo/prj/coords';
+import {
+    TileLayer
+} from './TileLayer';
 
 export let Map = IRender.extend({
     name: 'Map',
@@ -44,7 +53,7 @@ export let Map = IRender.extend({
         // 数据范围
         this.bound = new Bound()
         // 视口范围
-        this.defProp('viewbound', {
+        this.defProp('viewBound', {
             get: () => {
                 var lt = this.crs.screenPointToMapPoint(new Point(0, 0)),
                     rb = this.crs.screenPointToMapPoint(new Point(this.clientSize.width, this.clientSize.height))
@@ -52,12 +61,12 @@ export let Map = IRender.extend({
             }
         })
         // 绘图范围
-        this.renderBound = new Bound()
         this.defProp('renderBound', {
             get: () => {
-                var offset = 100
-                var lt = this.crs.screenPointToMapPoint(new Point(-offset, -offset)),
-                    rb = this.crs.screenPointToMapPoint(new Point(this.clientSize.width + offset, this.clientSize.height + offset))
+                var offset = 100 / this.crs.viewmatrix.scale,
+                    tmpPt = new Point(offset, offset)
+                var lt = this.viewBound.leftTop.reduce(tmpPt),
+                    rb = this.viewBound.rightBottom.plus(tmpPt)
                 return new Bound(lt, rb)
             }
         })
@@ -65,12 +74,34 @@ export let Map = IRender.extend({
         var _center
         this.defProp('center', {
             get: (val) => {
-                return this.viewbound.center
+                return this.viewBound.center
             },
             set: (val) => {
 
             }
         })
+        // 地图层级
+        var _level = -1
+        this.defProp('level', {
+            get: () => {
+                return _level
+            },
+            set: val => {
+                _level = val
+            }
+        })
+        this.on('levelchange', function () {
+            if (this.tileLayer)
+                this.tileLayer.level = this.level
+        })
+        // 瓦片地图
+        if (config.tile) {
+            this.tileLayer = new TileLayer({
+                index: 0,
+                title: 'Tile Layer',
+                urlTemplate: config.tile
+            }).addTo(this)
+        }
 
         // 获取父容器
         // 创建div、设置样式/尺寸并添加至父容器
@@ -121,9 +152,11 @@ export let Map = IRender.extend({
         },
         // 渲染图层
         render: function () {
+            // 渲染图层
             this.layersDic.forEach(ly => {
                 ly.render()
             });
+            // 最后渲染图名/图例层,待补充
             return this
         },
         // 通过经纬度得到地图点
@@ -153,9 +186,9 @@ export let Map = IRender.extend({
             var mpos = new Point(e.offsetX, e.offsetY),
                 mapPos = this.crs.screenPointToMapPoint(mpos)
             if (e.wheelDelta > 0) {
-                this.zoom(mapPos, 3 / 2)
+                this.zoom(mapPos, 2)
             } else {
-                this.zoom(mapPos, 2 / 3)
+                this.zoom(mapPos, 1 / 2)
             }
         },
         // 鼠标点下事件
@@ -189,6 +222,7 @@ export let Map = IRender.extend({
             this.layersDic.forEach(ly => {
                 ly.setTransform(this.crs.viewmatrix.matrix)
             })
+            this.level = Math.log2(this.crs.viewmatrix.scale / (128 / this.crs.projection.PI_R))
             this.render()
         },
         // 视图缩放

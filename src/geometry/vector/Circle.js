@@ -13,7 +13,9 @@ import {
 import {
     Bound
 } from "../Bound";
-import { Lnglat } from "../../geo/Lnglat";
+import {
+    Lnglat
+} from "../../geo/Lnglat";
 
 /**
  * 圆
@@ -35,8 +37,8 @@ var Circle = IGeometry.extend({
                 return _center
             },
             set: (val) => {
-                if (!val.isInstanceOf(Point)) throw 'new value of center is not instance of Point!'
-                _center = val
+                //if (!val.isInstanceOf(Point)) throw 'new value of center is not instance of Point!'
+                _center = new Point(val)
             }
         })
         // 半径
@@ -67,17 +69,20 @@ var Circle = IGeometry.extend({
     },
     publics: {
         render: function (ctx) {
-            if (this.fill) {
-                Graphics.circle(ctx, this.center, this.radius, true)
-            }
-            if (this.stroke) {
-                Graphics.circle(ctx, this.center, this.radius, false)
-            }
+            // if (this.fill) {
+            Graphics.circle(ctx, this.center, this.radius, {
+                fill: this.fill,
+                stroke: this.stroke
+            })
+            // }
+            // if (this.stroke) {
+            //     Graphics.circle(ctx, this.center, this.radius, false)
+            // }
             return this
         },
         containsPoint(point, tolerance) {
             if (!point.isInstanceOf(Point)) throw 'param is not instance of Point'
-            return this.bound.containsPoint(point)&&this.center.distanceTo(point) <= this.radius + (tolerance || this.tolerance)
+            return this.bound.containsPoint(point) && this.center.distanceTo(point) <= this.radius + (tolerance || this.tolerance)
         },
         project: function (crs) {
             this.center = crs.lnglatToMapPoint(new Lnglat(this.center.x, this.center.y))

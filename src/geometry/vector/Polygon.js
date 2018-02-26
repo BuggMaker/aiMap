@@ -13,7 +13,6 @@ var Polygon = Polyline.extend({
     name: 'Polygon',
     publics: {
         render: function (ctx) {
-            ctx.beginPath()
             if (this.multiple) {
                 this.parts.forEach(segs => {
                     renderPart.call(this,segs)
@@ -23,6 +22,7 @@ var Polygon = Polyline.extend({
             }
 
             function renderPart(segs) {
+                ctx.beginPath()
                 ctx.moveTo(segs[0].from.x, segs[0].from.y)
                 for (let i = 1; i < segs.length; i++) {
                     const seg = segs[i];
