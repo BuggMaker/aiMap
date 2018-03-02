@@ -49,4 +49,4 @@ var ly1 = new A.Layer({
             map.render()
 ```
 #### 如下
-![效果图](https://github.com/BuggMaker/aiMap/blob/master/resources/img/map.png)
+![效果图](https://github.com/BuggMaker/aiMap/blob/master/resources/img/geo-json.png)
