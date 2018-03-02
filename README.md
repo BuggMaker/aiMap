@@ -9,7 +9,7 @@ A geo-data visualization platform
             }).project()
 ```
 # Layer adn Geometry Render
-if the layer is a GIS layer,you need to use the project function to convert the geo-coordinate LangLat to map point
+If the layer is a GIS layer,you need to use the function project to convert the geo-coordinate LangLat to map point.
 ```javascript
 //添加一个图层
 var ly1 = new A.Layer({
