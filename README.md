@@ -8,8 +8,8 @@ A geo-data visualization platform
                 tile: `http://mt2.google.cn/vt/lyrs=m&hl=zh-CN&gl=cn&x={0}&y={1}&z={2}`
             }).project()
 ```
-效果图如下
-![效果图](https://github.com/BuggMaker/aiMap/blob/master/resources/img/geo-json.png)
+#### 效果图如下
+![效果图](https://github.com/BuggMaker/aiMap/blob/master/resources/img/map.png)
 # Layer adn Geometry Render
 If the layer is a GIS layer,you need to use the function project to convert the geo-coordinate LangLat to map point.
 ```javascript
@@ -48,3 +48,5 @@ var ly1 = new A.Layer({
             //渲染地图
             map.render()
 ```
+#### 如下
+![效果图](https://github.com/BuggMaker/aiMap/blob/master/resources/img/map.png)
