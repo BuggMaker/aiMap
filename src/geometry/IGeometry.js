@@ -96,12 +96,14 @@ var IGeometry = IRender.extend({
         addTo: function (ly) {
             ly.geometryAry.push(this)
             this.parent = ly
+            this.parent.bound.extend(this.bound)
             return this
         },
         // 从父容器中移除
         remove: function () {
             if (this.parent) {
                 this.parent.geometryAry.remove(this)
+                this.parent.updateBound()
             }
             return this
         },

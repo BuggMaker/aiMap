@@ -7,7 +7,8 @@ import {
 import {
     Point,
     Tile,
-    EventType
+    EventType,
+    UtilObj
 } from "..";
 import {
     Graphics
@@ -57,58 +58,64 @@ export var TileLayer = Layer.extend({
             }
         })
 
-        this.on('levelchange', function () {
-            _update.call(this)
-        })
-        this.on(EventType.mdrag, function () {
-            _update.call(this)
-        })
-
-        function _update() {
+        // this.on('levelchange', function () {
+        //     _update.call(this)
+        // })
+        // this.on(EventType.mdrag, function () {
+        //     _update.call(this)
+        // })
+    },
+    publics: {
+        render: function () {
+            this.update()
+            var ctx = this.canvas.context
+            ctx.save()
+            Graphics.clear(ctx)
+            for (let i = this.level; i >= 0; i--) {
+                var map = this.tileDictionary.get(this.level - i)
+                map && map.forEach(tile => {
+                    if (tile.isNeedRender) {
+                        ctx.save()
+                        UtilObj.replace(ctx, tile.style)
+                        UtilObj.replace(ctx, tile.interactiveStyle)
+                        tile.render(ctx)
+                        ctx.restore()
+                    }
+                })
+            }
+            ctx.restore()
+        },
+        update: function () {
             // 计算需要显示的tile,没有的添加
             var from = this.coord.getCoord(this.parent.renderBound.leftTop),
                 to = this.coord.getCoord(this.parent.renderBound.rightBottom),
                 coordOrigin = this.coord.origin
 
             var dic = this.tileDictionary.get(this.level) || new Map()
-            for (let r = from.y; r < to.y; r++) {
+            for (let r = from.y; r <= to.y; r++) {
                 if (r >= 0 && r < Math.pow(2, this.level)) {
-                    for (let c = from.x; c < to.x; c++) {
-                        if (c >= 0) {
-                            var col = c % Math.pow(2, this.level)
-                            var org = new Point(coordOrigin.x + c * this.unit, coordOrigin.y + r * this.unit)
-                            var t = new Tile(org, this.unit, {
-                                    level: this.level,
-                                    coord: [c, r],
-                                    imgCoord: [col, r],
-                                    urlTemplate: this.urlTemplate
-                                }),
-                                key = `${c}_${r}`
-                            // 判断tile是否存在,不存在添加,保证每个tile对象只实例化一次
-                            if (!dic.has(key)) {
-                                dic.set(key, t)
-                                t.parent = this
-                            }
+                    for (let c = from.x; c <= to.x; c++) {
+                        // if (c >= 0) {
+                        var sn = Math.pow(2, this.level)
+                        var col = c % sn >= 0 ? c % sn : (c % sn + sn)
+                        var org = new Point(coordOrigin.x + c * this.unit, coordOrigin.y + r * this.unit)
+                        var t = new Tile(org, this.unit, {
+                                level: this.level,
+                                coord: [c, r],
+                                imgCoord: [col, r],
+                                urlTemplate: this.urlTemplate
+                            }),
+                            key = `${c}_${r}`
+                        // 判断tile是否存在,不存在添加,保证每个tile对象只实例化一次
+                        if (!dic.has(key)) {
+                            dic.set(key, t)
+                            t.parent = this
                         }
+                        // }
                     }
                 }
             }!this.tileDictionary.get(this.level) && this.tileDictionary.set(this.level, dic)
             // 后续可设置上限,以免过多内存消耗
-
-            // 重新渲染
-            this.render()
-        }
-    },
-    publics: {
-        render: function () {
-            var ctx = this.canvas.context
-            Graphics.clear(ctx)
-            for (let i = 1; i >= 0; i--) {
-                var map = this.tileDictionary.get(this.level - i)
-                map && map.forEach(tile => {
-                    if (tile.isNeedRender) tile.render(ctx)
-                })
-            }
         }
     }
 })

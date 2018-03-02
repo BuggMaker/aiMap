@@ -38,6 +38,9 @@ import {
 import {
     TileLayer
 } from './TileLayer';
+import {
+    Canvas
+} from './Canvas';
 
 export let Map = IRender.extend({
     name: 'Map',
@@ -71,13 +74,15 @@ export let Map = IRender.extend({
             }
         })
         // 视口中心
-        var _center
         this.defProp('center', {
             get: (val) => {
                 return this.viewBound.center
             },
             set: (val) => {
-
+                var dis = this.center.reduce(new Point(val)),
+                    lt = this.viewBound.leftTop.reduce(dis),
+                    rb = this.viewBound.rightBottom.reduce(dis)
+                this.viewBound = new Bound(lt, rb)
             }
         })
         // 地图层级
@@ -101,7 +106,12 @@ export let Map = IRender.extend({
                 title: 'Tile Layer',
                 urlTemplate: config.tile
             }).addTo(this)
+            // this.tileLayer.parent = this
+            // this.tileLayer.canvas = new Canvas(this.tileLayer)
         }
+
+        this.rendering = false
+        this.firstRender = true
 
         // 获取父容器
         // 创建div、设置样式/尺寸并添加至父容器
@@ -144,19 +154,33 @@ export let Map = IRender.extend({
             return this
         },
         // 设置地图中心
-        setCenter: function (lnglat, level) {
-            var mpt = this.getMapPoint(new Lnglat(lnglat))
+        setCenter: function (mpt, level) {
+            // var mpt = this.crs.getMapPoint(new Lnglat(lnglat)), 1, 0)
             this.transform(this.center.x - mpt.x, this.center.y - mpt.y, 1, 0)
-            this.zoom(mpt, Math.pow(2, level))
+            this.zoom(mpt, Math.pow(2, level || this.level))
+            return this
+        },
+        setCenterLngLat: function (lnglat, level) {
+            var mpt = this.getMapPoint(new Lnglat(lnglat))
+            this.setCenter(mpt, level)
             return this
         },
         // 渲染图层
         render: function () {
+            if (this.rendering) return
+            this.rendering = true
+
+            if (this.firstRender) {
+                this.setCenterLngLat([0, 0])
+                this.firstRender = false
+            }
             // 渲染图层
             this.layersDic.forEach(ly => {
                 ly.render()
             });
             // 最后渲染图名/图例层,待补充
+
+            this.rendering = false
             return this
         },
         // 通过经纬度得到地图点
@@ -176,6 +200,7 @@ export let Map = IRender.extend({
             }
             var mpos = new Point(e.offsetX, e.offsetY)
             var mapPos = this.crs.screenPointToMapPoint(mpos)
+            // 触发鼠标移动或拖拽事件
             this.fire(eType, mapPos)
             this.layersDic.forEach(ly => {
                 ly.fire(eType, mapPos)
@@ -193,37 +218,92 @@ export let Map = IRender.extend({
         },
         // 鼠标点下事件
         onmousedown: function (e) {
-            var eType = EventType.mdown
+            var downDate = Date.now()
             this.isMousedown = true
             var mpos = new Point(e.offsetX, e.offsetY),
-                startPos = this.crs.screenPointToMapPoint(mpos)
-            this.fire(eType, startPos)
+                startPos = this.crs.screenPointToMapPoint(mpos),
+                totalOffset = new Point(0, 0)
+            // 触发点击事件
+            this.fire(EventType.mdown, startPos, downDate)
             this.layersDic.forEach(ly => {
-                ly.fire(eType, startPos)
+                ly.fire(EventType.mdown, startPos, downDate)
             })
             // 绑定鼠标拖拽事件
             this.on(EventType.mdrag, function (endPos) {
                 var offset = endPos.reduce(startPos)
-                this.transform(offset.x, offset.y, 1, 0)
                 this.isMousedrag = false
+                this.transform(offset.x, offset.y, 1, 0)
+                totalOffset = totalOffset.plus(offset)
+            })
+            // 绑定鼠标弹起事件
+            this.on(EventType.mup, function (endPos, upDate) {
+                var disDate = upDate - downDate;
+                if (disDate > 1000 * 0.3) return
+                var vx = Math.abs(totalOffset.x) / disDate,
+                    vy = Math.abs(totalOffset.y) / disDate,
+                    ax = vx / 60,
+                    ay = vy / 60,
+                    dirx = totalOffset.x > 0 ? 1 : -1,
+                    diry = totalOffset.y > 0 ? 1 : -1;
+                this.off(EventType.mup)
+
+
+                var self = this,
+                    animating = false
+                frame()
+
+                function frame() {
+                    animating = true
+                    requestAnimationFrame(frame)
+                    vx -= ax
+                    vy -= ay
+
+                    vx = vx <= 0 ? 0 : vx
+                    vy = vy <= 0 ? 0 : vy
+
+                    if (vx == 0 && vy == 0 || !animating) {
+                        return
+                    }
+
+                    self.transform(vx * dirx, vy * diry, 1, 0)
+                }
+
+                // var tid = setInterval(() => {
+                //     vx -= ax
+                //     vy -= ay
+
+                //     vx = vx <= 0 ? 0 : vx
+                //     vy = vy <= 0 ? 0 : vy
+
+                //     if (vx == 0 && vy == 0) {
+                //         // this.render()
+                //     }
+
+                //     this.transform(vx * dirx, vy * diry, 1, 0, true)
+                // }, 16)
             })
         },
         onmouseup: function (e) {
+            var upDate = Date.now()
             var mpos = new Point(e.offsetX, e.offsetY),
                 mapPos = this.crs.screenPointToMapPoint(mpos)
             this.isMousedown = false
             // 解除鼠标拖拽事件
             this.off(EventType.mdrag)
-            this.fire(EventType.mup, mapPos)
+            this.fire(EventType.mup, mapPos, upDate)
+            this.layersDic.forEach(ly => {
+                ly.fire(EventType.mup, mapPos, upDate)
+            })
         },
         // 视图变换
-        transform: function (disX, disY, scale, rotate) {
+        transform: function (disX, disY, scale, rotate, reRender = true) {
             this.crs.transform(disX, disY, scale, rotate)
             this.layersDic.forEach(ly => {
                 ly.setTransform(this.crs.viewmatrix.matrix)
             })
             this.level = Math.log2(this.crs.viewmatrix.scale / (128 / this.crs.projection.PI_R))
-            this.render()
+            if (reRender)
+                this.render()
         },
         // 视图缩放
         zoom(center, scale) {
@@ -233,6 +313,12 @@ export let Map = IRender.extend({
             if (crs) this.crs = crs
             this.transform(0, 0, 128 / this.crs.projection.PI_R, 0)
             return this
+        },
+        updateBound: function () {
+            this.bound = new Bound()
+            this.layersDic.forEach(ly => {
+                this.bound.extend(ly.bound)
+            })
         }
     }
 })

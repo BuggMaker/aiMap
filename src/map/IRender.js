@@ -21,7 +21,9 @@ var IRender = Evented.extend({
             fillStyle: 'dodgerblue',
             strokeStyle: 'forestgreen',
             lineJoin: 'round',
-            lineCap: 'round'
+            lineCap: 'round',
+            textAlign: 'center',
+            textBaseLine: 'middle'
         }
         this.defProp('style', {
             get: () => {
@@ -37,7 +39,8 @@ var IRender = Evented.extend({
             fillStyle: 'forestgreen',
             strokeStyle: 'dodgerblue',
             lineJoin: 'round',
-            lineCap: 'round'
+            lineCap: 'round',
+            font: '32px Arial'
         }
         this.defProp('interactiveStyle', {
             get: () => {

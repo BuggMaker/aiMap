@@ -7,6 +7,9 @@ import {
 import {
     Point
 } from "..";
+import {
+    UtilObj
+} from "../..";
 
 // var Tile = function (level, row, col) {
 //     this.level = level
@@ -86,27 +89,27 @@ import {
 export var Tile = Square.extend({
     name: 'Tile',
     constructor: function (origin, width, config) {
-        if (config.level !== undefined) {
-            this.defProp('level', {
-                get: () => {
-                    return config.level
-                }
-            })
-        }
-        if (config.coord) {
-            this.defProp('coord', {
-                get: () => {
-                    return new Point(config.coord)
-                }
-            })
-        }
-        if (config.imgCoord) {
-            this.defProp('imgCoord', {
-                get: () => {
-                    return new Point(config.imgCoord)
-                }
-            })
-        }
+        var _level = config.level || 0
+        this.defProp('level', {
+            get: () => {
+                return _level
+            }
+        })
+        delete config.level
+        var _coord = new Point(config.coord)
+        this.defProp('coord', {
+            get: () => {
+                return _coord
+            }
+        })
+        delete config.coord
+        var _imgCoord = new Point(config.imgCoord)
+        this.defProp('imgCoord', {
+            get: () => {
+                return _imgCoord
+            }
+        })
+        delete config.imgCoord
         // 替换模板中的x/y/z,得到tile的URL
         if (!config.urlTemplate) throw `lack of urlTemplate`
         var _url = config.urlTemplate
@@ -127,20 +130,43 @@ export var Tile = Square.extend({
         this.img.onload = () => {
             this.loaded = true
         }
+        UtilObj.extend(this, config)
+        this.timerId = -1
     },
     publics: {
         render: function (ctx) {
             // 如果已加载 直接渲染
             if (this.loaded) {
-                Graphics.image(ctx, this.img, this.origin, this.width, this.height)
+                // Graphics.image(ctx, this.img, this.origin, this.width, this.height)
+                _render.call(this)
             } else {
                 // 如果未加载 加载后渲染
-                var timerId = setInterval(() => {
+                if (this.timerId > 0) clearInterval(this.timerId)
+                this.timerId = setInterval(() => {
                     if (this.loaded) {
-                        clearInterval(timerId)
-                        Graphics.image(ctx, this.img, this.origin, this.width, this.height)
+                        clearInterval(this.timerId)
+                        this.timerId = -1
+                        //Graphics.image(ctx, this.img, this.origin, this.width, this.height)
+                        _render.call(this)
                     }
                 }, 16)
+            }
+
+            function _render() {
+                Graphics.image(ctx, this.img, this.origin, this.width, this.height)
+                if (this.showCoord)
+                    Graphics.rect(ctx, this.origin, this.width, this.height, {
+                        stroke: true
+                    })
+                // if (this.showCoord) {
+                //     ctx.save()
+                //     ctx.transform(1,0,0,1,0,0)
+                //     Graphics.text(ctx, `(${this.level},${this.coord.x},${this.coord.y})`, new Point(0,0), {
+                //         fill: this.fill,
+                //         stroke: this.stroke
+                //     })
+                //     ctx.restore()
+                // }
             }
         }
     }

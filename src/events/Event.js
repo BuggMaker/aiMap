@@ -38,7 +38,8 @@ const EventType = {
     kup: 1,
     kdown: 3,
     kleft: 5,
-    kright: 7
+    kright: 7,
+    update:100
 }
 
 /**

@@ -50,6 +50,9 @@ export var Point = Class.extend({
         },
         reduce(point) {
             return new Point(this.x - point.x, this.y - point.y)
+        },
+        equal: function (point) {
+            return point.x === this.x && point.y === this.y
         }
     }
 })

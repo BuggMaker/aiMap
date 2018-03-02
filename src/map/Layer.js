@@ -71,15 +71,15 @@ var Layer = IRender.extend({
         // 添加要素到图层
         addGeometry: function (geometry) {
             //合并范围
-            this.bound.extend(geometry.bound)
-            this.geometryAry.push(geometry)
+            geometry.addTo(this)
             return this
         },
         // 添加图层到地图
         addTo: function (map) {
             if (map) {
                 this.parent = map
-                map.layersDic.set(this.index, this)
+                this.parent.layersDic.set(this.index, this)
+                this.parent.bound.extend(this.bound)
                 this.canvas = new Canvas(this)
             }
             return this
@@ -88,6 +88,7 @@ var Layer = IRender.extend({
         remove: function () {
             if (this.parent) {
                 this.parent.layersDic.delete(this.index)
+                this.parent.updateBound()
                 this.canvas.remove()
                 this.parent = null
             }
@@ -125,6 +126,12 @@ var Layer = IRender.extend({
         setTransform(m) {
             this.canvas.context.lineWidth = 1 / this.parent.crs.viewmatrix.scale
             this.canvas.context.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
+        },
+        updateBound:function(){
+            this.bound = new Bound()
+            this.geometryAry.forEach(geometry => {
+                this.bound.extend(geometry.bound)
+            })
         }
     },
     statics: {}

@@ -118,13 +118,13 @@ var Graphics = {
         ctx.lineTo(origin.x + width, origin.y + height)
         ctx.lineTo(origin.x, origin.y + height)
         ctx.lineTo(origin.x, origin.y)
-        
+
         if (config.fill) ctx.fill()
         if (config.stroke) ctx.stroke()
     },
-    image(ctx,img,origin,width,height){
+    image(ctx, img, origin, width, height) {
         ctx.beginPath()
-        ctx.drawImage(img,origin.x,origin.y,width,height)
+        ctx.drawImage(img, origin.x, origin.y, width, height)
     },
     clear: function (ctx) {
         ctx.save()
@@ -132,6 +132,14 @@ var Graphics = {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         ctx.restore()
     },
+    text(ctx, txt, center, config) {
+        ctx.beginPath()
+        if (config.fill)
+            ctx.fillText(txt, center.x, center.y)
+
+        if (config.stroke)
+            ctx.strokeText(txt, center.x, center.y)
+    }
 }
 
 export {

@@ -311,12 +311,166 @@ var Point = __WEBPACK_IMPORTED_MODULE_2__core_Class__["a" /* Class */].extend({
         },
         reduce(point) {
             return new Point(this.x - point.x, this.y - point.y)
+        },
+        equal: function (point) {
+            return point.x === this.x && point.y === this.y
         }
     }
 })
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Canvas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Graphics; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Item__ = __webpack_require__(12);
+
+
+
+/**
+ * Canvas画布
+ * 包括对canvas标签/绘图上下文的相关操作
+ * by BuggMaker
+ */
+
+var Canvas = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
+    name: 'Canvas',
+    supers: [__WEBPACK_IMPORTED_MODULE_1__core_Item__["a" /* Item */]],
+    constructor: function (layer) {
+        this.clientSize = layer.parent.clientSize
+        this.container = layer.parent.container
+        //canvas标签
+        var _canvas = document.createElement('canvas');
+        var options = {
+            id: 'layer_' + layer.index,
+            width: this.clientSize.width,
+            height: this.clientSize.height,
+            style: {
+                zIndex: layer.index,
+                position: 'absolute',
+                top: '0',
+                left: '0'
+            }
+        }
+        _canvas.width = this.clientSize.width;
+        _canvas.height = this.clientSize.height;
+        _canvas.style.zIndex = layer.index
+        _canvas.style.position = 'absolute'
+        _canvas.style.top = 0
+        _canvas.style.left = 0
+        _canvas.id = 'layer_' + layer.index
+        this.container.appendChild(_canvas)
+
+        this.canvas = _canvas
+        this.context = this.canvas.getContext('2d')
+    },
+    publics: {
+        // 从父容器中移除canvas标签
+        remove: function () {
+            this.container.removeChild(this.canvas)
+        }
+    },
+    statics: {
+        /**
+         * 视图变换
+         */
+        transform: function (disX, disY, scale, roate) {
+            var matrix = []
+            matrix[0] = matrix[3] = Math.cos(roate) * scale
+            matrix[2] = -(matrix[1] = Math.sin(roate) * scale)
+            matrix[5] = disX
+            matrix[6] = disY
+            ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5], matrix[6])
+        },
+        /**
+         * 绘制圆
+         */
+        drawCircle: function (ctx, center, radius) {
+            ctx.beginPath()
+            ctx.arc(center.x, center.y, radius)
+            ctx.stroke()
+        },
+        /**
+         * 填充圆
+         */
+        fillCircle: function (ctx, center, radius) {
+            ctx.beginPath()
+            ctx.arc(center.x, center.y, radius)
+            ctx.fill()
+        }
+    }
+})
+
+var Graphics = {
+    /**
+     * 绘制圆形
+     * @param {Point} center 
+     * @param {Number} radius 
+     * @param {Object} fill or stroke 
+     */
+    circle(ctx, center, radius, config) {
+        ctx.beginPath()
+        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI, false)
+        if (config.fill) ctx.fill()
+        if (config.stroke) ctx.stroke()
+    },
+    /**
+     * 绘制线段
+     * @param {Point} from 
+     * @param {Point} to 
+     */
+    line(ctx, from, to) {
+        ctx.beginPath()
+        ctx.moveTo(from.x, from.y)
+        ctx.lineTo(to.x, to.y)
+        ctx.stroke()
+    },
+    /**
+     * 绘制矩形
+     * @param {canvas context} ctx 
+     * @param {Point} origin 
+     * @param {Number} width 
+     * @param {Number} height 
+     * @param {Object} config 
+     */
+    rect(ctx, origin, width, height, config) {
+        ctx.beginPath()
+        ctx.moveTo(origin.x, origin.y)
+        ctx.lineTo(origin.x + width, origin.y)
+        ctx.lineTo(origin.x + width, origin.y + height)
+        ctx.lineTo(origin.x, origin.y + height)
+        ctx.lineTo(origin.x, origin.y)
+
+        if (config.fill) ctx.fill()
+        if (config.stroke) ctx.stroke()
+    },
+    image(ctx, img, origin, width, height) {
+        ctx.beginPath()
+        ctx.drawImage(img, origin.x, origin.y, width, height)
+    },
+    clear: function (ctx) {
+        ctx.save()
+        ctx.setTransform(1, 0, -0, 1, 0, 0)
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        ctx.restore()
+    },
+    text(ctx, txt, center, config) {
+        ctx.beginPath()
+        if (config.fill)
+            ctx.fillText(txt, center.x, center.y)
+
+        if (config.stroke)
+            ctx.strokeText(txt, center.x, center.y)
+    }
+}
+
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -519,149 +673,6 @@ var Bound = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Canvas; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Graphics; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Item__ = __webpack_require__(12);
-
-
-
-/**
- * Canvas画布
- * 包括对canvas标签/绘图上下文的相关操作
- * by BuggMaker
- */
-
-var Canvas = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
-    name: 'Canvas',
-    supers: [__WEBPACK_IMPORTED_MODULE_1__core_Item__["a" /* Item */]],
-    constructor: function (layer) {
-        this.clientSize = layer.parent.clientSize
-        this.container = layer.parent.container
-        //canvas标签
-        var _canvas = document.createElement('canvas');
-        var options = {
-            id: 'layer_' + layer.index,
-            width: this.clientSize.width,
-            height: this.clientSize.height,
-            style: {
-                zIndex: layer.index,
-                position: 'absolute',
-                top: '0',
-                left: '0'
-            }
-        }
-        _canvas.width = this.clientSize.width;
-        _canvas.height = this.clientSize.height;
-        _canvas.style.zIndex = layer.index
-        _canvas.style.position = 'absolute'
-        _canvas.style.top = 0
-        _canvas.style.left = 0
-        _canvas.id = 'layer_' + layer.index
-        this.container.appendChild(_canvas)
-
-        this.canvas = _canvas
-        this.context = this.canvas.getContext('2d')
-    },
-    publics: {
-        // 从父容器中移除canvas标签
-        remove: function () {
-            this.container.removeChild(this.canvas)
-        }
-    },
-    statics: {
-        /**
-         * 视图变换
-         */
-        transform: function (disX, disY, scale, roate) {
-            var matrix = []
-            matrix[0] = matrix[3] = Math.cos(roate) * scale
-            matrix[2] = -(matrix[1] = Math.sin(roate) * scale)
-            matrix[5] = disX
-            matrix[6] = disY
-            ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5], matrix[6])
-        },
-        /**
-         * 绘制圆
-         */
-        drawCircle: function (ctx, center, radius) {
-            ctx.beginPath()
-            ctx.arc(center.x, center.y, radius)
-            ctx.stroke()
-        },
-        /**
-         * 填充圆
-         */
-        fillCircle: function (ctx, center, radius) {
-            ctx.beginPath()
-            ctx.arc(center.x, center.y, radius)
-            ctx.fill()
-        }
-    }
-})
-
-var Graphics = {
-    /**
-     * 绘制圆形
-     * @param {Point} center 
-     * @param {Number} radius 
-     * @param {Object} fill or stroke 
-     */
-    circle(ctx, center, radius, config) {
-        ctx.beginPath()
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI, false)
-        if (config.fill) ctx.fill()
-        if (config.stroke) ctx.stroke()
-    },
-    /**
-     * 绘制线段
-     * @param {Point} from 
-     * @param {Point} to 
-     */
-    line(ctx, from, to) {
-        ctx.beginPath()
-        ctx.moveTo(from.x, from.y)
-        ctx.lineTo(to.x, to.y)
-        ctx.stroke()
-    },
-    /**
-     * 绘制矩形
-     * @param {canvas context} ctx 
-     * @param {Point} origin 
-     * @param {Number} width 
-     * @param {Number} height 
-     * @param {Object} config 
-     */
-    rect(ctx, origin, width, height, config) {
-        ctx.beginPath()
-        ctx.moveTo(origin.x, origin.y)
-        ctx.lineTo(origin.x + width, origin.y)
-        ctx.lineTo(origin.x + width, origin.y + height)
-        ctx.lineTo(origin.x, origin.y + height)
-        ctx.lineTo(origin.x, origin.y)
-        
-        if (config.fill) ctx.fill()
-        if (config.stroke) ctx.stroke()
-    },
-    image(ctx,img,origin,width,height){
-        ctx.beginPath()
-        ctx.drawImage(img,origin.x,origin.y,width,height)
-    },
-    clear: function (ctx) {
-        ctx.save()
-        ctx.setTransform(1, 0, -0, 1, 0, 0)
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-        ctx.restore()
-    },
-}
-
-
-
-/***/ }),
 /* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -739,7 +750,7 @@ Lnglat.prototype = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Bound__ = __webpack_require__(4);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Bound__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__grid_index__ = __webpack_require__(28);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_1__grid_index__["a"]; });
@@ -762,7 +773,7 @@ Lnglat.prototype = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IGeometry; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__map_IRender__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_index__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Bound__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geo_GeoJson__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Util__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__events_Event__ = __webpack_require__(9);
@@ -851,12 +862,14 @@ var IGeometry = __WEBPACK_IMPORTED_MODULE_0__map_IRender__["a" /* IRender */].ex
         addTo: function (ly) {
             ly.geometryAry.push(this)
             this.parent = ly
+            this.parent.bound.extend(this.bound)
             return this
         },
         // 从父容器中移除
         remove: function () {
             if (this.parent) {
                 this.parent.geometryAry.remove(this)
+                this.parent.updateBound()
             }
             return this
         },
@@ -927,7 +940,8 @@ const EventType = {
     kup: 1,
     kdown: 3,
     kleft: 5,
-    kright: 7
+    kright: 7,
+    update:100
 }
 
 /**
@@ -1209,7 +1223,9 @@ var IRender = __WEBPACK_IMPORTED_MODULE_0__events_index__["b" /* Evented */].ext
             fillStyle: 'dodgerblue',
             strokeStyle: 'forestgreen',
             lineJoin: 'round',
-            lineCap: 'round'
+            lineCap: 'round',
+            textAlign: 'center',
+            textBaseLine: 'middle'
         }
         this.defProp('style', {
             get: () => {
@@ -1225,7 +1241,8 @@ var IRender = __WEBPACK_IMPORTED_MODULE_0__events_index__["b" /* Evented */].ext
             fillStyle: 'forestgreen',
             strokeStyle: 'dodgerblue',
             lineJoin: 'round',
-            lineCap: 'round'
+            lineCap: 'round',
+            font: '32px Arial'
         }
         this.defProp('interactiveStyle', {
             get: () => {
@@ -1491,8 +1508,8 @@ var Square = __WEBPACK_IMPORTED_MODULE_0__vector_Rectangle__["a" /* Rectangle */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Point__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map_Canvas__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map_Canvas__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bound__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geo_Lnglat__ = __webpack_require__(6);
 
 
@@ -1603,7 +1620,7 @@ var Segment = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].exte
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Segment__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Bound__ = __webpack_require__(4);
 
 
 
@@ -1739,7 +1756,7 @@ var Polyline = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].ext
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Layer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IRender__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geometry_index__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Canvas__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Canvas__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_Item__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__events_Event__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__index__ = __webpack_require__(0);
@@ -1803,15 +1820,15 @@ var Layer = __WEBPACK_IMPORTED_MODULE_0__IRender__["a" /* IRender */].extend({
         // 添加要素到图层
         addGeometry: function (geometry) {
             //合并范围
-            this.bound.extend(geometry.bound)
-            this.geometryAry.push(geometry)
+            geometry.addTo(this)
             return this
         },
         // 添加图层到地图
         addTo: function (map) {
             if (map) {
                 this.parent = map
-                map.layersDic.set(this.index, this)
+                this.parent.layersDic.set(this.index, this)
+                this.parent.bound.extend(this.bound)
                 this.canvas = new __WEBPACK_IMPORTED_MODULE_2__Canvas__["a" /* Canvas */](this)
             }
             return this
@@ -1820,6 +1837,7 @@ var Layer = __WEBPACK_IMPORTED_MODULE_0__IRender__["a" /* IRender */].extend({
         remove: function () {
             if (this.parent) {
                 this.parent.layersDic.delete(this.index)
+                this.parent.updateBound()
                 this.canvas.remove()
                 this.parent = null
             }
@@ -1857,6 +1875,12 @@ var Layer = __WEBPACK_IMPORTED_MODULE_0__IRender__["a" /* IRender */].extend({
         setTransform(m) {
             this.canvas.context.lineWidth = 1 / this.parent.crs.viewmatrix.scale
             this.canvas.context.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
+        },
+        updateBound:function(){
+            this.bound = new __WEBPACK_IMPORTED_MODULE_1__geometry_index__["a" /* Bound */]()
+            this.geometryAry.forEach(geometry => {
+                this.bound.extend(geometry.bound)
+            })
         }
     },
     statics: {}
@@ -2163,12 +2187,14 @@ var Evented = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend(
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8____ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__geo_prj_coords__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__TileLayer__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Canvas__ = __webpack_require__(3);
 /**
  * 地图
  * 作为一个容器,本质是一个div标签,
  * 其包含不同的图层以及具有一定功能的DOM元素 
  * by BuggMaker
  */
+
 
 
 
@@ -2214,13 +2240,15 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
             }
         })
         // 视口中心
-        var _center
         this.defProp('center', {
             get: (val) => {
                 return this.viewBound.center
             },
             set: (val) => {
-
+                var dis = this.center.reduce(new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](val)),
+                    lt = this.viewBound.leftTop.reduce(dis),
+                    rb = this.viewBound.rightBottom.reduce(dis)
+                this.viewBound = new __WEBPACK_IMPORTED_MODULE_0__geometry_index__["a" /* Bound */](lt, rb)
             }
         })
         // 地图层级
@@ -2244,7 +2272,12 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
                 title: 'Tile Layer',
                 urlTemplate: config.tile
             }).addTo(this)
+            // this.tileLayer.parent = this
+            // this.tileLayer.canvas = new Canvas(this.tileLayer)
         }
+
+        this.rendering = false
+        this.firstRender = true
 
         // 获取父容器
         // 创建div、设置样式/尺寸并添加至父容器
@@ -2287,19 +2320,33 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
             return this
         },
         // 设置地图中心
-        setCenter: function (lnglat, level) {
-            var mpt = this.getMapPoint(new __WEBPACK_IMPORTED_MODULE_7__geo_Lnglat__["a" /* Lnglat */](lnglat))
+        setCenter: function (mpt, level) {
+            // var mpt = this.crs.getMapPoint(new Lnglat(lnglat)), 1, 0)
             this.transform(this.center.x - mpt.x, this.center.y - mpt.y, 1, 0)
-            this.zoom(mpt, Math.pow(2, level))
+            this.zoom(mpt, Math.pow(2, level || this.level))
+            return this
+        },
+        setCenterLngLat: function (lnglat, level) {
+            var mpt = this.getMapPoint(new __WEBPACK_IMPORTED_MODULE_7__geo_Lnglat__["a" /* Lnglat */](lnglat))
+            this.setCenter(mpt, level)
             return this
         },
         // 渲染图层
         render: function () {
+            if (this.rendering) return
+            this.rendering = true
+
+            if (this.firstRender) {
+                this.setCenterLngLat([0, 0])
+                this.firstRender = false
+            }
             // 渲染图层
             this.layersDic.forEach(ly => {
                 ly.render()
             });
             // 最后渲染图名/图例层,待补充
+
+            this.rendering = false
             return this
         },
         // 通过经纬度得到地图点
@@ -2319,6 +2366,7 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
             }
             var mpos = new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](e.offsetX, e.offsetY)
             var mapPos = this.crs.screenPointToMapPoint(mpos)
+            // 触发鼠标移动或拖拽事件
             this.fire(eType, mapPos)
             this.layersDic.forEach(ly => {
                 ly.fire(eType, mapPos)
@@ -2336,37 +2384,92 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
         },
         // 鼠标点下事件
         onmousedown: function (e) {
-            var eType = __WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mdown
+            var downDate = Date.now()
             this.isMousedown = true
             var mpos = new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](e.offsetX, e.offsetY),
-                startPos = this.crs.screenPointToMapPoint(mpos)
-            this.fire(eType, startPos)
+                startPos = this.crs.screenPointToMapPoint(mpos),
+                totalOffset = new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](0, 0)
+            // 触发点击事件
+            this.fire(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mdown, startPos, downDate)
             this.layersDic.forEach(ly => {
-                ly.fire(eType, startPos)
+                ly.fire(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mdown, startPos, downDate)
             })
             // 绑定鼠标拖拽事件
             this.on(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mdrag, function (endPos) {
                 var offset = endPos.reduce(startPos)
-                this.transform(offset.x, offset.y, 1, 0)
                 this.isMousedrag = false
+                this.transform(offset.x, offset.y, 1, 0)
+                totalOffset = totalOffset.plus(offset)
+            })
+            // 绑定鼠标弹起事件
+            this.on(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mup, function (endPos, upDate) {
+                var disDate = upDate - downDate;
+                if (disDate > 1000 * 0.3) return
+                var vx = Math.abs(totalOffset.x) / disDate,
+                    vy = Math.abs(totalOffset.y) / disDate,
+                    ax = vx / 60,
+                    ay = vy / 60,
+                    dirx = totalOffset.x > 0 ? 1 : -1,
+                    diry = totalOffset.y > 0 ? 1 : -1;
+                this.off(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mup)
+
+
+                var self = this,
+                    animating = false
+                frame()
+
+                function frame() {
+                    animating = true
+                    requestAnimationFrame(frame)
+                    vx -= ax
+                    vy -= ay
+
+                    vx = vx <= 0 ? 0 : vx
+                    vy = vy <= 0 ? 0 : vy
+
+                    if (vx == 0 && vy == 0 || !animating) {
+                        return
+                    }
+
+                    self.transform(vx * dirx, vy * diry, 1, 0)
+                }
+
+                // var tid = setInterval(() => {
+                //     vx -= ax
+                //     vy -= ay
+
+                //     vx = vx <= 0 ? 0 : vx
+                //     vy = vy <= 0 ? 0 : vy
+
+                //     if (vx == 0 && vy == 0) {
+                //         // this.render()
+                //     }
+
+                //     this.transform(vx * dirx, vy * diry, 1, 0, true)
+                // }, 16)
             })
         },
         onmouseup: function (e) {
+            var upDate = Date.now()
             var mpos = new __WEBPACK_IMPORTED_MODULE_6__geometry_vector_Point__["a" /* Point */](e.offsetX, e.offsetY),
                 mapPos = this.crs.screenPointToMapPoint(mpos)
             this.isMousedown = false
             // 解除鼠标拖拽事件
             this.off(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mdrag)
-            this.fire(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mup, mapPos)
+            this.fire(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mup, mapPos, upDate)
+            this.layersDic.forEach(ly => {
+                ly.fire(__WEBPACK_IMPORTED_MODULE_3__events_index__["a" /* EventType */].mup, mapPos, upDate)
+            })
         },
         // 视图变换
-        transform: function (disX, disY, scale, rotate) {
+        transform: function (disX, disY, scale, rotate, reRender = true) {
             this.crs.transform(disX, disY, scale, rotate)
             this.layersDic.forEach(ly => {
                 ly.setTransform(this.crs.viewmatrix.matrix)
             })
             this.level = Math.log2(this.crs.viewmatrix.scale / (128 / this.crs.projection.PI_R))
-            this.render()
+            if (reRender)
+                this.render()
         },
         // 视图缩放
         zoom(center, scale) {
@@ -2376,6 +2479,12 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
             if (crs) this.crs = crs
             this.transform(0, 0, 128 / this.crs.projection.PI_R, 0)
             return this
+        },
+        updateBound: function () {
+            this.bound = new __WEBPACK_IMPORTED_MODULE_0__geometry_index__["a" /* Bound */]()
+            this.layersDic.forEach(ly => {
+                this.bound.extend(ly.bound)
+            })
         }
     }
 })
@@ -2399,7 +2508,7 @@ let Map = __WEBPACK_IMPORTED_MODULE_2__IRender__["a" /* IRender */].extend({
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Rectangle; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__map_Canvas__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__map_Canvas__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Point__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3____ = __webpack_require__(7);
 /**
@@ -2492,8 +2601,10 @@ var Rectangle = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].ex
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Tile; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Square__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__map_Canvas__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__map_Canvas__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3____ = __webpack_require__(0);
+
 
 
 
@@ -2576,27 +2687,27 @@ var Rectangle = __WEBPACK_IMPORTED_MODULE_0__IGeometry__["a" /* IGeometry */].ex
 var Tile = __WEBPACK_IMPORTED_MODULE_0__Square__["a" /* Square */].extend({
     name: 'Tile',
     constructor: function (origin, width, config) {
-        if (config.level !== undefined) {
-            this.defProp('level', {
-                get: () => {
-                    return config.level
-                }
-            })
-        }
-        if (config.coord) {
-            this.defProp('coord', {
-                get: () => {
-                    return new __WEBPACK_IMPORTED_MODULE_2____["c" /* Point */](config.coord)
-                }
-            })
-        }
-        if (config.imgCoord) {
-            this.defProp('imgCoord', {
-                get: () => {
-                    return new __WEBPACK_IMPORTED_MODULE_2____["c" /* Point */](config.imgCoord)
-                }
-            })
-        }
+        var _level = config.level || 0
+        this.defProp('level', {
+            get: () => {
+                return _level
+            }
+        })
+        delete config.level
+        var _coord = new __WEBPACK_IMPORTED_MODULE_2____["c" /* Point */](config.coord)
+        this.defProp('coord', {
+            get: () => {
+                return _coord
+            }
+        })
+        delete config.coord
+        var _imgCoord = new __WEBPACK_IMPORTED_MODULE_2____["c" /* Point */](config.imgCoord)
+        this.defProp('imgCoord', {
+            get: () => {
+                return _imgCoord
+            }
+        })
+        delete config.imgCoord
         // 替换模板中的x/y/z,得到tile的URL
         if (!config.urlTemplate) throw `lack of urlTemplate`
         var _url = config.urlTemplate
@@ -2617,20 +2728,43 @@ var Tile = __WEBPACK_IMPORTED_MODULE_0__Square__["a" /* Square */].extend({
         this.img.onload = () => {
             this.loaded = true
         }
+        __WEBPACK_IMPORTED_MODULE_3____["UtilObj"].extend(this, config)
+        this.timerId = -1
     },
     publics: {
         render: function (ctx) {
             // 如果已加载 直接渲染
             if (this.loaded) {
-                __WEBPACK_IMPORTED_MODULE_1__map_Canvas__["b" /* Graphics */].image(ctx, this.img, this.origin, this.width, this.height)
+                // Graphics.image(ctx, this.img, this.origin, this.width, this.height)
+                _render.call(this)
             } else {
                 // 如果未加载 加载后渲染
-                var timerId = setInterval(() => {
+                if (this.timerId > 0) clearInterval(this.timerId)
+                this.timerId = setInterval(() => {
                     if (this.loaded) {
-                        clearInterval(timerId)
-                        __WEBPACK_IMPORTED_MODULE_1__map_Canvas__["b" /* Graphics */].image(ctx, this.img, this.origin, this.width, this.height)
+                        clearInterval(this.timerId)
+                        this.timerId = -1
+                        //Graphics.image(ctx, this.img, this.origin, this.width, this.height)
+                        _render.call(this)
                     }
                 }, 16)
+            }
+
+            function _render() {
+                __WEBPACK_IMPORTED_MODULE_1__map_Canvas__["b" /* Graphics */].image(ctx, this.img, this.origin, this.width, this.height)
+                if (this.showCoord)
+                    __WEBPACK_IMPORTED_MODULE_1__map_Canvas__["b" /* Graphics */].rect(ctx, this.origin, this.width, this.height, {
+                        stroke: true
+                    })
+                // if (this.showCoord) {
+                //     ctx.save()
+                //     ctx.transform(1,0,0,1,0,0)
+                //     Graphics.text(ctx, `(${this.level},${this.coord.x},${this.coord.y})`, new Point(0,0), {
+                //         fill: this.fill,
+                //         stroke: this.stroke
+                //     })
+                //     ctx.restore()
+                // }
             }
         }
     }
@@ -2666,8 +2800,8 @@ var Tile = __WEBPACK_IMPORTED_MODULE_0__Square__["a" /* Square */].extend({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IGeometry__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Point__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map_Canvas__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__map_Canvas__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bound__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geo_Lnglat__ = __webpack_require__(6);
 
 
@@ -2908,7 +3042,7 @@ var CRS = __WEBPACK_IMPORTED_MODULE_0__core_Class__["a" /* Class */].extend({
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WebMecrator; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Class__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geometry_Bound__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geometry_Bound__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geometry_vector_Point__ = __webpack_require__(2);
 
 
@@ -3128,7 +3262,7 @@ var Coord = __WEBPACK_IMPORTED_MODULE_0____["Class"].extend({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Layer__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geo_prj_coords__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2____ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Canvas__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Canvas__ = __webpack_require__(3);
 
 
 
@@ -3178,58 +3312,64 @@ var TileLayer = __WEBPACK_IMPORTED_MODULE_0__Layer__["a" /* Layer */].extend({
             }
         })
 
-        this.on('levelchange', function () {
-            _update.call(this)
-        })
-        this.on(__WEBPACK_IMPORTED_MODULE_2____["EventType"].mdrag, function () {
-            _update.call(this)
-        })
-
-        function _update() {
+        // this.on('levelchange', function () {
+        //     _update.call(this)
+        // })
+        // this.on(EventType.mdrag, function () {
+        //     _update.call(this)
+        // })
+    },
+    publics: {
+        render: function () {
+            this.update()
+            var ctx = this.canvas.context
+            ctx.save()
+            __WEBPACK_IMPORTED_MODULE_3__Canvas__["b" /* Graphics */].clear(ctx)
+            for (let i = this.level; i >= 0; i--) {
+                var map = this.tileDictionary.get(this.level - i)
+                map && map.forEach(tile => {
+                    if (tile.isNeedRender) {
+                        ctx.save()
+                        __WEBPACK_IMPORTED_MODULE_2____["UtilObj"].replace(ctx, tile.style)
+                        __WEBPACK_IMPORTED_MODULE_2____["UtilObj"].replace(ctx, tile.interactiveStyle)
+                        tile.render(ctx)
+                        ctx.restore()
+                    }
+                })
+            }
+            ctx.restore()
+        },
+        update: function () {
             // 计算需要显示的tile,没有的添加
             var from = this.coord.getCoord(this.parent.renderBound.leftTop),
                 to = this.coord.getCoord(this.parent.renderBound.rightBottom),
                 coordOrigin = this.coord.origin
 
             var dic = this.tileDictionary.get(this.level) || new Map()
-            for (let r = from.y; r < to.y; r++) {
+            for (let r = from.y; r <= to.y; r++) {
                 if (r >= 0 && r < Math.pow(2, this.level)) {
-                    for (let c = from.x; c < to.x; c++) {
-                        if (c >= 0) {
-                            var col = c % Math.pow(2, this.level)
-                            var org = new __WEBPACK_IMPORTED_MODULE_2____["Point"](coordOrigin.x + c * this.unit, coordOrigin.y + r * this.unit)
-                            var t = new __WEBPACK_IMPORTED_MODULE_2____["Tile"](org, this.unit, {
-                                    level: this.level,
-                                    coord: [c, r],
-                                    imgCoord: [col, r],
-                                    urlTemplate: this.urlTemplate
-                                }),
-                                key = `${c}_${r}`
-                            // 判断tile是否存在,不存在添加,保证每个tile对象只实例化一次
-                            if (!dic.has(key)) {
-                                dic.set(key, t)
-                                t.parent = this
-                            }
+                    for (let c = from.x; c <= to.x; c++) {
+                        // if (c >= 0) {
+                        var sn = Math.pow(2, this.level)
+                        var col = c % sn >= 0 ? c % sn : (c % sn + sn)
+                        var org = new __WEBPACK_IMPORTED_MODULE_2____["Point"](coordOrigin.x + c * this.unit, coordOrigin.y + r * this.unit)
+                        var t = new __WEBPACK_IMPORTED_MODULE_2____["Tile"](org, this.unit, {
+                                level: this.level,
+                                coord: [c, r],
+                                imgCoord: [col, r],
+                                urlTemplate: this.urlTemplate
+                            }),
+                            key = `${c}_${r}`
+                        // 判断tile是否存在,不存在添加,保证每个tile对象只实例化一次
+                        if (!dic.has(key)) {
+                            dic.set(key, t)
+                            t.parent = this
                         }
+                        // }
                     }
                 }
             }!this.tileDictionary.get(this.level) && this.tileDictionary.set(this.level, dic)
             // 后续可设置上限,以免过多内存消耗
-
-            // 重新渲染
-            this.render()
-        }
-    },
-    publics: {
-        render: function () {
-            var ctx = this.canvas.context
-            __WEBPACK_IMPORTED_MODULE_3__Canvas__["b" /* Graphics */].clear(ctx)
-            for (let i = 1; i >= 0; i--) {
-                var map = this.tileDictionary.get(this.level - i)
-                map && map.forEach(tile => {
-                    if (tile.isNeedRender) tile.render(ctx)
-                })
-            }
         }
     }
 })
