@@ -1,6 +1,6 @@
 # aiMap
 A geo-data visualization platform
-#Usage
+# Usage
 ### Tile load
 ```javascript
 //创建加载瓦片的地图
