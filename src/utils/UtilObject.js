@@ -142,7 +142,6 @@ export const isInstanceOf = function (S, T) {
 export const defineProp = function (des, key, customer) {
     Object.defineProperty(des, key, {
         enumerable: customer.enumerable || true,
-        // writable: customer.writable || true,
         configurable: customer.configurable || true,
         get: function () {
             if (customer.get) {

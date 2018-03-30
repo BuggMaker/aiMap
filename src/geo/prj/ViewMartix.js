@@ -21,7 +21,7 @@ export let ViewMartix = function () {
 }
 ViewMartix.prototype = {
     /**
-     * 视图变换      * 
+     * 视图变换
      */
     transform: function (disX, disY, scale, rotate) {
         this.scale *= scale;

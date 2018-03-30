@@ -106,8 +106,6 @@ export let Map = IRender.extend({
                 title: 'Tile Layer',
                 urlTemplate: config.tile
             }).addTo(this)
-            // this.tileLayer.parent = this
-            // this.tileLayer.canvas = new Canvas(this.tileLayer)
         }
 
         this.rendering = false
@@ -254,7 +252,6 @@ export let Map = IRender.extend({
 
                 function frame() {
                     animating = true
-                    requestAnimationFrame(frame)
                     vx -= ax
                     vy -= ay
 
@@ -266,21 +263,8 @@ export let Map = IRender.extend({
                     }
 
                     self.transform(vx * dirx, vy * diry, 1, 0)
+                    requestAnimationFrame(frame)
                 }
-
-                // var tid = setInterval(() => {
-                //     vx -= ax
-                //     vy -= ay
-
-                //     vx = vx <= 0 ? 0 : vx
-                //     vy = vy <= 0 ? 0 : vy
-
-                //     if (vx == 0 && vy == 0) {
-                //         // this.render()
-                //     }
-
-                //     this.transform(vx * dirx, vy * diry, 1, 0, true)
-                // }, 16)
             })
         },
         onmouseup: function (e) {

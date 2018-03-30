@@ -43,6 +43,7 @@ Class.extend = function (props) {
         }
         // delete props.constructor
     }
+    
     if (props.name) {
         Object.defineProperty(NewClass, 'name', {
             value: props.name,

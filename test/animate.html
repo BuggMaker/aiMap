@@ -83,16 +83,17 @@
 
                 clear(cpCtx)
                 cpCtx.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
+
                 clear(ctx)
+                ctx.globalAlpha = 0.95
+                ctx.drawImage(cpCtx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
+
                 ctx.lineWidth = 3
                 ctx.strokeStyle = 'orange'
                 ctx.beginPath()
                 ctx.arc(512, 256, r, 0, 2 * Math.PI, false)
                 ctx.stroke()
                 ctx.closePath()
-
-                ctx.globalAlpha = 0.95
-                ctx.drawImage(cpCtx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
 
                 ctx.restore()
 

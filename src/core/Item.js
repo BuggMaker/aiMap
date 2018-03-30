@@ -13,9 +13,7 @@ var Item = Class.extend({
     publics:{
         // 添加至父容器
         addTo:function(parent){
-            throw  `function 'addTo' of ${this.name} is unrealized`  
-            // this.parents.push(parent)
-            // parent.addItem(this)
+            throw  `function 'addTo' of ${this.name} is unrealized`
         },
         // 从父容器移除
         remove:function(){
