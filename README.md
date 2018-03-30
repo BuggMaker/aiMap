@@ -1,6 +1,7 @@
 # aiMap
 A geo-data visualization platform
-# Tile load
+# Usage
+### Tile load
 ```javascript
 //创建加载瓦片的地图
  var map = new A.Map({
@@ -8,7 +9,9 @@ A geo-data visualization platform
                 tile: `http://mt2.google.cn/vt/lyrs=m&hl=zh-CN&gl=cn&x={0}&y={1}&z={2}`
             }).project()
 ```
-# Layer adn Geometry Render
+#### Impression drawing is as follows
+![效果图](https://github.com/BuggMaker/aiMap/blob/master/resources/img/map.png)
+### Layer and Geometry Render
 If the layer is a GIS layer,you need to use the function project to convert the geo-coordinate LangLat to map point.
 ```javascript
 //添加一个图层
@@ -46,3 +49,5 @@ var ly1 = new A.Layer({
             //渲染地图
             map.render()
 ```
+#### Impression drawing is as follows
+![效果图](https://github.com/BuggMaker/aiMap/blob/master/resources/img/geo-json.png)
