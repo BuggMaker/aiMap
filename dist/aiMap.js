@@ -1802,7 +1802,7 @@ var Layer = __WEBPACK_IMPORTED_MODULE_0__IRender__["a" /* IRender */].extend({
     this.parent = null;
 
     // 事件
-    this.on(__WEBPACK_IMPORTED_MODULE_4__events_Event__["b" /* EventType */].mmove, function(mpos) {
+    this.on(__WEBPACK_IMPORTED_MODULE_4__events_Event__["b" /* EventType */].mup, function(mpos) {
       var update = false;
       this.geometryAry.forEach(geo => {
         if (!geo.interactive || !geo.isNeedRender) return;

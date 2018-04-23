@@ -1,2 +1,2 @@
-export {Map} from './Map'
-export{Layer} from './Layer'
+export { Map } from "./Map";
+export * from "./layers/index";

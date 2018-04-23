@@ -2,12 +2,12 @@
  * 图层类
  * by BuggMaker
  */
-import { IRender } from "./IRender";
-import { Bound } from "../geometry/index";
+import { IRender } from "../IRender";
+import { Bound } from "../../geometry/index";
 import { Canvas, Graphics } from "./Canvas";
-import { Item } from "../core/Item";
-import { EventType } from "../events/Event";
-import { UtilObj } from "../index";
+import { Item } from "../../core/Item";
+import { EventType } from "../../events/Event";
+import { UtilObj } from "../../index";
 
 var Layer = IRender.extend({
   name: "Layer",
@@ -35,7 +35,7 @@ var Layer = IRender.extend({
     this.parent = null;
 
     // 事件
-    this.on(EventType.mmove, function(mpos) {
+    this.on(EventType.mup, function(mpos) {
       var update = false;
       this.geometryAry.forEach(geo => {
         if (!geo.interactive || !geo.isNeedRender) return;

@@ -3253,11 +3253,11 @@
                     fill: true,
                     style: {
                         strokeStyle: '#4B4B4B',
-                        fillStyle: '#000033'
+                        fillStyle: '#000333'
                     },
                     interactiveStyle: {
                         strokeStyle: '#4B4B4B',
-                        fillStyle: '#000033',
+                        fillStyle: '#000333',
                         shadowBlur: 10,
                         shadowColor: 'white'
                     }
@@ -3269,16 +3269,16 @@
                 index: 2,
                 title: 'point'
             }).addTo(map)
-            let ramp = new A.ColorRamp(1, new A.Color(0, 255, 0), new A.Color(255, 0, 0));
             map.render()
 
 
-            let type = 0,
+            let type = '0',
                 date = '20170622';
+            change(date, type);
             let oDate = document.getElementById('date');
             oDate.onchange = function () {
                 date = this.value
-                change(date, type)
+                change(date, type);
             }
             let oSel = document.getElementById('select');
             oSel.onchange = function () {
@@ -3288,6 +3288,9 @@
 
             function change(date, type) {
                 ly2.clearAll();
+                document.title = 'loading...'
+
+                let ramp = new A.ColorRamp(0.5, new A.Color(0, 0, 255), new A.Color(255, 0, 0));
                 A.myFetch('http://localhost:2271/WebService1.asmx/GetTemp', {
                     method: 'get',
                     data: {
@@ -3306,21 +3309,25 @@
                                 break
                             case '2':
                                 rate = (pt.maxtemp - pt.mintemp) / (res.maxtempdis - res.mintempdis);
+                                ramp = new A.ColorRamp(0.5, new A.Color(255, 0, 0), new A.Color(0,
+                                    0, 255));
                                 break
                         }
 
                         let c = new A.Circle({
                             center: [pt.lng, pt.lat],
-                            radius: 10000 * rate,
+                            radius: 20000 * Math.sqrt(rate),
                             style: {
                                 strokeStyle: ramp.getColor(rate * 100).toString(),
                                 fillStyle: ramp.getColor(rate * 100).toString()
                             },
                             fill: true,
+                            stroke:false,
                             interactive: true
                         }).project(map.crs).addTo(ly2)
                     })
                     ly2.render()
+                    document.title = 'OK...'
                 })
 
             }
